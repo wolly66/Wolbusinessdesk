@@ -80,8 +80,8 @@ if ( ! class_exists( 'Wolbusinessdesk_Cockpit' ) ){
 		 * @return void
 		 */
 		public function get_page(){
-			
-			if ( is_user_logged_in() && current_user_can( 'manage_options' ) ){				
+					
+			if ( is_wol_administrator() ){				
 				
 				/**
 				 * page
@@ -323,7 +323,7 @@ if ( ! class_exists( 'Wolbusinessdesk_Cockpit' ) ){
 		 */
 		public function boards(){
 			
-			if ( current_user_can( 'wol_can_manage_boards' ) ){
+			if ( is_wol_boards_manager() ){
 				/**
 				 * boards
 				 * 

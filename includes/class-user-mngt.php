@@ -36,15 +36,11 @@ if ( ! class_exists( 'Wolbusinessdesk_User_Mng' ) ){
 	
 		public function promote_to_agent( $user ){
 		
-			if ( current_user_can( 'create_users' ) ) {
+			if ( is_wol_user_creator() ) {
 			
-				$is_agent = ( user_can( $user, 'wol_can_own_ticket' ) ) ?
-					TRUE :
-					FALSE;
+				$is_agent = is_wol_agent( $user );
 				
-				$is_super_agent = ( user_can( $user, 'wol_can_assign_owner' ) ) ?
-					TRUE :
-					FALSE;	
+				$is_super_agent = is_wol_super_agent( $user );	
 					
 		
 			?>

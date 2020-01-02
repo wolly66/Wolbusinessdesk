@@ -220,7 +220,7 @@
 		 */
 		public function wolbusinessdesk_options() {
 			
-			if ( ! current_user_can( 'manage_options' ) )  {
+			if ( ! is_wol_administrator() )  {
 				
 				wp_die( __( 'You do not have sufficient permissions to access this page.', 'wolbusinessdesk' ) );
 			}
@@ -238,7 +238,7 @@
 		public function wolbusinessdesk_settings(){
 			
 			
-			if ( ! current_user_can( 'manage_options' ) ) {
+			if ( ! is_wol_administrator() ) {
 				
 				wp_die( __( 'You do not have sufficient permissions to access this page.', 'wolbusinessdesk' ) );
 			}

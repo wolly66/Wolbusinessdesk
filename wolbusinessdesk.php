@@ -259,7 +259,15 @@ if ( ! class_exists( 'Wolbusinessdesk' ) ) {
 		 * @var mixed
 		 * @access public
 		 */
-		var $support_reply_loop; 					
+		var $support_reply_loop; 	
+		
+		/**
+		 * is
+		 * 
+		 * @var mixed
+		 * @access public
+		 */
+		var $is;				
 
 
 	
@@ -504,6 +512,10 @@ if ( ! class_exists( 'Wolbusinessdesk' ) ) {
 			
 			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/abstracts/class-template-loader.php';
 			
+			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/class-is.php';
+			
+			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'is-template-wrappers.php';
+			
 			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/class-form-generator.php';
 			
 			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/class-relationship-db.php';
@@ -624,6 +636,7 @@ if ( ! class_exists( 'Wolbusinessdesk' ) ) {
 			self::$instance->metaboxes 		= new Wolbusinessdesk_Metaboxes();
 			self::$instance->endpoints 		= new Wolbusinessdesk_Register_End_Point();
 			self::$instance->company_info 	= new Wolbusinessdesk_Company_info();
+			self::$instance->is 			= new Wolbusinessdesk_Is();
 			
 			// Instantiate in admin only
 			if ( is_admin() ) {
@@ -632,7 +645,7 @@ if ( ! class_exists( 'Wolbusinessdesk' ) ) {
 				
 				self::$instance->options 	= new Wolbusinessdesk_Backend_Options();
 								
-				if ( current_user_can( 'manage_options' ) ){
+				if ( is_wol_administrator() ){
 					
 					self::$instance->add_pages 	= new Wolbusinessdesk_Add_Pages();
 									
