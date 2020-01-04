@@ -239,6 +239,20 @@
 			echo wolbusinessdesk()->support_meta->get_ticket_number();
 		}
 	}
+	
+	if (  ! function_exists( 'wol_support_ticket_reply_loop' ) ){
+		
+		/**
+		 * wol_support_ticket_reply_loop function.
+		 * 
+		 * @access public
+		 * @return void
+		 */
+		function wol_support_ticket_reply_loop(){
+			
+			echo wolbusinessdesk()->support_reply_loop->reply_loop();;
+		}
+	}
 
 
 	if ( ! function_exists( 'wol_archive_navigation' ) ) {

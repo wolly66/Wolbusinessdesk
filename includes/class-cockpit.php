@@ -54,6 +54,22 @@ if ( ! class_exists( 'Wolbusinessdesk_Cockpit' ) ){
 			 'permissions'
 			 ));
 			 
+			 add_action( 'wol_render_front_end_admin_settings_slug_endpoint', array(
+			 $this,
+			 'settings'
+			 ));
+			 
+			 add_action( 'wol_render_front_end_admin_new_support_request_slug_endpoint', array(
+			 $this,
+			 'new_support_request'
+			 ));
+			 
+			 
+			 add_action( 'wol_render_front_end_admin_settings_ticket_taxonomies_slug_endpoint', array(
+			 $this,
+			 'settings_ticket_taxonomies'
+			 ));
+			 
 			 add_action( 'wol_render_front_end_admin_new_client_slug_endpoint', array(
 			 $this,
 			 'new_client'
@@ -69,7 +85,7 @@ if ( ! class_exists( 'Wolbusinessdesk_Cockpit' ) ){
 			 'new_client_document'
 			 ));
 
-			
+			add_filter ( 'wol_front_end_admin_menu', array( $this, 'settings_menu') );
 							
 		}
 		
@@ -98,7 +114,7 @@ if ( ! class_exists( 'Wolbusinessdesk_Cockpit' ) ){
 				
 				
 				} else {
-					// ! TODO ADD LOGIN
+					// ! TODO ADD LOGIN AND CHECK IF IS LOGGEND IN
 					$template = __( 'Sorry, you have to login to access this page', 'wolbusinessdesk' );
 			}
 						
@@ -131,7 +147,6 @@ if ( ! class_exists( 'Wolbusinessdesk_Cockpit' ) ){
 						
 						return $key;
 					}
-						
 						
 				}
 			}
@@ -416,6 +431,21 @@ if ( ! class_exists( 'Wolbusinessdesk_Cockpit' ) ){
 			echo 'GIAO SEI IN PERMISSIONS';
 		}
 		
+		
+		public function settings(){
+			
+			wol_get_template_part( 'cockpit', 'settings' );
+			
+		}
+		
+		public function new_support_request(){
+			
+			wol_get_template_part( 'cockpit', 'newsupport' );
+		}
+		public function settings_ticket_taxonomies(){
+			
+			wol_get_template_part( 'cockpit', 'settings' );
+		}
 		/**
 		 * new_client function.
 		 * 
@@ -448,19 +478,16 @@ if ( ! class_exists( 'Wolbusinessdesk_Cockpit' ) ){
 		
 		/**
 		 * get_menus function.
-		 * 
+		 *
+		 * @since 1.0
 		 * @access public
-		 * @return void
+		 * @return $menu
 		 */
 		public function get_menus(){
 			
 			$menu = $this->menu_items();
-						
-			
-			
+									
 			return $menu;
-			
-			
 			
 		}
 		
@@ -480,8 +507,8 @@ if ( ! class_exists( 'Wolbusinessdesk_Cockpit' ) ){
 			if ( ! empty( $permalinks['id_front_end_admin'] ) ){
 			
 				$front_end_admin_url = esc_url_raw( $permalinks['id_front_end_admin'] );
-				$menus = $this->register_menu();			
-			
+				$menus = $this->register_menu();		
+							
 				foreach ( $menus as $key => $m ){
 				
 					if ( $key == 'home' ){
@@ -542,12 +569,54 @@ if ( ! class_exists( 'Wolbusinessdesk_Cockpit' ) ){
 					'name' 	=> __( 'Permissions', 'wolbusinessdesk' ),
 					'slug'	=> 'permissions_slug',
 				),
+				'settings' => array( 
+					'name' 	=> __( 'Settings', 'wolbusinessdesk' ),
+					'slug'	=> 'settings_slug',
+				),
 				
 			);
-			
+						
 			$menu = apply_filters( 'wol_front_end_admin_menu', $menu );
 						
 			return $menu;
+		}
+		
+		/**
+		 * settings_menu function.
+		 * 
+		 * @since 1.0
+		 * @access public
+		 * @param mixed $menu
+		 * @return $menu for settings
+		 */
+		public function settings_menu( $menu ){
+			
+			global $wp_query;
+						
+			if ( isset( $wp_query->query_vars['wol-settings'] ) 
+				|| isset( $wp_query->query_vars['wol-settings-tickets'] ) ){
+				
+				$menu = array(
+				
+					'home' => array(
+						'name' => __( 'Cockpit', 'wolbusinessdesk' ),
+						'slug'	=> 'home',
+					),
+					'settings' => array( 
+						'name' 	=> __( 'Settings', 'wolbusinessdesk' ),
+						'slug'	=> 'settings_slug',
+					),
+					'settings_tickets' => array( 
+						'name' 	=> __( 'Settings Tickets', 'wolbusinessdesk' ),
+						'slug'	=> 'settings_ticket_taxonomies_slug',
+					),
+				
+				);
+			
+			}
+			
+			return $menu;
+			
 		}
 		
 		

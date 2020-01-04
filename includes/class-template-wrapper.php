@@ -162,6 +162,108 @@ if ( ! class_exists( 'Wolbusinessdesk_Template_Wrapper' ) ){
 			
 		}
 		
+		/**
+		 * get_cockpit_settings_query function.
+		 * 
+		 * @since 1.0
+		 * @access public
+		 * @return query $query
+		 */
+		public function get_cockpit_settings_query(){
+			
+			/**
+			 * query
+			 * 
+			 * (default value: '')
+			 * 
+			 * @since 1.0
+			 * @var string
+			 * @access public
+			 */
+			$settings_query = array();
+			
+			global $wp_query;
+			
+			if ( isset( $wp_query->query_vars['wol-settings-tickets'] ) ){
+				
+				
+				/**
+				 * priority
+				 * 
+				 * 
+				 * @since 1.0
+				 * @var mixed
+				 * @access public
+				 */
+				$priority = get_terms( array(
+					'taxonomy' => 'wol-ticket-priority',
+					'hide_empty' => false,
+					)
+				);
+				
+				$settings_query['priority'] = ( ! is_wp_error( $priority ) ) ?
+					$priority:
+					'';
+									
+				/**
+				 * ticket
+				 * 
+				 * 
+				 * @since 1.0
+				 * @var mixed
+				 * @access public
+				 */
+				$ticket = get_terms( array(
+					'taxonomy' => 'wol-ticket-ticket',
+					'hide_empty' => false,
+					)
+				);
+				
+				$settings_query['category'] = ( ! is_wp_error( $ticket ) ) ?
+					$ticket:
+					'';
+												
+				/**
+				 * status
+				 * 
+				 * 
+				 * @since 1.0
+				 * @var mixed
+				 * @access public
+				 */
+				$status = get_terms( array(
+					'taxonomy' => 'wol-ticket-status',
+					'hide_empty' => false,
+					)
+				);
+				
+				$settings_query['status'] = ( ! is_wp_error( $status ) ) ?
+					$status:
+					'';
+				/**
+				 * type
+				 * 
+				 * 
+				 * @since 1.0
+				 * @var mixed
+				 * @access public
+				 */
+				$type = get_terms( array(
+					'taxonomy' => 'wol-ticket-type',
+					'hide_empty' => false,
+					)
+				);
+				
+				$settings_query['type'] = ( ! is_wp_error( $type ) ) ?
+					$type:
+					'';
+				
+				
+			} // end if wol-settings-tickets
+			
+			return $settings_query;
+		}
+		
 		public function get_task_fields_form(){
 			
 			

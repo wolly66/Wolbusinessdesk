@@ -736,7 +736,7 @@ if ( ! class_exists( 'Wolbusinessdesk_Support_Meta' ) ){
 		public function status_args(){
 	
 			$args = array(
-				'show_option_all'    => 'All',
+				'show_option_all'    => '',
 				'hide_empty'         => 0,
 				'echo'               => 0,
 				'selected'           => $this->status_selected,
@@ -761,7 +761,7 @@ if ( ! class_exists( 'Wolbusinessdesk_Support_Meta' ) ){
 		public function priority_args(){
 	
 			$args = array(
-				'show_option_all'    => 'All',
+				'show_option_all'    => '',
 				'hide_empty'         => 0,
 				'echo'               => 0,
 				'selected'           => $this->priority_selected,
@@ -786,7 +786,7 @@ if ( ! class_exists( 'Wolbusinessdesk_Support_Meta' ) ){
 		public function type_args(){
 	
 			$args = array(
-				'show_option_all'    => 'All',
+				'show_option_all'    => '',
 				'hide_empty'         => 0,
 				'echo'               => 0,
 				'selected'           => $this->type_selected,
@@ -1030,7 +1030,7 @@ if ( ! class_exists( 'Wolbusinessdesk_Support_Meta' ) ){
 				$ticket_reply_data['last_ticket_reply_date'] = date( 'Y-m-d  h:i:s', time() ) ;
 			}
 			
-			if ( ! wolbusinessdesk()->support_check->check_ticket_status( $ticked_id ) ){
+			if ( ! is_wol_ticket_open( $ticked_id ) ){
 				
 					$end_date = $ticket_reply_data['last_ticket_reply_date'];
 					

@@ -260,7 +260,371 @@
 			return wolbusinessdesk()->cockpit->get_home_query();
 		}
 	}
+	
+	if (  ! function_exists( 'wol_get_cockpit_settings_query' ) ){
+		
+		/**
+		 * wol_add_new_client_document function.
+		 * 
+		 * @access public
+		 * @return echo page
+		 */
+		function wol_get_cockpit_settings_query(){
+			
+			return wolbusinessdesk()->template_wrapper->get_cockpit_settings_query();
+		}
+	}
 
+	/** 
+	 *
+	 * New Ticket Form template wrapper 
+	 *
+	 */
+	
+	if (  ! function_exists( 'wol_get_new_ticket_new_form' ) ){
+		
+		/**
+		 * wol_get_new_ticket_new_form function.
+		 * 
+		 * @access public
+		 * @return open form
+		 */
+		function wol_get_new_ticket_new_form(){
+			
+			return wolbusinessdesk()->new_support->new_form();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_new_ticket_new_form' ) ){
+		
+		/**
+		 * wol_get_new_ticket_new_form function.
+		 * 
+		 * @access public
+		 * @return echo page
+		 */
+		function wol_new_ticket_new_form(){
+			
+			echo wol_get_new_ticket_new_form();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_get_new_ticket_open_form' ) ){
+		
+		/**
+		 * wol_get_new_ticket_open_form function.
+		 * 
+		 * @access public
+		 * @return open form
+		 */
+		function wol_get_new_ticket_open_form(){
+			
+			return wolbusinessdesk()->new_support->open_form();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_new_ticket_open_form' ) ){
+		
+		/**
+		 * wol_new_ticket_open_form function.
+		 * 
+		 * @access public
+		 * @return echo page
+		 */
+		function wol_new_ticket_open_form(){
+			
+			echo wol_get_new_ticket_open_form();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_get_new_ticket_boards' ) ){
+		
+		/**
+		 * wol_get_new_ticket_boards function.
+		 * 
+		 * @access public
+		 * @return boards dropdown
+		 */
+		function wol_get_new_ticket_boards(){
+			
+			return wolbusinessdesk()->new_support->boards();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_new_ticket_boards' ) ){
+		
+		/**
+		 * wol_new_ticket_boards function.
+		 * 
+		 * @access public
+		 * @return echo boards dropdown
+		 */
+		function wol_new_ticket_boards(){
+			
+			echo wol_get_new_ticket_boards();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_get_new_ticket_type' ) ){
+		
+		/**
+		 * wol_get_new_ticket_type function.
+		 * 
+		 * @access public
+		 * @return type dropdown
+		 */
+		function wol_get_new_ticket_type(){
+			
+			return wolbusinessdesk()->new_support->type();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_new_ticket_type' ) ){
+		
+		/**
+		 * wol_new_ticket_type function.
+		 * 
+		 * @access public
+		 * @return echo type dropdown
+		 */
+		function wol_new_ticket_type(){
+			
+			echo wol_get_new_ticket_type();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_get_new_ticket_priority' ) ){
+		
+		/**
+		 * wol_get_new_ticket_priority function.
+		 * 
+		 * @access public
+		 * @return priority dropdown
+		 */
+		function wol_get_new_ticket_priority(){
+			
+			return wolbusinessdesk()->new_support->priority();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_new_ticket_priority' ) ){
+		
+		/**
+		 * wol_new_ticket_priority function.
+		 * 
+		 * @access public
+		 * @return echo priority dropdown
+		 */
+		function wol_new_ticket_priority(){
+			
+			echo wol_get_new_ticket_priority();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_get_new_ticket_status' ) ){
+		
+		/**
+		 * wol_get_new_ticket_status function.
+		 * 
+		 * @access public
+		 * @return status dropdown
+		 */
+		function wol_get_new_ticket_status(){
+			
+			return wolbusinessdesk()->new_support->status();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_new_ticket_status' ) ){
+		
+		/**
+		 * wol_new_ticket_status function.
+		 * 
+		 * @access public
+		 * @return echo status dropdown
+		 */
+		function wol_new_ticket_status(){
+			
+			echo wol_get_new_ticket_status();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_get_new_ticket_title' ) ){
+		
+		/**
+		 * wol_get_new_ticket_title function.
+		 * 
+		 * @access public
+		 * @return title
+		 */
+		function wol_get_new_ticket_title(){
+			
+			return wolbusinessdesk()->new_support->title();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_new_ticket_title' ) ){
+		
+		/**
+		 * wol_new_ticket_title function.
+		 * 
+		 * @access public
+		 * @return echo title
+		 */
+		function wol_new_ticket_title(){
+			
+			echo wol_get_new_ticket_title();
+		}
+	}
+	
+	
+	if (  ! function_exists( 'wol_get_new_ticket_content' ) ){
+		
+		/**
+		 * wol_get_new_ticket_content function.
+		 * 
+		 * @access public
+		 * @return content
+		 */
+		function wol_get_new_ticket_content(){
+			
+			return wolbusinessdesk()->new_support->content();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_new_ticket_content' ) ){
+		
+		/**
+		 * wol_new_ticket_content function.
+		 * 
+		 * @access public
+		 * @return echo content
+		 */
+		function wol_new_ticket_content(){
+			
+			echo wol_get_new_ticket_content();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_get_new_ticket_submit' ) ){
+		
+		/**
+		 * wol_get_new_ticket_submit function.
+		 * 
+		 * @access public
+		 * @return submit
+		 */
+		function wol_get_new_ticket_submit(){
+			
+			return wolbusinessdesk()->new_support->submit();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_new_ticket_submit' ) ){
+		
+		/**
+		 * wol_new_ticket_content function.
+		 * 
+		 * @access public
+		 * @return echo submit
+		 */
+		function wol_new_ticket_submit(){
+			
+			echo wol_get_new_ticket_submit();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_get_new_ticket_hidden' ) ){
+		
+		/**
+		 * wol_get_new_ticket_hidden function.
+		 * 
+		 * @access public
+		 * @return hidden
+		 */
+		function wol_get_new_ticket_hidden(){
+			
+			return wolbusinessdesk()->new_support->hidden();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_new_ticket_hidden' ) ){
+		
+		/**
+		 * wol_new_ticket_hidden function.
+		 * 
+		 * @access public
+		 * @return echo hidden
+		 */
+		function wol_new_ticket_hidden(){
+			
+			echo wol_get_new_ticket_hidden();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_get_new_ticket_nonce' ) ){
+		
+		/**
+		 * wol_get_new_ticket_nonce function.
+		 * 
+		 * @access public
+		 * @return nonce
+		 */
+		function wol_get_new_ticket_nonce(){
+			
+			return wolbusinessdesk()->new_support->nonce();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_new_ticket_nonce' ) ){
+		
+		/**
+		 * wol_new_ticket_nonce function.
+		 * 
+		 * @access public
+		 * @return echo nonce
+		 */
+		function wol_new_ticket_nonce(){
+			
+			echo wol_get_new_ticket_nonce();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_get_new_ticket_close_form' ) ){
+		
+		/**
+		 * wol_get_new_ticket_close_form function.
+		 * 
+		 * @access public
+		 * @return close_form
+		 */
+		function wol_get_new_ticket_close_form(){
+			
+			return wolbusinessdesk()->new_support->close_form();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_new_ticket_close_form' ) ){
+		
+		/**
+		 * wol_new_ticket_close_form function.
+		 * 
+		 * @access public
+		 * @return echo close_form
+		 */
+		function wol_new_ticket_close_form(){
+			
+			echo wol_get_new_ticket_close_form();
+		}
+	}
+
+
+
+
+
+
+	
+	
 	
 	
 

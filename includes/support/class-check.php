@@ -6,19 +6,99 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! class_exists( 'Wolbusinessdesk_Support_Check' ) ){
 
 	class Wolbusinessdesk_Support_Check {
-	
+		
+		/**
+		 * id_user
+		 * 
+		 * (default value: '')
+		 * 
+		 * @var string
+		 * @access public
+		 */
 		var $id_user = '';
+		
+		/**
+		 * ticket_status
+		 * 
+		 * (default value: '')
+		 * 
+		 * @var string
+		 * @access public
+		 */
 		var $ticket_status = '';
+		
+		/**
+		 * id_ticket
+		 * 
+		 * (default value: '')
+		 * 
+		 * @var string
+		 * @access public
+		 */
 		var $id_ticket = '';
+		
+		/**
+		 * options
+		 * 
+		 * (default value: '')
+		 * 
+		 * @var string
+		 * @access public
+		 */
 		var $options = '';
+		
+		/**
+		 * pubblico
+		 * 
+		 * (default value: '')
+		 * 
+		 * @var string
+		 * @access public
+		 */
 		var $pubblico = '';
+		
+		/**
+		 * read
+		 * 
+		 * (default value: '')
+		 * 
+		 * @var string
+		 * @access public
+		 */
 		var $read = '';
+		
+		/**
+		 * write
+		 * 
+		 * (default value: '')
+		 * 
+		 * @var string
+		 * @access public
+		 */
 		var $write = '';
+		
+		/**
+		 * company_id
+		 * 
+		 * (default value: '')
+		 * 
+		 * @var string
+		 * @access public
+		 */
 		var $company_id = '';
+		
+		/**
+		 * view_only_your_tickets
+		 * 
+		 * (default value: '')
+		 * 
+		 * @var string
+		 * @access public
+		 */
 		var $view_only_your_tickets = '';
 	
 		/**
-		 * Inex_Check::__construct()
+		 * Wolbusinessdesk_Support_Check::__construct()
 		 *
 		 *
 		 * @package inex ticket
@@ -73,7 +153,7 @@ if ( ! class_exists( 'Wolbusinessdesk_Support_Check' ) ){
 		public function can_view_html(){
 			
 			( ! $this->can_view() ) ?
-				_e( 'Sorry, you do not have permissions to view this request', 'wolbusinessdesk' ) . exit :
+				_e( 'Sorry, you do not have permissions to view this ticket', 'wolbusinessdesk' ) . exit :
 				'';
 						
 		}
@@ -87,7 +167,16 @@ if ( ! class_exists( 'Wolbusinessdesk_Support_Check' ) ){
 		public function can_view(){
 			
 			global $post;
-						
+			
+			/**
+			 * can_view
+			 * 
+			 * (default value: FALSE)
+			 * 
+			 * @var mixed
+			 * @access public
+			 */
+			$can_view = FALSE;			
 			/**
 			 * ticket_id
 			 * 
@@ -119,6 +208,7 @@ if ( ! class_exists( 'Wolbusinessdesk_Support_Check' ) ){
 			 * 
 			 * @var string
 			 * @access public
+			 * @return BOOL
 			 */
 			$is_public_board = ( get_term_meta( $board[0]->term_id, 'wol_is_public_board', TRUE ) ) ?
 				TRUE :
@@ -139,25 +229,8 @@ if ( ! class_exists( 'Wolbusinessdesk_Support_Check' ) ){
 					$user_id = get_current_user_id();
 					
 					if ( ! current_user_can( 'manage_options' ) ){
-						
-						/**
-						 * is_super_agent
-						 * 
-						 * (default value: ( user_can( $user_id, 'wol_can_own_ticket' ) ) ?
-						 *	TRUE :
-						 *	FALSE;
-						 * 
-						 * @var string
-						 * @access public
-						 *
-						 * @return bool
-						 */
-						$is_super_agent = ( user_can( $user_id, 'wol_can_assign_owner' ) ) ?
-							TRUE :
-							FALSE;
-						
-											
-						if (  ! $is_super_agent ){
+																	
+						if ( ! is_wol_super_agent( $user_id) ){
 							
 							/**
 							 * author_id
@@ -204,6 +277,7 @@ if ( ! class_exists( 'Wolbusinessdesk_Support_Check' ) ){
 							 * @access public
 							 */
 							$can_view = TRUE;
+							
 						
 						
 					}
@@ -264,17 +338,31 @@ if ( ! class_exists( 'Wolbusinessdesk_Support_Check' ) ){
 	
 	
 			if ( $user_id != $author_id ){
-	
-			$company_author 	= get_user_option( 'company_associata', $author_id );
+			
+			/**
+			 * company_author
+			 * 
+			 * (default value: get_user_option( 'company_associata', $author_id ))
+			 * 
+			 * @var string
+			 * @access public
+			 */
+			$company_author = get_user_option( 'company_associata', $author_id );
+			
+			/**
+			 * company_user
+			 * 
+			 * (default value: get_user_option( 'company_associata', $user_id ))
+			 * 
+			 * @var string
+			 * @access public
+			 */
 			$company_user 	= get_user_option( 'company_associata', $user_id );
 	
 	
 	
 			if ( $company_author == $company_user || current_user_can( 'manage_options' ) ){
 	
-				//echo 'Ciao Autore: ' . $company_author . ' - User: ' . $company_user;
-	
-			//wp_die();
 			switch ( $status ) {
 	
 				case 'write_comment':
@@ -354,36 +442,6 @@ if ( ! class_exists( 'Wolbusinessdesk_Support_Check' ) ){
 			return $user_can_write;
 		}
 	
-		/**
-		 * check_ticket_status function.
-		 *
-		 *
-		 * @package inex ticket
-		 *
-		 * @since version 1.0
-		 *
-		 * @access public
-		 * @return void
-		 */
-		public function check_ticket_status( $ticked_id ){
-			
-			$ticket_status = ( ! is_wp_error( get_the_terms( $ticked_id, 'wol-ticket-status' ) ) ) ?
-				get_the_terms( $ticked_id, 'wol-ticket-status' ) :
-				FALSE ;
-				
-			if ( $ticket_status && (int)$this->options['status'] == $ticket_status[0]->term_id ){
-	
-				$this->ticked_is_open = false;
-	
-				} else {
-	
-					$this->ticked_is_open = true;
-	
-			}
-	
-			return $this->ticked_is_open;
-	
-		}
 	
 	}// chiudo la classe
 

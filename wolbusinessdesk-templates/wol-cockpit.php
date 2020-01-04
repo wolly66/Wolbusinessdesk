@@ -7,8 +7,7 @@
 
 get_header();
 ?>
-	<div class="d-flex" id="wrapper">
-			
+	<div class="d-flex" id="wrapper">		
 		<?php wol_get_template_part( 'sidebar', 'cockpit' ); ?>
 		<!-- Page Content -->
 		<div id="page-content-wrapper">

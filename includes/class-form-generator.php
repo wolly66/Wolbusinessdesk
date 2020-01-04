@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } // Exit if accessed directly
 
-class Wol_Form_Generator {
+class Wolbusinessdesk_Form_Generator {
 
 	/**
 	 * Counter for the tabindex
@@ -886,7 +886,44 @@ class Wol_Form_Generator {
 		}
 
 	}
-
+	
+	public function input_dropdown_wp_tax( $args = '' ) {
+		
+		$this->tabindex_counter = $this->tabindex_counter + $this->tabindex_counter_increment;
+		
+		$defaults = array(
+        	'show_option_all'   => '',
+        	'show_option_none'  => '',
+        	'orderby'           => 'id',
+        	'order'             => 'ASC',
+        	'show_count'        => 0,
+        	'hide_empty'        => 1,
+        	'child_of'          => 0,
+        	'exclude'           => '',
+        	'echo'              => 1,
+        	'selected'          => 0,
+        	'hierarchical'      => 0,
+        	'name'              => 'cat',
+        	'id'                => '',
+        	'class'             => 'postform',
+        	'depth'             => 0,
+        	'tab_index'         => $this->tabindex_counter,
+        	'taxonomy'          => 'category',
+        	'hide_if_empty'     => false,
+        	'option_none_value' => -1,
+        	'value_field'       => 'term_id',
+        	'required'          => false,
+		);
+		
+		//Parse the passed argument in an array combining with $defaults values
+		$args = wp_parse_args( $args, $defaults );
+		
+		$html = wp_dropdown_categories( $args );
+		
+		return $html;
+		
+		//wp_dropdown_categories( 'tab_index=1&taxonomy=wol-ticket-board&hide_empty=0&name=board&class=ticket-dd form-control' );
+	}
 	/**
 	 * Generate dropdown for italian province
 	 *

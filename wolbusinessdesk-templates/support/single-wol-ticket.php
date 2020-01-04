@@ -38,16 +38,10 @@ get_header(); ?>
  
 				<?php edit_post_link( __( 'Edit', 'wolbusinessdesk' ), '<footer class="entry-footer"><span class="edit-link">', '</span></footer><!-- .entry-footer -->' ); ?>
 
-				<?php   
+				<?php  wol_support_ticket_reply_loop(); ?>
+					 
 					
-					echo wolbusinessdesk()->support_reply_loop->reply_loop();
-					// If comments are open or we have at least one comment, load up the comment template.
-					if ( comments_open() || get_comments_number() ) :
-						comments_template();
-						endif;
- 
-					
-			?></article><?php
+			</article><?php
  
         // End the loop.
         endwhile;

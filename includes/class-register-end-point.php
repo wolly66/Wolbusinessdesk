@@ -11,9 +11,37 @@ if ( ! class_exists( 'Wolbusinessdesk_Register_End_Point' ) ){
 	 */
 	class Wolbusinessdesk_Register_End_Point{
 		
+		/**
+		 * options
+		 * 
+		 * (default value: '')
+		 * 
+		 * @since 1.0
+		 * @var string
+		 * @access public
+		 */
 		var $options = '';
+		
+		/**
+		 * slugs
+		 * 
+		 * (default value: '')
+		 * 
+		 * 
+		 * @since 1.0
+		 * @var string
+		 * @access public
+		 */
 		var $slugs = '';
 		
+		/**
+		 * __construct function.
+		 * 
+		 * 
+		 * @since 1.0
+		 * @access public
+		 * @return void
+		 */
 		public function __construct(){
 			
 			
@@ -42,6 +70,8 @@ if ( ! class_exists( 'Wolbusinessdesk_Register_End_Point' ) ){
 		/**
 		 * register_end_point function.
 		 * 
+		 * 
+		 * @since 1.0
 		 * @access public
 		 * @return void
 		 */
@@ -62,7 +92,9 @@ if ( ! class_exists( 'Wolbusinessdesk_Register_End_Point' ) ){
 		
 		/**
 		 * return_end_points function.
+		 *
 		 * 
+		 * @since 1.0 
 		 * @access public
 		 * @return void
 		 */
@@ -87,6 +119,8 @@ if ( ! class_exists( 'Wolbusinessdesk_Register_End_Point' ) ){
 		/**
 		 * standard_endpoint function.
 		 * 
+		 * 
+		 * @since 1.0
 		 * @access public
 		 * @return void
 		 */
@@ -95,25 +129,40 @@ if ( ! class_exists( 'Wolbusinessdesk_Register_End_Point' ) ){
 			$standard_endpoints = array(
 				'boards_slug'				=> array( 
 					'endpoint'	=> 'wol-boards',
-					'name'		=> __( 'Cockpit boards', 'wollyplugin' ),
+					'name'		=> __( 'Cockpit boards', 'wolbusinessdesk' ),
 				),
 				'permissions_slug' 			=> array(
 					'endpoint'	=> 'wol-permissions',
-					'name'		=> __( 'Cockpit permissions', 'wollyplugin' ),
+					'name'		=> __( 'Cockpit permissions', 'wolbusinessdesk' ),
 				),
-
+				'settings_slug' 			=> array(
+					'endpoint'	=> 'wol-settings',
+					'name'		=> __( 'General settings', 'wolbusinessdesk' ),
+				),
+				
+				'settings_ticket_taxonomies_slug' 			=> array(
+					'endpoint'	=> 'wol-settings-tickets',
+					'name'		=> __( 'Tickets settings', 'wolbusinessdesk' ),
+				),
+				
+				'new_support_request_slug'			=> array( 
+					'endpoint'	=> 'wol-new-support-request',
+					'name'		=> __( 'New support request', 'wolbusinessdesk' ),
+				),
+				
 				'new_client_slug'			=> array( 
 					'endpoint'	=> 'wol-new-client',
-					'name'		=> __( 'New client page', 'wollyplugin' ),
+					'name'		=> __( 'New client page', 'wolbusinessdesk' ),
 				),
 
 				'new_task_slug'				=> array(
 					'endpoint'	=> 'wol-new-task',
-					'name'		=> __( 'New task page', 'wollyplugin' ),
+					'name'		=> __( 'New task page', 'wolbusinessdesk' ),
 				),
+				
 				'new_client_document_slug'	=> array(
 					'endpoint'	=> 'wol-new-client-document',
-					'name'		=> __( 'New client document page', 'wollyplugin' ),
+					'name'		=> __( 'New client document page', 'wolbusinessdesk' ),
 				),
 			);
 			
@@ -138,7 +187,7 @@ if ( ! class_exists( 'Wolbusinessdesk_Register_End_Point' ) ){
 	
 			
 			$menu['prova'] = array(
-					'name' => __( 'Prova Home', 'wollyplugin' ),
+					'name' => __( 'Prova Home', 'wolbusinessdesk' ),
 					'slug'	=> 'prova_slug',
 				);
 	

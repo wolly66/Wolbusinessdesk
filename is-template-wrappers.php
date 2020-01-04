@@ -74,7 +74,7 @@ if ( ! function_exists( 'is_wol_agent' ) ){
 	 */
 	function is_wol_agent( $user = '' ){
 		
-		return wolbusinessdesk()->is->is_agent( $user = '' );
+		return wolbusinessdesk()->is->is_agent( $user );
 	}
 	
 }
@@ -91,10 +91,46 @@ if ( ! function_exists( 'is_wol_super_agent' ) ){
 	 */
 	function is_wol_super_agent( $user = '' ){
 		
-		return wolbusinessdesk()->is->is_super_agent( $user = '' );
+		return wolbusinessdesk()->is->is_super_agent( $user );
 	}
 	
 }
+
+if ( ! function_exists( 'is_wol_ticket_open' ) ){
+	
+	/**
+	 * is_wol_ticket_open function.
+	 * 
+	 * @since 1.0
+	 * @access public
+	 * @param string $user (default: 0)
+	 * @return TRUE if ticket is open, FALSE if not
+	 */
+	function is_wol_ticket_open( $ticket_id = 0 ){
+		
+		return wolbusinessdesk()->is->is_ticket_open( $ticket_id );
+	}
+	
+}
+
+if ( ! function_exists( 'is_wol_can_reply_to_ticket' ) ){
+	
+	/**
+	 * is_wol_ticket_open function.
+	 * 
+	 * @since 1.0
+	 * @access public
+	 * @param string $user (default: 0)
+	 * @return TRUE if ticket is open, FALSE if not
+	 */
+	function is_wol_can_reply_to_ticket( $filtered_single_permissions = array() ){
+		
+		return wolbusinessdesk()->is->can_reply_to_ticket( $filtered_single_permissions );
+	}
+	
+}
+
+
 
 
 

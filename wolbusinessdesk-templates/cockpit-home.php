@@ -21,7 +21,7 @@ if ($postType) {
 							
 				<div class="wol-title col-md-6 col-sm-6 col-xs-12">
 								
-					<a href="<?php the_permalink() ?>"><?php the_title(); ?></a>
+					<a href="<?php the_permalink() ?>"><?php the_title(); ?>pippo</a>
 								
 				</div>
 							

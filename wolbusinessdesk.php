@@ -47,7 +47,7 @@ if ( ! class_exists( 'Wolbusinessdesk' ) ) {
 		 *
 		 * @access private
 		 * @since  1.0
-		 * @var    wolly-contracts The one true wolly-contracts
+		 * @var    Wolbusinessdesk The one true Wolbusinessdesk where the magic happens
 		 */
 		private static $instance;
 
@@ -1244,6 +1244,7 @@ if ( ! class_exists( 'Wolbusinessdesk' ) ) {
  		 */
  		public function first_install(){
  		
+ 		// ! TODO SAVE ENDPOINTS IN PAGES OPTIONS
  		/**
  		 * first_install
  		 * 
@@ -1481,7 +1482,7 @@ if ( ! class_exists( 'Wolbusinessdesk' ) ) {
 } // end ! class_exists( 'Wolbusinessdesk' )
 
 /**
- * The main function responsible for returning the one true wolly-contracts
+ * The main function responsible for returning the one true Wolbusinessdesk
  * Instance to functions everywhere.
  *
  * Use this function like you would a global variable, except without needing

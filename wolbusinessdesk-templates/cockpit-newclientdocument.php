@@ -8,8 +8,7 @@
 		
 		<?php wol_new_client_nonce(); ?>
 		
-		<?php wol_client_field(); ?>
-		
+		New Client Document		
 		
 		<input type="hidden" name="submit_cpt" value="wol-client" />
 		<input type="submit" name="submit" class="button" value="<?php _e( 'New', 'wolbusinessdesk' ); ?>" />
