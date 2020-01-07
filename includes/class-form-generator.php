@@ -348,16 +348,20 @@ class Wolbusinessdesk_Form_Generator {
 			}
 
 		}
-
+		$required = ( $args['mandatory'] )?
+			'required':
+			'';
+			
 		// Generate the block
 		$html = sprintf(
-			'<input type="text" id="%1$s" name="%2$s" tabindex="%3$s" class="%4$s" placeholder="%5$s" value="%6$s" />',
+			'<input type="text" id="%1$s" name="%2$s" tabindex="%3$s" class="%4$s" placeholder="%5$s" value="%6$s" %7$s/>',
 			$args['id'], // 1
 			esc_attr( $args['name'] ), // 2
 			$this->tabindex_counter = $this->tabindex_counter + $this->tabindex_counter_increment, // 3
 			$args['class'], // 4
 			$args['placeholder'], // 5
-			esc_attr( $args['value'] ) // 6
+			esc_attr( $args['value'] ), // 6
+			esc_attr( $required ) // 7
 		);
 
 		// Check if put a label tab before the impute text
@@ -366,7 +370,7 @@ class Wolbusinessdesk_Form_Generator {
 				'<label for="%1$s">%2$s %3$s</label>',
 				esc_attr( $args['name'] ), // 1
 				esc_attr( $args['label'] ), // 2
-				( $args['mandatory'] ) ? '<span class"mandatory">' . esc_attr( $args['mandatory'] ) . '</span>' : ''
+				( $args['mandatory'] ) ? '<span class="wol-mandatory">' . esc_attr( $args['mandatory'] ) . '</span>' : ''
 			// 3
 			);
 
@@ -448,17 +452,21 @@ class Wolbusinessdesk_Form_Generator {
 			}
 
 		}
-
+		
+		$required = ( $args['mandatory'] )?
+			'required':
+			'';
 		// Generate the block
 		$html = sprintf(
-			'<textarea id="%1$s" name="%2$s" rows="%3$s" cols="%4$s" tabindex="%5$s" class="%6$s">%7$s</textarea>',
+			'<textarea id="%1$s" name="%2$s" rows="%3$s" cols="%4$s" tabindex="%5$s" class="%6$s" %8$s>%7$s</textarea>',
 			$args['id'], // 1
 			esc_attr( $args['name'] ), // 2
 			absint( esc_attr( $args['rows'] ) ), // 3
 			absint( esc_attr( $args['cols'] ) ), // 4
 			$this->tabindex_counter = $this->tabindex_counter + $this->tabindex_counter_increment, // 5
 			$args['class'], // 6
-			esc_attr( $args['value'] ) // 7
+			esc_attr( $args['value'] ), // 7
+			esc_attr( $required )
 		);
 
 		// Check if put a label tab before the impute text
@@ -467,7 +475,7 @@ class Wolbusinessdesk_Form_Generator {
 				'<label for="%1$s">%2$s %3$s</label>',
 				esc_attr( $args['name'] ), // 1
 				esc_attr( $args['label'] ), // 2
-				( $args['mandatory'] ) ? '<span class"mandatory">' . esc_attr( $args['mandatory'] ) . '</span>' : ''
+				( $args['mandatory'] ) ? '<span class="wol-mandatory">' . esc_attr( $args['mandatory'] ) . '</span>' : ''
 			// 3
 			);
 
@@ -824,7 +832,7 @@ class Wolbusinessdesk_Form_Generator {
 				'<label for="%1$s">%2$s %3$s</label>',
 				esc_attr( $args['name'] ), // 1
 				esc_attr( $args['label'] ), // 2
-				( $args['mandatory'] ) ? '<span class"mandatory">' . esc_attr( $args['mandatory'] ) . '</span>' : ''
+				( $args['mandatory'] ) ? '<span class="wol-mandatory">' . esc_attr( $args['mandatory'] ) . '</span>' : ''
 			// 3
 			);
 
@@ -913,16 +921,27 @@ class Wolbusinessdesk_Form_Generator {
         	'option_none_value' => -1,
         	'value_field'       => 'term_id',
         	'required'          => false,
+        	'label'				=> '',
 		);
 		
 		//Parse the passed argument in an array combining with $defaults values
 		$args = wp_parse_args( $args, $defaults );
 		
-		$html = wp_dropdown_categories( $args );
+		// Check if put a label tab before the input text
+		if ( '' != $args['label'] ) {
+			$html_label = sprintf(
+				'<label for="%1$s">%2$s %3$s</label>',
+				esc_attr( $args['id'] ), // 1
+				esc_attr( $args['label'] ), // 2
+				( $args['mandatory'] ) ? '<span class="wol-mandatory">' . esc_attr( $args['mandatory'] ) . '</span>' : ''
+			// 3
+			);
+
+			$html = $html_label;
+		}
+		$html .= wp_dropdown_categories( $args );
 		
 		return $html;
-		
-		//wp_dropdown_categories( 'tab_index=1&taxonomy=wol-ticket-board&hide_empty=0&name=board&class=ticket-dd form-control' );
 	}
 	/**
 	 * Generate dropdown for italian province
@@ -1115,7 +1134,7 @@ class Wolbusinessdesk_Form_Generator {
 				'<label for="%1$s">%2$s %3$s</label>',
 				esc_attr( $args['name'] ), // 1
 				esc_attr( $args['label'] ), // 2
-				( $args['mandatory'] ) ? '<span class"mandatory">' . esc_attr( $args['mandatory'] ) . '</span>' : ''
+				( $args['mandatory'] ) ? '<span class="wol-mandatory">' . esc_attr( $args['mandatory'] ) . '</span>' : ''
 			// 3
 			);
 
@@ -1224,9 +1243,11 @@ class Wolbusinessdesk_Form_Generator {
 				'value'  => '',
 				'format' => '',
 			),
-			'script_param' => array(),
+			'script_param' => array(
+			),
 			'echo'         => $this->default_echo,
 		);
+
 
 		//Parse the passed argument in an array combining with $defaults values
 		$args = wp_parse_args( $args, $defaults );
@@ -1272,7 +1293,7 @@ class Wolbusinessdesk_Form_Generator {
 				'<label for="%1$s">%2$s %3$s</label>',
 				esc_attr( $args['name'] ), // 1
 				esc_attr( $args['label'] ), // 2
-				( $args['mandatory'] ) ? '<span class"mandatory">' . esc_attr( $args['mandatory'] ) . '</span>' : ''
+				( $args['mandatory'] ) ? '<span class="wol-mandatory">' . esc_attr( $args['mandatory'] ) . '</span>' : ''
 			// 3
 			);
 

@@ -38,17 +38,121 @@ if ( ! class_exists( 'Wolbusinessdesk_Is' ) ){
 		}
 		
 		/**
+		 * can_access_cockpit function.
+		 * 
+		 * @since 1.0
+		 * @access public
+		 * @return BOOL
+		 */
+		public function can_access_cockpit(){
+			
+			if ( is_user_logged_in() ){
+				
+				if ( $this->is_administrator() ){
+					
+					return TRUE;
+				}
+				
+				if ( $this->is_wolbusinessdesk_administrator() ){
+					
+					return TRUE;
+				}
+				
+				if ( $this->is_crm_administrator() ){
+					
+					return TRUE;
+				}
+				
+				if ( $this->is_ticket_administrator() ){
+					
+					return TRUE;
+				}
+				if ( $this->is_client_administrator() ){
+					
+					return TRUE;
+				}
+				
+				
+				if ( $this->is_super_agent() ){
+					
+					return TRUE;
+				}
+				
+				if ( $this->is_agent() ){
+					
+					return TRUE;
+				}
+
+			}
+			
+			return FALSE;
+		}
+		
+		public function is_wolbusinessdesk_administrator(){
+			
+			if ( is_user_logged_in() ){
+				
+				if ( current_user_can( 'wol_can_wolbusinessdesk_administrator' ) ){
+					
+					return TRUE;
+					
+					} else {
+					
+						return FALSE;
+				}
+			}
+			
+			return FALSE;
+			
+		}
+		
+		public function is_crm_administrator(){
+			
+			if ( is_user_logged_in() ){
+				
+				if ( current_user_can( 'wol_can_crm_administrator' ) ){
+					
+					return TRUE;
+					
+					} else {
+					
+						return FALSE;
+				}
+			}
+			
+			return FALSE;
+			
+		}
+		/**
 		 * is_boards_manager function.
 		 * 
 		 * @since 1.0
 		 * @access public
 		 * @return BOOL
 		 */
-		public function is_boards_manager(){
+		public function is_ticket_administrator(){
 			
 			if ( is_user_logged_in() ){
 				
-				if ( current_user_can( 'wol_can_manage_boards' ) ){
+				if ( current_user_can( 'wol_can_ticket_administrator' ) ){
+					
+					return TRUE;
+					
+					} else {
+					
+						return FALSE;
+				}
+			}
+			
+			return FALSE;
+			
+		}
+		
+		public function is_client_administrator(){
+			
+			if ( is_user_logged_in() ){
+				
+				if ( current_user_can( 'wol_can_client_administrator' ) ){
 					
 					return TRUE;
 					
@@ -206,6 +310,23 @@ if ( ! class_exists( 'Wolbusinessdesk_Is' ) ){
 			
 		}
 		
+		public function can_open_ticket(){
+			
+			if ( 
+				is_user_logged_in()
+				&& current_user_can( 'wol_can_add_new_ticket' ) 
+				)
+				{
+					return TRUE;
+					
+					} else {
+					
+					return FALSE;
+				}
+			 
+			 return FALSE;
+		}
+		
 		/**
 		 * can_reply_to_ticket function.
 		 * 
@@ -239,6 +360,24 @@ if ( ! class_exists( 'Wolbusinessdesk_Is' ) ){
 			return FALSE;
 			
 		}
+		
+		public function can_open_task(){
+			
+			if ( 
+				is_user_logged_in()
+				&& current_user_can( 'wol_can_add_new_task' ) 
+				)
+				{
+					return TRUE;
+					
+					} else {
+					
+					return FALSE;
+				}
+			 
+			 return FALSE;
+		}
+
 		
 		
 		

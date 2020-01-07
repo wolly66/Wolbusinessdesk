@@ -1,4 +1,19 @@
+.wol-mandatory, .wol-red{
+	
+	color:#ff0000;
+	font-size: 1.2em;
+	
+}
 
+.wol-error-message{
+	
+	border: 2px solid #ff0000;
+	padding: 10px;
+}
+ul.wol-ul{
+	
+	list-style: none;
+}
 .archive-filter-ticket{
 	
 	margin-top: 10px;

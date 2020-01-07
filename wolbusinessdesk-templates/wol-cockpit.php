@@ -7,10 +7,11 @@
 
 get_header();
 ?>
-	<div class="d-flex" id="wrapper">		
+	<div class="d-flex" id="wrapper">	
+		<?php if ( is_wol_can_access_cockpit() ) : ?>	
 		<?php wol_get_template_part( 'sidebar', 'cockpit' ); ?>
-		<!-- Page Content -->
-		<div id="page-content-wrapper">
+			<!-- Page Content -->
+			<div id="page-content-wrapper">
 
     			<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
 				<button class="btn btn-primary" id="menu-toggle"><?php _e( 'Toggle Menu', 'wolbusinessdesk' ); ?></button>
@@ -32,6 +33,7 @@ get_header();
 							<?php _e( 'Common action', 'wolbusinessdesk' ); ?>
               				</a>
 			  				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+				  				<a class="dropdown-item" href="<?php wol_add_new_ticket(); ?>"><?php _e( 'New Support Request', 'wolbusinessdesk' ); ?></a>
 			  					<a class="dropdown-item" href="<?php wol_add_new_client(); ?>"><?php _e( 'New Client', 'wolbusinessdesk' ); ?></a>
 			  					<a class="dropdown-item" href="<?php wol_add_new_client_document(); ?>"><?php _e( 'New Client Document', 'wolbusinessdesk' ); ?></a>
 			  					<div class="dropdown-divider"></div>
@@ -40,7 +42,7 @@ get_header();
 			  				</li>
 			  		</ul>
         			</div>
-      		</nav>
+      			</nav>
 
 	  	<div class="container-fluid">
 	    		<?php /* Start the Loop */
@@ -57,6 +59,42 @@ get_header();
 			<?php endwhile; // End of the loop. ?>
 
 		</div>
+		
+		<?php else: ?>
+		
+		<div class="container-fluid">
+			
+				<?php if ( ! is_user_logged_in() ){
+	
+				echo '<p>' . __( 'You have to login to access this page', 'wolbusinessdesk' ) .  '</p>';
+	
+				$args = array(
+				    'echo'           => TRUE,
+				    'redirect'       => site_url( $_SERVER['REQUEST_URI'] ),
+				    'form_id'        => 'loginform',
+				    'label_username' => __( 'Username' ),
+				    'label_password' => __( 'Password' ),
+				    'label_remember' => __( 'Remember Me' ),
+				    'label_log_in'   => __( 'Log In' ),
+				    'id_username'    => 'user_login',
+				    'id_password'    => 'user_pass',
+				    'id_remember'    => 'rememberme',
+				    'id_submit'      => 'wp-submit',
+				    'remember'       => true,
+				    'value_username' => NULL,
+				    'value_remember' => false
+					);
+					
+				 wp_login_form( $args );
+	
+				} else {
+			
+					echo '<p>' . __( 'You do not have sufficient permissione to open new support request', 'wolbusinessdesk' ) . '</p>';
+			
+			} ?>
+		
+		</div>
+		<?php endif; ?>
     </div>
     <!-- /#page-content-wrapper -->
 

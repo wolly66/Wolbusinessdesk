@@ -14,6 +14,23 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 }
 
+if ( ! function_exists( 'is_wol_can_access_cockpit' ) ){
+	
+	/**
+	 * is_wol_can_access_cockpit function.
+	 * 
+	 * @since 1.0
+	 * @access public
+	 * @return TRUE if is administrator, FALSE if not
+	 */
+	function is_wol_can_access_cockpit(){
+		
+		return wolbusinessdesk()->is->can_access_cockpit();
+	}
+	
+}
+
+
 if ( ! function_exists( 'is_wol_administrator' ) ){
 	
 	/**
@@ -30,21 +47,71 @@ if ( ! function_exists( 'is_wol_administrator' ) ){
 	
 }
 
-if ( ! function_exists( 'is_wol_boards_manager' ) ){
+if ( ! function_exists( 'is_wol_wolbusinessdesk_administrator' ) ){
 	
 	/**
-	 * is_wol_boards_manager function.
+	 * is_wol_wolbusinessdesk_administrator function.
 	 * 
 	 * @since 1.0
 	 * @access public
-	 * @return TRUE if is a board manager, FALSE if not
+	 * @return TRUE if is administrator, FALSE if not
 	 */
-	function is_wol_boards_manager(){
+	function is_wol_wolbusinessdesk_administrator(){
 		
-		return wolbusinessdesk()->is->is_boards_manager();
+		return wolbusinessdesk()->is->is_wolbusinessdesk_administrator();
 	}
 	
 }
+
+if ( ! function_exists( 'is_wol_ticket_administrator' ) ){
+	
+	/**
+	 * is_wol_ticket_administrator function.
+	 * 
+	 * @since 1.0
+	 * @access public
+	 * @return TRUE if is a ticket administrator, FALSE if not
+	 */
+	function is_wol_ticket_administrator(){
+		
+		return wolbusinessdesk()->is->is_ticket_administrator();
+	}
+	
+}
+
+if ( ! function_exists( 'is_wol_crm_administrator' ) ){
+	
+	/**
+	 * is_wol_crm_administrator function.
+	 * 
+	 * @since 1.0
+	 * @access public
+	 * @return TRUE if is a ticket administrator, FALSE if not
+	 */
+	function is_wol_crm_administrator(){
+		
+		return wolbusinessdesk()->is->is_crm_administrator();
+	}
+	
+}
+
+if ( ! function_exists( 'is_wol_client_administrator' ) ){
+	
+	/**
+	 * is_wol_client_administrator function.
+	 * 
+	 * @since 1.0
+	 * @access public
+	 * @return TRUE if is a ticket administrator, FALSE if not
+	 */
+	function is_wol_client_administrator(){
+		
+		return wolbusinessdesk()->is->is_client_administrator();
+	}
+	
+}
+
+
 
 if ( ! function_exists( 'is_wol_user_creator' ) ){
 	
@@ -113,6 +180,22 @@ if ( ! function_exists( 'is_wol_ticket_open' ) ){
 	
 }
 
+if ( ! function_exists( 'is_wol_can_open_ticket' ) ){
+	
+	/**
+	 * is_wol_can_open_ticket function.
+	 * 
+	 * @since 1.0
+	 * @access public
+	 * @return TRUE if ticket can open, FALSE if not
+	 */
+	function is_wol_can_open_ticket(){
+		
+		return wolbusinessdesk()->is->can_open_ticket();
+	}
+	
+}
+
 if ( ! function_exists( 'is_wol_can_reply_to_ticket' ) ){
 	
 	/**
@@ -126,6 +209,22 @@ if ( ! function_exists( 'is_wol_can_reply_to_ticket' ) ){
 	function is_wol_can_reply_to_ticket( $filtered_single_permissions = array() ){
 		
 		return wolbusinessdesk()->is->can_reply_to_ticket( $filtered_single_permissions );
+	}
+	
+}
+
+if ( ! function_exists( 'is_wol_can_open_crm' ) ){
+	
+	/**
+	 * is_wol_can_open_crm function.
+	 * 
+	 * @since 1.0
+	 * @access public
+	 * @return TRUE if ticket can open, FALSE if not
+	 */
+	function is_wol_can_open_crm(){
+		
+		return wolbusinessdesk()->is->can_open_task();
 	}
 	
 }

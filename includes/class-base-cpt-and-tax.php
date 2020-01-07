@@ -92,11 +92,11 @@ class Wolbusinessdesk_Cpt_And_Tax extends Wol_Cpt_And_Tax{
 		
 			$cpt_array = array( 'wol-client-document', 'wol-document' );
 		
-		foreach ( $cpt_array as $cpt ){
+			foreach ( $cpt_array as $cpt ){
 			
-			$add_duplicate = new Wolbusinessdesk_Duplicate_documents( array( $cpt ) );
+				$add_duplicate = new Wolbusinessdesk_Duplicate_documents( array( $cpt ) );
 		
-		}
+			}
 		
 		}
 		

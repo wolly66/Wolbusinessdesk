@@ -683,7 +683,7 @@ if ( ! class_exists( 'Wolbusinessdesk_Support_Meta' ) ){
 			
 		}
 		
-		public function get_priority_dropdown(){
+		public function get_priority_dropdown( $all = '' ){
 			
 			if (  isset( $_POST['wol_list_support_nonce_name'] ) &&  wp_verify_nonce( $_POST['wol_list_support_nonce_name'], 'wol_list_support_nonce_field' ) ) {
 				
@@ -698,14 +698,14 @@ if ( ! class_exists( 'Wolbusinessdesk_Support_Meta' ) ){
 					
 				}
 			
-			$priority_dropdown = wp_dropdown_categories( $this->priority_args() );
+			$priority_dropdown = wp_dropdown_categories( $this->priority_args( $all ) );
 			
 			return $priority_dropdown;
 			
 			
 		}
 		
-		public function get_type_dropdown(){
+		public function get_type_dropdown( $all = '' ){
 			
 			if (  isset( $_POST['wol_list_support_nonce_name'] ) &&  wp_verify_nonce( $_POST['wol_list_support_nonce_name'], 'wol_list_support_nonce_field' ) ) {
 				
@@ -720,7 +720,7 @@ if ( ! class_exists( 'Wolbusinessdesk_Support_Meta' ) ){
 					
 				}
 						
-			$type_dropdown = wp_dropdown_categories( $this->type_args() );
+			$type_dropdown = wp_dropdown_categories( $this->type_args( $all ) );
 			
 			return $type_dropdown;
 			
@@ -758,10 +758,14 @@ if ( ! class_exists( 'Wolbusinessdesk_Support_Meta' ) ){
 		 * @param mixed $selected (default: null)
 		 * @return $args
 		 */
-		public function priority_args(){
-	
+		public function priority_args( $all = '' ){
+			
+			$all = ( empty( $all ) ) ?
+				'':
+				$all;
+				
 			$args = array(
-				'show_option_all'    => '',
+				'show_option_all'    => $all,
 				'hide_empty'         => 0,
 				'echo'               => 0,
 				'selected'           => $this->priority_selected,
@@ -783,10 +787,14 @@ if ( ! class_exists( 'Wolbusinessdesk_Support_Meta' ) ){
 		 * @param mixed $selected (default: null)
 		 * @return $args
 		 */
-		public function type_args(){
+		public function type_args( $all = '' ){
+			
+			$all = ( empty( $all ) ) ?
+				'':
+				$all;
 	
 			$args = array(
-				'show_option_all'    => '',
+				'show_option_all'    => $all,
 				'hide_empty'         => 0,
 				'echo'               => 0,
 				'selected'           => $this->type_selected,

@@ -1,13 +1,6 @@
 <div class="wol-new-ticket">
 	
 
-	<?php	if ( is_user_logged_in() && ( current_user_can( 'wol_add_new_ticket' ) ) ){
-		
-		// ! TODO DEBUG DA RIMUOVERE
-		echo '<pre>pippo' . print_r( $_POST , 1 ) . '</pre>';
-	
-		?>
-	
 		<?php $user_data	= get_userdata( get_current_user_id() ); ?>
 		<?php $company		= get_user_meta( $user_data->ID, 'company_associata', true ); ?>
 	
@@ -16,8 +9,7 @@
 				<p><?php echo _e( 'Welcome', 'wolbusinessdesk' ) . ' ' . $user_data->display_name ?></p>
 			</div>
 		</div>
-			<!-- Create new form and open it, here is where the magic happen! -->
-			<?php wol_new_ticket_new_form(); ?> 
+			<!-- Create new form and open it, here is where the magic happen! --> 
 			<?php wol_new_ticket_open_form(); ?>
 			 
 			<div class="row">
@@ -40,7 +32,7 @@
 	
 					<p><?php wol_new_ticket_content(); ?></p>
 	
-					<p align="right"><?php wol_new_ticket_submit(); ?></p>
+					<p align="left"><?php wol_new_ticket_submit(); ?></p>
 					
 					<?php wol_new_ticket_hidden(); ?>
 					
@@ -50,78 +42,6 @@
 			</div>
 			<!-- Here we close the form, here is where the magic end! -->
 			<?php wol_new_ticket_close_form(); ?>
-	<?php
-	
-		if(	isset( $_POST['wol-submit'] ) ){
-			die();
-			$this->ticket_save_data();
-	
-			$allowedtags = array(
-				'img' => array(
-			        'src' => true,
-			    ),
-			    'a' => array(
-			        'href' => true,
-			        'title' => true,
-			    ),
-			    'abbr' => array(
-			        'title' => true,
-			    ),
-			    'acronym' => array(
-			        'title' => true,
-			    ),
-			    'b' => array(),
-			    'blockquote' => array(
-			        'cite' => true,
-			    ),
-			    'cite' => array(),
-			    'code' => array(),
-			    'del' => array(
-			        'datetime' => true,
-			    ),
-			    'em' => array(),
-			    'i' => array(),
-			    'q' => array(
-			        'cite' => true,
-			    ),
-			    'strike' => array(),
-			    'strong' => array()
-			);
-		}
-	
-	
-	
-		} else {
-			
-			if ( ! is_user_logged_in() ){
-	
-				echo '<p>' . __( 'You have to login to open new support request', 'wolbusinessdesk' ) .  '</p>';
-	
-				$args = array(
-				    'echo'           => true,
-				    'redirect'       => site_url( $_SERVER['REQUEST_URI'] ),
-				    'form_id'        => 'loginform',
-				    'label_username' => __( 'Username' ),
-				    'label_password' => __( 'Password' ),
-				    'label_remember' => __( 'Remember Me' ),
-				    'label_log_in'   => __( 'Log In' ),
-				    'id_username'    => 'user_login',
-				    'id_password'    => 'user_pass',
-				    'id_remember'    => 'rememberme',
-				    'id_submit'      => 'wp-submit',
-				    'remember'       => true,
-				    'value_username' => NULL,
-				    'value_remember' => false
-					);
-					
-				wp_login_form( $args );
-	
-				} else {
-			
-					echo '<p>' . __( 'You do not have sufficient permissione to open new support request', 'wolbusinessdesk' ) . '</p>';
-			
-			}
-	
-		}	?>
+
 	
 </div>

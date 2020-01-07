@@ -267,7 +267,15 @@ if ( ! class_exists( 'Wolbusinessdesk' ) ) {
 		 * @var mixed
 		 * @access public
 		 */
-		var $is;				
+		var $is;	
+		
+		/**
+		 * new_task
+		 * 
+		 * @var mixed
+		 * @access public
+		 */
+		var $new_task;			
 
 
 	
@@ -448,7 +456,7 @@ if ( ! class_exists( 'Wolbusinessdesk' ) ) {
 			
 			// Plugin Slug
 			if ( ! defined( 'WOLBUSINESSDESK_ROLES_VERSION' ) ) {
-				define( 'WOLBUSINESSDESK_ROLES_VERSION', '1.0.4' );
+				define( 'WOLBUSINESSDESK_ROLES_VERSION', '1.0.8' );
 			}
 			
 			// Plugin Slug
@@ -456,6 +464,10 @@ if ( ! class_exists( 'Wolbusinessdesk' ) ) {
 				define( 'WOLBUSINESSDESK_ROLES_VERSION_OPTION_NAME', 'wol-roles-version' );
 			}
 			
+			// Plugin base option name
+			if ( ! defined( 'WOLBUSINESSDESK_BASE_OPTION_NAME' ) ) {
+				define( 'WOLBUSINESSDESK_BASE_OPTION_NAME', 'wol-base-option' );
+			}
 			// Plugin support option name
 			if ( ! defined( 'WOLBUSINESSDESK_SUPPORT_OPTION_NAME' ) ) {
 				define( 'WOLBUSINESSDESK_SUPPORT_OPTION_NAME', 'wol-support-option' );
@@ -537,6 +549,7 @@ if ( ! class_exists( 'Wolbusinessdesk' ) ) {
 			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/class-template-wrapper.php';
 			
 			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/class-company-info.php';
+			
 
 			// Admin only used class
 			if ( is_admin() ) {
@@ -546,6 +559,8 @@ if ( ! class_exists( 'Wolbusinessdesk' ) ) {
 				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/abstracts/class-add-pages.php';
 				
 				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/class-add-pages.php';
+				
+				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/class-custom-nav-menus.php';
 				
 				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/documents/class-duplicate-documents.php';
 				
@@ -557,9 +572,6 @@ if ( ! class_exists( 'Wolbusinessdesk' ) ) {
 				//require_once( WOLBUSINESSDESK_PLUGIN_PATH . 'includes/class-autocomplete-documents-ajax.php' );
 
 				
-
-
-
 			} else {
 				
 				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/class-template-loader.php';
@@ -567,26 +579,21 @@ if ( ! class_exists( 'Wolbusinessdesk' ) ) {
 				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/general-template-functions.php';
 				
 				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/class-cockpit.php';
-				
-				
-				
-			
-								
+									
 			}
 			
 			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/documents/class-document-check.php';
 				
-				// Admin only used class
-				if ( is_admin() ) {
+			// Admin only used class
+			if ( is_admin() ) {
+				
+				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/documents/class-metaboxes.php';
+				
+			} else {
 					
-					require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/documents/class-metaboxes.php';
-					
-					
-					} else {
-						
-						require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/documents/class-client-document.php';
-						
-					}
+				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/documents/class-client-document.php';
+				
+			}
 				
 				
 				
@@ -594,30 +601,31 @@ if ( ! class_exists( 'Wolbusinessdesk' ) ) {
 			// Include support class
 			
 				
-				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/support/class-check.php';
-				
-				// Admin only used class
-				if ( is_admin() ) {
-					
-					require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/support/class-term-meta.php';
-					
-					
-					} else {
-						
-						require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/support/class-support-meta.php';
-
-						require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/support/template-functions.php';
-				
-						require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/support/class-insert-support-front-end.php';
-				
-						require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/support/class-reply-loop.php';
-					}
-				
-				
-				
+			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/support/class-check.php';
 			
+			// Admin only used class
+			if ( is_admin() ) {
+				
+				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/support/class-term-meta.php';
+				
+			} else {
+					
+				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/support/class-support-meta.php';
+				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/support/template-functions.php';
+				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/support/class-insert-support-front-end.php';
+				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/support/class-reply-loop.php';
+			}
+					
+			// Include crm class
 			
-
+			if ( is_admin() ) {
+				
+				
+			} else {
+				
+				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/crm/class-insert-crm-front-end.php';
+			}
+							
 		}
 
 		/**
@@ -641,9 +649,9 @@ if ( ! class_exists( 'Wolbusinessdesk' ) ) {
 			// Instantiate in admin only
 			if ( is_admin() ) {
 								
-				self::$instance->user_mngt 	= new Wolbusinessdesk_User_Mng();
-				
-				self::$instance->options 	= new Wolbusinessdesk_Backend_Options();
+				self::$instance->user_mngt 		= new Wolbusinessdesk_User_Mng();
+				self::$instance->options 		= new Wolbusinessdesk_Backend_Options();
+				self::$instance->custom_menus 	= new Wolbusinessdesk_Custom_Nav_Menus();
 								
 				if ( is_wol_administrator() ){
 					
@@ -675,9 +683,7 @@ if ( ! class_exists( 'Wolbusinessdesk' ) ) {
 			}
 
 
-			// Instance of support class
-			
-				
+			// Instance of support class				
 			self::$instance->support_check = new Wolbusinessdesk_Support_Check();
 			
 			// Admin only used class
@@ -685,17 +691,31 @@ if ( ! class_exists( 'Wolbusinessdesk' ) ) {
 				
 				self::$instance->support_term_meta = new Wolbusinessdesk_Term_Meta();
 				
-				} else {
+			} else {
 					
-					self::$instance->support_meta 			= new Wolbusinessdesk_Support_Meta();
-					self::$instance->new_support 			= new Wolbusinessdesk_Support_New_Ticket();
-					self::$instance->support_reply_loop 	= new Wolbusinessdesk_Support_Reply_Loop();
+				self::$instance->support_meta 			= new Wolbusinessdesk_Support_Meta();
+				self::$instance->new_support 			= new Wolbusinessdesk_Support_New_Ticket();
+				self::$instance->support_reply_loop 	= new Wolbusinessdesk_Support_Reply_Loop();
 			}
+			
+			//instance of CRM
+			
+			//self::$instance->support_check = new Wolbusinessdesk_Support_Check();
+			
+			// Admin only used class
+			if ( is_admin() ) {
 				
+				//self::$instance->support_term_meta = new Wolbusinessdesk_Term_Meta();
 				
-				
+			} else {
+					
+				//self::$instance->support_meta 			= new Wolbusinessdesk_Support_Meta();
+				self::$instance->new_task 			= new Wolbusinessdesk_Crm_New_Task();
+				//self::$instance->support_reply_loop 	= new Wolbusinessdesk_Support_Reply_Loop();
+			}
 			
 			
+							
 			self::$instance->updater();
 			
 			
@@ -779,7 +799,7 @@ if ( ! class_exists( 'Wolbusinessdesk' ) ) {
 			// add color picker to term ticket status
 			if( null !== ( $screen = get_current_screen() ) && 'edit-wol-ticket-status' === $screen->id ) {
 		       
-		    		// Colorpicker Scripts
+		    	// Colorpicker Scripts
 			    wp_enqueue_script( 'wp-color-picker' );
 		 
 				// Colorpicker Styles
@@ -831,7 +851,9 @@ if ( ! class_exists( 'Wolbusinessdesk' ) ) {
 				wp_enqueue_script( 'bootstrap', plugins_url( 'libs/bootstrap/js/bootstrap.min.js' , __FILE__ ), array('jquery'), time(), true );
 			}
 
+			wp_enqueue_script( 'jquery-ui-datepicker' );
 			
+			wp_enqueue_style( 'jquery-ui','//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css' );
 		}
 		
 		/**
@@ -851,14 +873,19 @@ if ( ! class_exists( 'Wolbusinessdesk' ) ) {
 
 			 		// gets the administrator role
 			 		$role = get_role( 'administrator' );
-			 		$role->add_cap( 'wol_add_new_ticket' );
+			 		$role->add_cap( 'wol_can_wolbusinessdesk_administrator' );
+			 		$role->add_cap( 'wol_can_ticket_administrator' );
+			 		$role->add_cap( 'wol_can_crm_administrator' );
+			 		$role->add_cap( 'wol_can_client_administrator' );
+			 		
+			 		$role->add_cap( 'wol_can_add_new_ticket' );
 			 		$role->add_cap( 'wol_can_assign_owner' );
 			 		$role->add_cap( 'wol_can_own_ticket' );
-			 		$role->add_cap( 'wol_can_manage_boards' );
 			 		
 			 		$role->add_cap( 'wol_manage_new_client_document' );
 			 		
-			 		
+			 		$role->add_cap( 'wol_can_add_new_task' );
+			 	
 
 			 		// gets the editor role
 			 		$role = get_role( 'editor' );
@@ -915,7 +942,7 @@ if ( ! class_exists( 'Wolbusinessdesk' ) ) {
 		        }
 		    }
 		
-		    if($template == '') {
+		    if( $template == '' ) {
 		        throw new \Exception('No template found');
 		    }
 		
@@ -1193,7 +1220,7 @@ if ( ! class_exists( 'Wolbusinessdesk' ) ) {
 					$query->set( 'tax_query', $tax_query );
 					
 					
-    				}
+    			}
 			} 
 		
 			return $query;

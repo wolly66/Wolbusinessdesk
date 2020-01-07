@@ -49,7 +49,7 @@
 			add_action( 'admin_menu', array( $this, 'wolbusinessdesk_menu' ) );
 			add_action( 'admin_init', array( $this, 'options_init' ) );
 			
-			
+			$this->wol_base_options 			= get_option( WOLBUSINESSDESK_BASE_OPTION_NAME );
 			$this->wol_company_info_options		= get_option( WOLBUSINESSDESK_COMPANY_INFO_OPTION_NAME );
 			$this->wol_pages_options 			= get_option( WOLBUSINESSDESK_PAGES_OPTION_NAME );
 			$this->wol_document_options 		= get_option( WOLBUSINESSDESK_DOCUMENT_OPTION_NAME );
@@ -250,18 +250,19 @@
 				<h2><?php _e( 'wolbusinessdesk Settings', 'wolbusinessdesk' ); ?></h2>
 				<?php settings_errors(); ?>
          
-				<?php $active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'wol_company'; ?>
+				<?php $active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'wol_base'; ?>
 				
         			<h2 class="nav-tab-wrapper">
 					
+					<a href="?page=wolbusinessdesk-settings&tab=wol_base" class="nav-tab <?php echo $active_tab == 'wol_base' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Base settings', 'wolbusinessdesk' ); ?></a>
 					<a href="?page=wolbusinessdesk-settings&tab=wol_company" class="nav-tab <?php echo $active_tab == 'wol_company' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Company', 'wolbusinessdesk' ); ?></a>
 					<a href="?page=wolbusinessdesk-settings&tab=wol_pages" class="nav-tab <?php echo $active_tab == 'wol_pages' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Pages', 'wolbusinessdesk' ); ?></a>
 					
-					<a href="?page=wolbusinessdesk-settings&tab=wol_documents" class="nav-tab <?php echo $active_tab == 'wol_documents' ? 'nav-tab-active' : ''; ?>">Documents</a>
+					<a href="?page=wolbusinessdesk-settings&tab=wol_documents" class="nav-tab <?php echo $active_tab == 'wol_documents' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Documents', 'wolbusinessdesk' ); ?></a>
 						
-					<a href="?page=wolbusinessdesk-settings&tab=wol_support" class="nav-tab <?php echo $active_tab == 'wol_support' ? 'nav-tab-active' : ''; ?>">Support</a>
+					<a href="?page=wolbusinessdesk-settings&tab=wol_support" class="nav-tab <?php echo $active_tab == 'wol_support' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Support', 'wolbusinessdesk' ); ?></a>
 						
-					<a href="?page=wolbusinessdesk-settings&tab=wol_crm" class="nav-tab <?php echo $active_tab == 'wol_crm' ? 'nav-tab-active' : ''; ?>">CRM</a>
+					<a href="?page=wolbusinessdesk-settings&tab=wol_crm" class="nav-tab <?php echo $active_tab == 'wol_crm' ? 'nav-tab-active' : ''; ?>"><?php _e( 'CRM', 'wolbusinessdesk' ); ?></a>
 						
 				</h2>
 			
@@ -278,6 +279,19 @@
 					?>
 					</form>
 					<?php
+						
+				} elseif ( $active_tab == 'wol_base' ){	
+					
+					?>
+					<form method="post" action="options.php">
+					<?php
+					settings_fields( 'wolbusinessdesk_base_group' );
+					do_settings_sections( 'wolbusinessdesk-settings&tab=wol_base' );
+					submit_button();
+					?>
+					</form>
+					<?php
+					
 
 				} elseif ( $active_tab == 'wol_pages' ){	
 					
@@ -346,7 +360,11 @@
 	     */
 	    public function options_init() {
 		            
-	        
+	        register_setting(
+	            'wolbusinessdesk_base_group', // Option group
+	            WOLBUSINESSDESK_BASE_OPTION_NAME, // Option name
+	            array( $this, 'sanitize_base' ) // Sanitize
+	        );
 	        
 	        register_setting(
 	            'wolbusinessdesk_company_group', // Option group
@@ -378,7 +396,21 @@
 	            array( $this, 'sanitize_crm' ) // Sanitize
 	        );
 				
-
+			// company fields
+	        add_settings_section(
+	            'wol_base_section_id', // ID
+	            __( 'Base settings', 'wolbusinessdesk' ), // Title
+	            array( $this, 'print_base_section_info' ), // Callback
+	            'wolbusinessdesk-settings&tab=wol_base' // Page
+	        );  
+	
+	        add_settings_field(
+	            'date_format', // ID
+	            __( 'Standard date format', 'wolbusinessdesk' ), // Title 
+	            array( $this, 'date_format_info_callback' ), // Callback
+	            'wolbusinessdesk-settings&tab=wol_base', // Page
+	            'wol_base_section_id' // Section           
+	        );     
 	        
 	        // company fields
 	        add_settings_section(
@@ -495,6 +527,13 @@
 	            'wol_documents_section_id_2'
 	        );
 	        
+	        /**
+			 *
+			 * Support section
+			 *
+			 * @since 1.0
+			 *
+			 */
 			add_settings_section(
 			    'wol_support_section_id_2', // ID
 			    __( 'Set opening and closing status', 'wolbusinessdesk' ), // Title
@@ -517,6 +556,21 @@
 			    'wolbusinessdesk-settings&tab=wol_support',
 			    'wol_support_section_id_2'
 			);
+			
+			add_settings_section(
+			    'wol_support_section_id_21', // ID
+			    __( 'Set standard reply time (hours)', 'wolbusinessdesk' ), // Title
+			    array( $this, 'print_section_standard_reply_time' ), // Callback
+			    'wolbusinessdesk-settings&tab=wol_support' // Page
+			);
+			add_settings_field(
+			    'closing',
+			    __( 'Standard time reply in hours', 'wolbusinessdesk' ),
+			    array( $this, 'standard_time_reply_callback' ),
+			    'wolbusinessdesk-settings&tab=wol_support',
+			    'wol_support_section_id_21'
+			);
+			
 			
 			add_settings_section(
 			    'wol_support_section_id_3', // ID
@@ -646,14 +700,24 @@
 	        return $new_input;
 	    }
 	    
-	    
+	    public function sanitize_base( $input ){ 
+		    
+		    $new_input = array();
+		   
+		    
+		    if( isset( $input['std_date_format'] ) )
+	        	$new_input['std_date_format'] =  sanitize_text_field( $input['std_date_format'] );
+	        
+	        return $new_input;
+		    
+		}
 	    public function sanitize_pages( $input ){
 		   
 		    $new_input = array();
 	        //Filter sanitize_base to add new options
 	        $input = apply_filters( 'wol_sanitize_pages', $input );
 	        
-	        // ! TODO FILTER BOOL
+	        // ! TODO FILTER BddL
 	        if( isset( $input['id_new_support_request'] ) )
 	            $new_input['id_new_support_request'] =  absint( $input['id_new_support_request'] );
 	            
@@ -741,6 +805,12 @@
 			
 			}
 			
+			if( isset( $input['standard_reply_time'] ) ){
+			
+			    $new_input['standard_reply_time'] = absint( $input['standard_reply_time'] );
+			
+			}
+			
 			if( isset( $input['listing-type'] ) ){
 			
 			    $new_input['listing-type'] = absint( $input['listing-type'] );
@@ -817,7 +887,44 @@
 	        return $new_input;
 	    }
 	    
-	   	    
+	   	public function print_base_section_info() {
+	        print __( 'General settings:', 'wolbusinessdesk' );
+	        	        
+	    }  
+	    
+	    public function date_format_info_callback () {
+		    			
+			    if( isset( $this->wol_base_options['std_date_format'] ) ) 
+			    		$std_date_format = $this->wol_base_options['std_date_format'];
+			    else 
+			    		$std_date_format = 'd/m/Y';
+						
+				// [listing-status-operator]
+				printf( 
+			        '<ul>
+			            <li>
+			                <input type="radio"  name="wol-base-option[std_date_format]" value="yy-dd-mm"  class="lcs_check lcs_tt2"  autocomplete="off" %1$s /> %2$s
+			            </li>
+			            <li>
+			                <input type="radio"  name="wol-base-option[std_date_format]" value="dd/mm/yy"  class="lcs_check lcs_tt2"  autocomplete="off" %3$s /> %4$s
+			            </li>
+			            <li>
+			                <input type="radio"  name="wol-base-option[std_date_format]" value="mm/dd/yy"  class="lcs_check lcs_tt2"  autocomplete="off" %5$s /> %6$s
+			            </li>
+			        </ul>',
+			        checked( $std_date_format, 'yy-dd-mm', false ), 					// 1
+			        date( 'Y-m-d' ) . ' ' . __( 'year-month-day', 'wolbusinessdesk' ),	// 2
+			        checked( $std_date_format, 'dd/mm/yy', false ),						// 3
+			        date( 'd/m/Y' ) . ' ' . __( 'day/month/year', 'wolbusinessdesk' ),	// 4
+			        checked( $std_date_format, 'mm/dd/yy', false ),						// 5
+					date( 'm/d/Y' )	. ' ' . __( 'month/day/year', 'wolbusinessdesk' )	// 6
+			        
+			    );
+				
+					    
+		    
+	    }
+	    
 	    public function print_company_section_info() {
 	        print __( 'Insert your company infos', 'wolbusinessdesk' );
 	        	        
@@ -883,7 +990,7 @@
 
 			print '<select name="wol-pages-option[id_new_support_request]">';
 
-				print '<option value="0" ' . selected( $selected, 0 ) . '>' . __( 'Choose a Page', 'wolbusinessdesk' ) . '</option>';
+				print '<option value="0" ' . selected( $selected, 0 ) . '>' . __( 'Chddse a Page', 'wolbusinessdesk' ) . '</option>';
 
 			foreach ( $this->all_pages as $ap ){
 
@@ -904,7 +1011,7 @@
 
 			print '<select name="wol-pages-option[id_front_end_admin]">';
 
-				print '<option value="0" ' . selected( $selected, 0 ) . '>' . __( 'Choose a Page', 'wolbusinessdesk' ) . '</option>';
+				print '<option value="0" ' . selected( $selected, 0 ) . '>' . __( 'Chddse a Page', 'wolbusinessdesk' ) . '</option>';
 
 			foreach ( $this->all_pages as $ap ){
 
@@ -1108,7 +1215,11 @@
 
         print _e( 'Opening and Closing Status Settings:', 'wolbusinessdesk' );
     }
-
+ 
+	public function print_section_standard_reply_time(){
+		
+		print _e( 'Set standard time reply in hours:', 'wolbusinessdesk' );
+	}
 
     /**
      * print_section_standard_listing function.
@@ -1231,6 +1342,13 @@
 			}
     }
 
+	public function standard_time_reply_callback(){
+		
+		printf(
+            '<input type="number" id="standard_reply_time" name="wol-support-option[standard_reply_time]" value="%s" />',
+            isset( $this->wol_support_options['standard_reply_time'] ) ? esc_attr( $this->wol_support_options['standard_reply_time']) : ''
+        );
+	}
     /**
      * listing_type_callback function.
      *

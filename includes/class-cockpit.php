@@ -338,7 +338,7 @@ if ( ! class_exists( 'Wolbusinessdesk_Cockpit' ) ){
 		 */
 		public function boards(){
 			
-			if ( is_wol_boards_manager() ){
+			if ( is_wol_ticket_administrator() ){
 				/**
 				 * boards
 				 * 

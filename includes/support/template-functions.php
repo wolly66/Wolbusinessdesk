@@ -47,6 +47,22 @@
 		}
 	}
 	
+	
+	if (  ! function_exists( 'wol_support_archive_type_dropdown' ) ){
+		
+		/**
+		 * wol_support_archive_type_dropdown function.
+		 * 
+		 * @access public
+		 * @return void
+		 */
+		function wol_support_archive_type_dropdown( $all = '' ){
+			
+			echo wolbusinessdesk()->support_meta->get_type_dropdown( $all );
+		}
+	}
+
+	
 	if (  ! function_exists( 'wol_support_archive_priority_dropdown' ) ){
 		
 		/**
@@ -55,9 +71,9 @@
 		 * @access public
 		 * @return void
 		 */
-		function wol_support_archive_priority_dropdown(){
+		function wol_support_archive_priority_dropdown( $all = '' ){
 			
-			echo wolbusinessdesk()->support_meta->get_priority_dropdown();
+			echo wolbusinessdesk()->support_meta->get_priority_dropdown( $all );
 		}
 	}
 	
@@ -89,28 +105,7 @@
 		}
 	}
 
-	
-	if (  ! function_exists( 'wol_support_archive_type_dropdown' ) ){
 		
-		/**
-		 * wol_support_archive_type_dropdown function.
-		 * 
-		 * @access public
-		 * @return void
-		 */
-		function wol_support_archive_type_dropdown(){
-			
-			echo wolbusinessdesk()->support_meta->get_type_dropdown();
-		}
-	}
-	
-	
-
-
-
-
-	
-	
 	
 	if (  ! function_exists( 'wol_support_status_name_meta' ) ){
 		

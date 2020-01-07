@@ -15,12 +15,12 @@
 					<div class="row input-group">
 						<div class="col-md-3 col-sm-4 col-sx-12">
 							<label for="type" class="wol-little-title"><?php _e( 'Type', 'wolbusinessdesk' ); ?></label><br />
-								<?php  wol_support_archive_type_dropdown(); ?>
+								<?php  wol_support_archive_type_dropdown( __( 'All', 'wolbusinessdesk' ) ); ?>
 						</div>
 						
 						<div class="col-md-3 col-sm-4 col-sx-12">
 							<label for="priority" class="wol-little-title"><?php _e( 'Priority', 'wolbusinessdesk' ); ?></label><br />
-								<?php echo wol_support_archive_priority_dropdown(); ?>
+								<?php echo wol_support_archive_priority_dropdown( __( 'All', 'wolbusinessdesk' ) ); ?>
 						</div>
 								
 						<div class="col-md-3 col-sm-4 col-sx-12">
@@ -60,7 +60,7 @@
 														
 							<div class="wol-status col-md-2 col-sm-2 col-xs-12">
 								
-								<span class="label label-default wol-status" style="background-color: <?php wol_support_status_color_meta(); ?>"><?php wol_support_status_name_meta(); ?></span>
+								<span class="label label-default wol-status" style="background-color: <?php wol_support_status_color_meta(); ?>; padding: 5px;"><?php wol_support_status_name_meta(); ?></span>
 								
 							</div>
 							

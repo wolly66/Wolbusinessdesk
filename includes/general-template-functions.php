@@ -148,20 +148,7 @@
 		}
 	}
 	
-	if (  ! function_exists( 'wol_new_task_nonce' ) ){
 		
-		/**
-		 * wol_new_task_nonce function.
-		 * 
-		 * @access public
-		 * @return echo page
-		 */
-		function wol_new_task_nonce(){
-			
-			wp_nonce_field( 'wol-crm_nonce_action', 'wol-crm_nonce_name' );
-		}
-	}
-	
 	if (  ! function_exists( 'wol_client_field' ) ){
 		
 		/**
@@ -202,6 +189,20 @@
 		function wol_add_cpt( $cpt = '' ){
 			
 			echo wolbusinessdesk()->template_wrapper->add_cpt( $cpt );
+		}
+	}
+	
+	if (  ! function_exists( 'wol_add_new_ticket' ) ){
+		
+		/**
+		 * wol_add_new_ticket function.
+		 * 
+		 * @access public
+		 * @return echo page
+		 */
+		function wol_add_new_ticket(){
+			
+			echo wolbusinessdesk()->template_wrapper->get_add_new_ticket_url();
 		}
 	}
 	
@@ -274,41 +275,28 @@
 			return wolbusinessdesk()->template_wrapper->get_cockpit_settings_query();
 		}
 	}
+	
+	if (  ! function_exists( 'wol_external_task_to_crm' ) ){
+		
+		/**
+		 * external_task_to_crm function.
+		 * 
+		 * @access public
+		 * @return echo close_form
+		 */ 
+		function external_task_to_crm( $args = '' ){
+			
+			return wolbusinessdesk()->template_wrapper->add_external_task_to_crm( $args );
+		}
+	}
+
 
 	/** 
 	 *
 	 * New Ticket Form template wrapper 
 	 *
 	 */
-	
-	if (  ! function_exists( 'wol_get_new_ticket_new_form' ) ){
 		
-		/**
-		 * wol_get_new_ticket_new_form function.
-		 * 
-		 * @access public
-		 * @return open form
-		 */
-		function wol_get_new_ticket_new_form(){
-			
-			return wolbusinessdesk()->new_support->new_form();
-		}
-	}
-	
-	if (  ! function_exists( 'wol_new_ticket_new_form' ) ){
-		
-		/**
-		 * wol_get_new_ticket_new_form function.
-		 * 
-		 * @access public
-		 * @return echo page
-		 */
-		function wol_new_ticket_new_form(){
-			
-			echo wol_get_new_ticket_new_form();
-		}
-	}
-	
 	if (  ! function_exists( 'wol_get_new_ticket_open_form' ) ){
 		
 		/**
@@ -617,6 +605,382 @@
 			echo wol_get_new_ticket_close_form();
 		}
 	}
+
+	/** 
+	 *
+	 * New CRM TASK Form template wrapper 
+	 *
+	 */
+		
+	if (  ! function_exists( 'wol_get_new_task_open_form' ) ){
+		
+		/**
+		 * wol_get_new_ticket_open_form function.
+		 * 
+		 * @access public
+		 * @return open form
+		 */
+		function wol_get_new_task_open_form(){
+			
+			return wolbusinessdesk()->new_task->open_form();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_new_new_task_open_form' ) ){
+		
+		/**
+		 * wol_new_new_task_open_form function.
+		 * 
+		 * @access public
+		 * @return echo page
+		 */
+		function wol_new_new_task_open_form(){
+			
+			echo wol_get_new_task_open_form();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_get_new_task_status' ) ){
+		
+		/**
+		 * wol_get_new_ticket_status function.
+		 * 
+		 * @access public
+		 * @return status dropdown
+		 */
+		function wol_get_new_task_status(){
+			
+			return wolbusinessdesk()->new_task->status();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_new_task_status' ) ){
+		
+		/**
+		 * wol_new_ticket_status function.
+		 * 
+		 * @access public
+		 * @return echo status dropdown
+		 */
+		function wol_new_task_status(){
+			
+			echo wol_get_new_task_status();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_get_new_task_type' ) ){
+		
+		/**
+		 * wol_get_new_task_type function.
+		 * 
+		 * @access public
+		 * @return status dropdown
+		 */
+		function wol_get_new_task_type(){
+			
+			return wolbusinessdesk()->new_task->type();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_new_task_type' ) ){
+		
+		/**
+		 * wol_new_task_type function.
+		 * 
+		 * @access public
+		 * @return echo status dropdown
+		 */
+		function wol_new_task_type(){
+			
+			echo wol_get_new_task_type();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_get_new_task_action' ) ){
+		
+		/**
+		 * wol_get_new_task_action function.
+		 * 
+		 * @access public
+		 * @return status dropdown
+		 */
+		function wol_get_new_task_action(){
+			
+			return wolbusinessdesk()->new_task->action();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_new_task_action' ) ){
+		
+		/**
+		 * wol_new_task_action function.
+		 * 
+		 * @access public
+		 * @return echo status dropdown
+		 */
+		function wol_new_task_action(){
+			
+			echo wol_get_new_task_action();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_get_new_task_title' ) ){
+		
+		/**
+		 * wol_get_new_task_title function.
+		 * 
+		 * @access public
+		 * @return title
+		 */
+		function wol_get_new_task_title(){
+			
+			return wolbusinessdesk()->new_task->title();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_new_task_title' ) ){
+		
+		/**
+		 * wol_new_task_title function.
+		 * 
+		 * @access public
+		 * @return echo title
+		 */
+		function wol_new_task_title(){
+			
+			echo wol_get_new_task_title();
+		}
+	}
+	
+	
+	if (  ! function_exists( 'wol_get_new_task_content' ) ){
+		
+		/**
+		 * wol_get_new_task_content function.
+		 * 
+		 * @access public
+		 * @return content
+		 */
+		function wol_get_new_task_content(){
+			
+			return wolbusinessdesk()->new_task->content();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_new_task_content' ) ){
+		
+		/**
+		 * wol_new_task_content function.
+		 * 
+		 * @access public
+		 * @return echo content
+		 */
+		function wol_new_task_content(){
+			
+			echo wol_get_new_task_content();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_get_new_task_due_date' ) ){
+		
+		/**
+		 * wol_get_new_task_due_date function.
+		 * 
+		 * @access public
+		 * @return content
+		 */
+		function wol_get_new_task_due_date(){
+			
+			return wolbusinessdesk()->new_task->due_date();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_new_task_due_date' ) ){
+		
+		/**
+		 * wol_new_task_due_date function.
+		 * 
+		 * @access public
+		 * @return echo content
+		 */
+		function wol_new_task_due_date(){
+			
+			echo wol_get_new_task_due_date();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_get_new_task_due_hour' ) ){
+		
+		/**
+		 * wol_get_new_task_due_hour function.
+		 * 
+		 * @access public
+		 * @return content
+		 */
+		function wol_get_new_task_due_hour(){
+			
+			return wolbusinessdesk()->new_task->due_hour();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_new_task_due_hour' ) ){
+		
+		/**
+		 * wol_new_task_due_hour function.
+		 * 
+		 * @access public
+		 * @return echo content
+		 */
+		function wol_new_task_due_hour(){
+			
+			echo wol_get_new_task_due_hour();
+		}
+	}
+	if (  ! function_exists( 'wol_get_new_task_due_minutes' ) ){
+		
+		/**
+		 * wol_get_new_task_due_minutes function.
+		 * 
+		 * @access public
+		 * @return content
+		 */
+		function wol_get_new_task_due_minutes(){
+			
+			return wolbusinessdesk()->new_task->due_minutes();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_new_task_due_minutes' ) ){
+		
+		/**
+		 * wol_new_task_due_minutes function.
+		 * 
+		 * @access public
+		 * @return echo content
+		 */
+		function wol_new_task_due_minutes(){
+			
+			echo wol_get_new_task_due_minutes();
+		}
+	}
+
+	
+	if (  ! function_exists( 'wol_get_new_task_submit' ) ){
+		
+		/**
+		 * wol_get_new_task_submit function.
+		 * 
+		 * @access public
+		 * @return submit
+		 */
+		function wol_get_new_task_submit(){
+			
+			return wolbusinessdesk()->new_task->submit();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_new_task_submit' ) ){
+		
+		/**
+		 * wol_new_task_submit function.
+		 * 
+		 * @access public
+		 * @return echo submit
+		 */
+		function wol_new_task_submit(){
+			
+			echo wol_get_new_task_submit();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_get_new_task_hidden' ) ){
+		
+		/**
+		 * wol_get_new_task_hidden function.
+		 * 
+		 * @access public
+		 * @return hidden
+		 */
+		function wol_get_new_task_hidden(){
+			
+			return wolbusinessdesk()->new_task->hidden();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_new_task_hidden' ) ){
+		
+		/**
+		 * wol_new_task_hidden function.
+		 * 
+		 * @access public
+		 * @return echo hidden
+		 */
+		function wol_new_task_hidden(){
+			
+			echo wol_get_new_task_hidden();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_get_new_task_nonce' ) ){
+		
+		/**
+		 * wol_get_new_task_nonce function.
+		 * 
+		 * @access public
+		 * @return nonce
+		 */
+		function wol_get_new_task_nonce(){
+			
+			return wolbusinessdesk()->new_task->nonce();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_new_task_nonce' ) ){
+		
+		/**
+		 * wol_new_task_nonce function.
+		 * 
+		 * @access public
+		 * @return echo nonce
+		 */
+		function wol_new_task_nonce(){
+			
+			echo wol_get_new_task_nonce();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_get_new_task_close_form' ) ){
+		
+		/**
+		 * wol_get_new_task_close_form function.
+		 * 
+		 * @access public
+		 * @return close_form
+		 */
+		function wol_get_new_task_close_form(){
+			
+			return wolbusinessdesk()->new_task->close_form();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_new_task_close_form' ) ){
+		
+		/**
+		 * wol_new_task_close_form function.
+		 * 
+		 * @access public
+		 * @return echo close_form
+		 */
+		function wol_new_task_close_form(){
+			
+			echo wol_get_new_task_close_form();
+		}
+	}
+	
+	
+
+
+
 
 
 
