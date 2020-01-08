@@ -232,14 +232,14 @@ if ( ! class_exists( 'Wolbusinessdesk' ) ) {
 		var $support_term_meta;
 		 	  
 		/**
-		 * support_meta
+		 * ticket_meta
 		 * 
 		 *
 		 * @since  1.0
 		 * @var mixed
 		 * @access public
 		 */
-		var $support_meta; 
+		var $ticket_meta; 
 					
 		/**
 		 * new_support
@@ -264,6 +264,7 @@ if ( ! class_exists( 'Wolbusinessdesk' ) ) {
 		/**
 		 * is
 		 * 
+		 * @since 1.0
 		 * @var mixed
 		 * @access public
 		 */
@@ -272,10 +273,47 @@ if ( ! class_exists( 'Wolbusinessdesk' ) ) {
 		/**
 		 * new_task
 		 * 
+		 * @since 1.0
 		 * @var mixed
 		 * @access public
 		 */
-		var $new_task;			
+		var $new_task;		
+		
+		/**
+		 * crm_helper_functions
+		 * 
+		 * @since 1.0
+		 * @var mixed
+		 * @access public
+		 */
+		var $crm_helper_functions;
+		
+		/**
+		 * crm_template_wrapper
+		 * 
+		 * @since 1.0
+		 * @var mixed
+		 * @access public
+		 */
+		var $crm_template_wrapper;	
+		
+		/**
+		 * ticket_helper_functions
+		 * 
+		 * @since 1.0
+		 * @var mixed
+		 * @access public
+		 */
+		var $ticket_helper_functions;
+		
+		/**
+		 * crm_meta
+		 * 
+		 * @since 1.0
+		 * @var mixed
+		 * @access public
+		 */
+		var $crm_meta;
 
 
 	
@@ -305,7 +343,6 @@ if ( ! class_exists( 'Wolbusinessdesk' ) ) {
 						'wolbusinessdesk',
 						'below_php_version_notice'
 					) );
-
 					return self::$instance;
 
 				}
@@ -454,41 +491,41 @@ if ( ! class_exists( 'Wolbusinessdesk' ) ) {
 				define( 'WOLBUSINESSDESK_PLUGIN_SLUG', basename( dirname( __FILE__ ) ) );
 			}
 			
-			// Plugin Slug
+			// Roles version 
 			if ( ! defined( 'WOLBUSINESSDESK_ROLES_VERSION' ) ) {
 				define( 'WOLBUSINESSDESK_ROLES_VERSION', '1.0.8' );
 			}
 			
-			// Plugin Slug
+			// Roles version option name
 			if ( ! defined( 'WOLBUSINESSDESK_ROLES_VERSION_OPTION_NAME' ) ) {
 				define( 'WOLBUSINESSDESK_ROLES_VERSION_OPTION_NAME', 'wol-roles-version' );
 			}
 			
-			// Plugin base option name
+			// Base option name
 			if ( ! defined( 'WOLBUSINESSDESK_BASE_OPTION_NAME' ) ) {
 				define( 'WOLBUSINESSDESK_BASE_OPTION_NAME', 'wol-base-option' );
 			}
-			// Plugin support option name
+			// Support option name
 			if ( ! defined( 'WOLBUSINESSDESK_SUPPORT_OPTION_NAME' ) ) {
 				define( 'WOLBUSINESSDESK_SUPPORT_OPTION_NAME', 'wol-support-option' );
 			}
 			
-			// Plugin support option name
+			// Document option name
 			if ( ! defined( 'WOLBUSINESSDESK_DOCUMENT_OPTION_NAME' ) ) {
 				define( 'WOLBUSINESSDESK_DOCUMENT_OPTION_NAME', 'wol-documents-option' );
 			}
 			
-			// Plugin support option name
+			// Crm option name
 			if ( ! defined( 'WOLBUSINESSDESK_CRM_OPTION_NAME' ) ) {
 				define( 'WOLBUSINESSDESK_CRM_OPTION_NAME', 'wol-crm-option' );
 			}
 			
-			// Plugin support option name
+			// Pages option name
 			if ( ! defined( 'WOLBUSINESSDESK_PAGES_OPTION_NAME' ) ) {
 				define( 'WOLBUSINESSDESK_PAGES_OPTION_NAME', 'wol-pages-option' );
 			}
 			
-			// Plugin support option name
+			// Company info option name
 			if ( ! defined( 'WOLBUSINESSDESK_COMPANY_INFO_OPTION_NAME' ) ) {
 				define( 'WOLBUSINESSDESK_COMPANY_INFO_OPTION_NAME', 'wol-company-info-option' );
 			}
@@ -587,7 +624,7 @@ if ( ! class_exists( 'Wolbusinessdesk' ) ) {
 			// Admin only used class
 			if ( is_admin() ) {
 				
-				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/documents/class-metaboxes.php';
+				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/documents/class-document-metaboxes.php';
 				
 			} else {
 					
@@ -601,30 +638,45 @@ if ( ! class_exists( 'Wolbusinessdesk' ) ) {
 			// Include support class
 			
 				
-			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/support/class-check.php';
+			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/support/class-ticket-check.php';
 			
 			// Admin only used class
 			if ( is_admin() ) {
 				
-				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/support/class-term-meta.php';
+				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/support/class-ticket-term-meta.php';
 				
 			} else {
-					
-				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/support/class-support-meta.php';
-				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/support/template-functions.php';
-				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/support/class-insert-support-front-end.php';
-				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/support/class-reply-loop.php';
+				// Classes	
+				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/support/class-ticket-meta.php';
+				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/support/class-ticket-insert-front-end.php';
+				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/support/class-ticket-reply-loop.php';
+				// Functions
+				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/support/wol-ticket-template-functions.php';
 			}
-					
-			// Include crm class
 			
+			// Classes
+			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/support/class-ticket-helper-functions.php';
+			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/support/class-ticket-template-wrapper.php';
+			// Functions
+			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/support/wol-ticket-helper-functions.php';
+			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/support/wol-ticket-template-functions.php';		
+			
+			
+			// Include crm class
 			if ( is_admin() ) {
 				
 				
 			} else {
-				
-				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/crm/class-insert-crm-front-end.php';
+				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/crm/class-crm-meta.php';
+				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/crm/class-crm-insert-front-end.php';
 			}
+			// Classes
+			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/crm/class-crm-helper-functions.php';
+			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/crm/class-crm-template-wrapper.php';
+			
+			// Functions
+			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/crm/wol-crm-helper-functions.php';
+			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/crm/wol-crm-template-functions.php';
 							
 		}
 
@@ -693,11 +745,11 @@ if ( ! class_exists( 'Wolbusinessdesk' ) ) {
 				
 			} else {
 					
-				self::$instance->support_meta 			= new Wolbusinessdesk_Support_Meta();
+				self::$instance->ticket_meta 			= new Wolbusinessdesk_Support_Meta();
 				self::$instance->new_support 			= new Wolbusinessdesk_Support_New_Ticket();
 				self::$instance->support_reply_loop 	= new Wolbusinessdesk_Support_Reply_Loop();
 			}
-			
+			self::$instance->ticket_helper_functions 	= new Wolbusinessdesk_Ticket_Helper_functions();
 			//instance of CRM
 			
 			//self::$instance->support_check = new Wolbusinessdesk_Support_Check();
@@ -709,13 +761,14 @@ if ( ! class_exists( 'Wolbusinessdesk' ) ) {
 				
 			} else {
 					
-				//self::$instance->support_meta 			= new Wolbusinessdesk_Support_Meta();
+				self::$instance->crm_meta 			= new Wolbusinessdesk_Crm_Meta();
 				self::$instance->new_task 			= new Wolbusinessdesk_Crm_New_Task();
 				//self::$instance->support_reply_loop 	= new Wolbusinessdesk_Support_Reply_Loop();
 			}
 			
+			self::$instance->crm_template_wrapper 	= new Wolbusinessdesk_Crm_Template_Wrappers();
+			self::$instance->crm_helper_functions 	= new Wolbusinessdesk_Crm_Helper_functions();
 			
-							
 			self::$instance->updater();
 			
 			
@@ -1042,6 +1095,41 @@ if ( ! class_exists( 'Wolbusinessdesk' ) ) {
     	        	}
 			
 				}
+				
+				/**
+				 * CRM templates
+				 *
+				 * @since 1.0
+				 *
+				 */
+				
+				if ( is_post_type_archive( 'wol-crm' ) ){
+		        
+		        	if ( ! file_exists( $theme . '/wolbusinessdesk-templates/crm/archive-wol-crm.php' ) ){
+    	    
+						return WOLBUSINESSDESK_PLUGIN_PATH . '/wolbusinessdesk-templates/crm/archive-wol-crm.php';
+    	        
+    	        		} else {
+		        
+							return $theme . '/wolbusinessdesk-templates/crm/archive-wol-crm.php';
+    	        	}
+    	        
+    	    	}
+    	    	
+				if ( is_singular(  'wol-crm' ) ){
+		        	
+					if ( ! file_exists( $theme . '/wolbusinessdesk-templates/crm/single-wol-crm.php' ) ){
+					
+						return WOLBUSINESSDESK_PLUGIN_PATH . '/wolbusinessdesk-templates/crm/single-wol-crm.php';
+					
+    	        		} else {
+		        			
+		        			return $theme . '/wolbusinessdesk-templates/crm/single-wol-crm.php';
+		        		
+    	        	}
+			
+				}
+
 						
 			} // ! is_admin
     	    
@@ -1520,10 +1608,10 @@ if ( ! class_exists( 'Wolbusinessdesk' ) ) {
  * @since 1.0
  * @return wolbusinessdesk The one true wolbusinessdesk Instance
  */
-function wolbusinessdesk() {
+function wol() {
 	
 	return Wolbusinessdesk::instance();
 }
 
-wolbusinessdesk();
+wol();
 

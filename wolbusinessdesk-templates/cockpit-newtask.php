@@ -2,10 +2,7 @@
 		<?php $user_data	= get_userdata( get_current_user_id() ); ?>
 		<?php $company		= get_user_meta( $user_data->ID, 'company_associata', true ); ?>
 		
-		<?php wol_add_cpt( 'wol-crm' ); 
-			
-			external_task_to_crm();
-		?>
+		<?php wol_add_cpt( 'wol-crm' ); ?>
 		<div class="row">
 			<div class="col-md-12 inex-user-name">
 				<h2><?php _e( 'Add new task', 'wolbusinessdesk' ); ?></h2>

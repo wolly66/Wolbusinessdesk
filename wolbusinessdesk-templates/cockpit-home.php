@@ -45,7 +45,7 @@ if ($postType) {
 				
 				<span class="wol-little-title"><?php _e( 'Nr: ', 'wolbusinessdesk' ); ?></span><br />
 				
-					<?php wol_support_ticket_number(); ?>
+					<?php wol_ticket_ticket_number(); ?>
 			
 			</div>
 			
@@ -53,42 +53,42 @@ if ($postType) {
 				
 			    		<span class="wol-little-title"><?php _e( 'Agent: ', 'wolbusinessdesk' ); ?></span>
 			    		
-						<?php wol_support_owner_list_meta(); ?>
+						<?php wol_ticket_owner_list_meta(); ?>
 			</div>
 			
 			<div class="col-md-2 col-sm-2 col-xs-12 wol-last-reply-date">
 				
 			    		<span class="wol-little-title"><?php _e( 'Last reply Date: ', 'wolbusinessdesk' ); ?></span>
 			    		
-						<?php wol_support_ticket_last_reply_date(); ?>
+						<?php wol_ticket_ticket_last_reply_date(); ?>
 			</div>
 			
 			<div class="col-md-2 col-sm-2 col-xs-12 wol-last-reply-author">
 				
 			   	 	<span class="wol-little-title"><?php _e( 'Last reply Author: ', 'wolbusinessdesk' ); ?></span>
 			   	 	
-			   	 	<?php wol_support_ticket_last_reply_author(); ?>
+			   	 	<?php wol_ticket_ticket_last_reply_author(); ?>
 			</div>
 			
 			<div class="col-md-2 col-sm-2 col-xs-12 wol-ticket-age">
 			    
 			    		<span class="wol-little-title"><?php _e( 'Age: ', 'wolbusinessdesk' ); ?></span>
 				
-						<?php wol_support_ticket_age(); ?>
+						<?php wol_ticket_ticket_age(); ?>
 			</div>
 			
 			<div class="col-md-2 col-sm-2 col-xs-12 wol-reply-number">
 			    
 			    		<span class="wol-little-title"><?php _e( 'Nr. Replies: ', 'wolbusinessdesk' ); ?></span>
 						
-						<?php wol_support_ticket_reply_number(); ?>
+						<?php wol_ticket_ticket_reply_number(); ?>
 			</div>
 			
 			<div class="col-md-1 col-sm-2 col-xs-12 wol-type">
 				
 				<span class="wol-little-title"><?php _e( 'Type: ', 'wolbusinessdesk' ); ?></span>
 					
-					<?php wol_support_type_meta(); ?>
+					<?php wol_ticket_type_meta(); ?>
 			
 			</div>
 			
@@ -96,7 +96,7 @@ if ($postType) {
 				
 				<span class="wol-little-title"><?php _e( 'Priority: ', 'wolbusinessdesk' ); ?></span>
 				
-					<?php wol_support_priority_meta(); ?>
+					<?php wol_ticket_priority_meta(); ?>
 			
 			</div>
 		

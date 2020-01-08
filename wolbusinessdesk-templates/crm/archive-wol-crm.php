@@ -10,23 +10,23 @@
 				
 				<form id="wol_frontend_support_fiter_form" action="<?php get_the_permalink() ?>" method="post">
 					
-					<?php wol_ticket_archive_nonce(); ?>
+					<?php wol_crm_archive_nonce(); ?>
 						
 					<div class="row input-group">
 						<div class="col-md-3 col-sm-4 col-sx-12">
 							<label for="type" class="wol-little-title"><?php _e( 'Type', 'wolbusinessdesk' ); ?></label><br />
-								<?php  wol_ticket_archive_type_dropdown( __( 'All', 'wolbusinessdesk' ) ); ?>
+								<?php  wol_crm_archive_type_dropdown( __( 'All', 'wolbusinessdesk' ) ); ?>
 						</div>
 						
 						<div class="col-md-3 col-sm-4 col-sx-12">
 							<label for="priority" class="wol-little-title"><?php _e( 'Priority', 'wolbusinessdesk' ); ?></label><br />
-								<?php echo wol_ticket_archive_priority_dropdown( __( 'All', 'wolbusinessdesk' ) ); ?>
+								<?php echo wol_crm_archive_priority_dropdown( __( 'All', 'wolbusinessdesk' ) ); ?>
 						</div>
 								
 						<div class="col-md-3 col-sm-4 col-sx-12">
 							<label for="status" class="wol-little-title"><?php _e( 'Status', 'wolbusinessdesk' ); ?></label><br />
-								<?php echo wol_ticket_archive_status_operator_dropdown(); ?>
-								<?php echo wol_ticket_archive_status_dropdown(); ?>
+								<?php echo wol_crm_archive_status_operator_dropdown(); ?>
+								<?php echo wol_crm_archive_status_dropdown(); ?>
 						</div>
 						
 						<div class="col-md-3 col-sm-4 col-sx-12">
@@ -60,19 +60,20 @@
 														
 							<div class="wol-status col-md-2 col-sm-2 col-xs-12">
 								
-								<span class="label label-default wol-status" style="background-color: <?php wol_ticket_status_color_meta(); ?>; padding: 5px;"><?php wol_ticket_status_name_meta(); ?></span>
-								
+								<span class="label label-default wol-status" style="background-color: <?php wol_crm_status_color_meta(); ?>; padding: 5px;"><?php wol_crm_status_name_meta(); ?></span>
+								<?php wol_crm_original_type(); ?>
 							</div>
 							
 							<div class="wol-title col-md-6 col-sm-6 col-xs-12">
-								
-								<a href="<?php the_permalink() ?>"><?php the_title(); ?></a>
+
+								<?php wol_crm_the_title(); ?>
+								<?php wol_crm_due_date(); ?>
 								
 							</div>
 							
 							<div class="wol-ticket-author col-md-4">
 								
-								<?php _e( 'Ticket Author: ', 'wolbusinessdesk' ); ?>
+								<?php _e( 'Task Author: ', 'wolbusinessdesk' ); ?>
 								<?php the_author(); ?>
 								<?php _e( 'On: ', 'wolbusinessdesk' ); ?>
 								<?php the_date(); ?>
@@ -90,7 +91,7 @@
 								
 								<span class="wol-little-title"><?php _e( 'Nr: ', 'wolbusinessdesk' ); ?></span><br />
 								
-									<?php wol_ticket_ticket_number(); ?>
+									<?php wol_crm_crm_number(); ?>
 							
 							</div>
 							
@@ -98,42 +99,42 @@
 								
 				  	    	    		<span class="wol-little-title"><?php _e( 'Agent: ', 'wolbusinessdesk' ); ?></span>
 				  	    	    		
-				  						<?php wol_ticket_owner_list_meta(); ?>
+				  						<?php // ! TODO REMOVE wol_crm_owner_list_meta(); ?>
 							</div>
 							
 							<div class="col-md-2 col-sm-2 col-xs-12 wol-last-reply-date">
 								
 				  	    	    		<span class="wol-little-title"><?php _e( 'Last reply Date: ', 'wolbusinessdesk' ); ?></span>
 				  	    	    		
-				  						<?php wol_ticket_ticket_last_reply_date(); ?>
+				  						<?php wol_crm_crm_last_reply_date(); ?>
 							</div>
 							
 							<div class="col-md-2 col-sm-2 col-xs-12 wol-last-reply-author">
 								
 				  	    	   	 	<span class="wol-little-title"><?php _e( 'Last reply Author: ', 'wolbusinessdesk' ); ?></span>
 				  			   	 	
-				  			   	 	<?php wol_ticket_ticket_last_reply_author(); ?>
+				  			   	 	<?php wol_crm_crm_last_reply_author(); ?>
 							</div>
 							
 							<div class="col-md-2 col-sm-2 col-xs-12 wol-ticket-age">
 				  	    	    
 				  	    	    		<span class="wol-little-title"><?php _e( 'Age: ', 'wolbusinessdesk' ); ?></span>
 				  				
-				  						<?php wol_ticket_ticket_age(); ?>
+				  						<?php wol_crm_crm_age(); ?>
 							</div>
 							
 							<div class="col-md-2 col-sm-2 col-xs-12 wol-reply-number">
 				  	    	    
 				  	    	    		<span class="wol-little-title"><?php _e( 'Nr. Replies: ', 'wolbusinessdesk' ); ?></span>
 				  						
-				  						<?php wol_ticket_ticket_reply_number(); ?>
+				  						<?php wol_crm_crm_reply_number(); ?>
 							</div>
 							
 							<div class="col-md-1 col-sm-2 col-xs-12 wol-type">
 								
 								<span class="wol-little-title"><?php _e( 'Type: ', 'wolbusinessdesk' ); ?></span>
 									
-									<?php wol_ticket_type_meta(); ?>
+									<?php wol_crm_type_meta(); ?>
 							
 							</div>
 							
@@ -141,7 +142,7 @@
 								
 								<span class="wol-little-title"><?php _e( 'Priority: ', 'wolbusinessdesk' ); ?></span>
 								
-									<?php wol_ticket_priority_meta(); ?>
+									<?php //wol_crm_priority_meta(); ?>
 							
 							</div>
 						
@@ -153,7 +154,7 @@
               
             	<?php endwhile;
 	            	
-	            	wol_ticket_archive_navigation();
+	            	wol_crm_archive_navigation();
 				
 			endif;
 		?>

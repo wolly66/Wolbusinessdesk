@@ -210,9 +210,9 @@ class Wolbusinessdesk_Autocomplete_Documents {
 
 		$rel_id = $_REQUEST['rel_id'];
 		
-		$all_data = wolbusinessdesk()->relationship->get( $rel_id );
+		$all_data = wol()->relationship->get( $rel_id );
 		
-		$result   = wolbusinessdesk()->relationship->delete( $rel_id );
+		$result   = wol()->relationship->delete( $rel_id );
 
 		if ( FALSE == $result ) {
 

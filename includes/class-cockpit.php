@@ -129,7 +129,7 @@ if ( ! class_exists( 'Wolbusinessdesk_Cockpit' ) ){
 		 */
 		private function find_sub_page(){
 			
-			$endpoints = wolbusinessdesk()->endpoints->return_end_points();
+			$endpoints = wol()->endpoints->return_end_points();
 			
 			global $wp_query;
 			
@@ -499,9 +499,9 @@ if ( ! class_exists( 'Wolbusinessdesk_Cockpit' ) ){
 		 */
 		private function menu_items(){
 			
-			$permalinks = wolbusinessdesk()->get_pages_permalink();
+			$permalinks = wol()->get_pages_permalink();
 			
-			$endpoints = wolbusinessdesk()->endpoints->return_end_points();
+			$endpoints = wol()->endpoints->return_end_points();
 			
 			
 			if ( ! empty( $permalinks['id_front_end_admin'] ) ){

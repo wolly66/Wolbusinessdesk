@@ -114,7 +114,7 @@ if ( ! class_exists( 'Wolbusinessdesk_Client_Document' ) ){
 			'title' => __( 'Std Document', 'wollyplugin' ),
 		);
 
-		echo wolbusinessdesk()->relationship->generate_single_relationship_code( $args );
+		echo wol()->relationship->generate_single_relationship_code( $args );
 		
 		
 		$args_clients = array(
@@ -123,7 +123,7 @@ if ( ! class_exists( 'Wolbusinessdesk_Client_Document' ) ){
 			'title' => __( 'Client', 'wollyplugin' ),
 		);
 
-		echo wolbusinessdesk()->relationship->generate_single_relationship_code( $args_clients ); ?></p>
+		echo wol()->relationship->generate_single_relationship_code( $args_clients ); ?></p>
 		<?php // We'll use this nonce field later on when saving.
     wp_nonce_field( 'document_to_std_client_nonce', 'document_to_std_client_nonce' );
 
@@ -385,7 +385,7 @@ if ( ! class_exists( 'Wolbusinessdesk_Client_Document' ) ){
 							'to_id'   => $_POST['rel_wol-document']['to_id'],
 						);
 					
-						wolbusinessdesk()->relationship->set_relationship( $args );
+						wol()->relationship->set_relationship( $args );
 					}
 					
 					if ( ! empty( $_POST['rel_wl-client']['to_id'] ) && is_numeric( $_POST['rel_wl-client']['to_id'] ) ){
@@ -403,7 +403,7 @@ if ( ! class_exists( 'Wolbusinessdesk_Client_Document' ) ){
 							'to_id'   => $_POST['rel_wl-client']['to_id'],
 						);
 					
-						wolbusinessdesk()->relationship->set_relationship( $args );
+						wol()->relationship->set_relationship( $args );
 						
 					}
 
@@ -552,7 +552,7 @@ if ( ! class_exists( 'Wolbusinessdesk_Client_Document' ) ){
 						
 					);
 
-			$document = wolbusinessdesk()->relationship->get_related_cpt( $args_document );
+			$document = wol()->relationship->get_related_cpt( $args_document );
 			
 			return $document;
 			
@@ -569,7 +569,7 @@ if ( ! class_exists( 'Wolbusinessdesk_Client_Document' ) ){
 						
 					);
 
-			$client = wolbusinessdesk()->relationship->get_related_cpt( $args_clients );
+			$client = wol()->relationship->get_related_cpt( $args_clients );
 			
 			return $client;
 		}

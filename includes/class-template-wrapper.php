@@ -10,23 +10,8 @@ if ( ! class_exists( 'Wolbusinessdesk_Template_Wrapper' ) ){
 	 * Wolbusinessdesk_Template_Wrapper class.
 	 */
 	class Wolbusinessdesk_Template_Wrapper{
-		
-		var $allowed_cpt;
-		
-		public function __construct(){
 			
-			$this->allowed_cpt = $this->allowed_cpt();
-		}		
 		
-		public static function allowed_cpt(){
-			
-			$cpt = array(
-				'wol-ticket' 			=> 'support',
-				'wol-client-document'	=> 'documents',
-			);
-			
-			return $cpt;
-		}
 		/**
 		 * add_client_document function.
 		 * 
@@ -53,7 +38,7 @@ if ( ! class_exists( 'Wolbusinessdesk_Template_Wrapper' ) ){
 		 */
 		public function get_template_part( $name, $template_part ){
 			
-			$template = wolbusinessdesk()->template_loader->get_template_part( $name, $template_part );
+			$template = wol()->template_loader->get_template_part( $name, $template_part );
 			
 			return $template;
 			
@@ -67,7 +52,7 @@ if ( ! class_exists( 'Wolbusinessdesk_Template_Wrapper' ) ){
 		 */
 		public function get_sidebar_cockpit_menu(){
 			
-			$menu_items = wolbusinessdesk()->cockpit->get_menus();
+			$menu_items = wol()->cockpit->get_menus();
 			
 			return $menu_items;
 			
@@ -106,12 +91,12 @@ if ( ! class_exists( 'Wolbusinessdesk_Template_Wrapper' ) ){
 			/**
 			 * page
 			 * 
-			 * (default value: wolbusinessdesk()->cockpit->get_page())
+			 * (default value: wol()->cockpit->get_page())
 			 * 
 			 * @var mixed
 			 * @access public
 			 */
-			$page = wolbusinessdesk()->cockpit->get_page();
+			$page = wol()->cockpit->get_page();
 			
 			return $page;
 		
@@ -139,12 +124,12 @@ if ( ! class_exists( 'Wolbusinessdesk_Template_Wrapper' ) ){
 			/**
 			 * client_fields
 			 * 
-			 * (default value: wolbusinessdesk()->company_info->client_fields())
+			 * (default value: wol()->company_info->client_fields())
 			 * 
 			 * @var mixed
 			 * @access public
 			 */
-			$client_fields = wolbusinessdesk()->company_info->client_fields();
+			$client_fields = wol()->company_info->client_fields();
 			
 			/**
 			 * html
@@ -332,12 +317,12 @@ if ( ! class_exists( 'Wolbusinessdesk_Template_Wrapper' ) ){
 			/**
 			 * pages_permalink
 			 * 
-			 * (default value: wolbusinessdesk()->get_pages_permalink())
+			 * (default value: wol()->get_pages_permalink())
 			 * 
 			 * @var mixed
 			 * @access public
 			 */
-			$pages_permalink = wolbusinessdesk()->get_pages_permalink();
+			$pages_permalink = wol()->get_pages_permalink();
 			
 			/**
 			 * add_client_url
@@ -386,12 +371,12 @@ if ( ! class_exists( 'Wolbusinessdesk_Template_Wrapper' ) ){
 			/**
 			 * pages_permalink
 			 * 
-			 * (default value: wolbusinessdesk()->get_pages_permalink())
+			 * (default value: wol()->get_pages_permalink())
 			 * 
 			 * @var mixed
 			 * @access public
 			 */
-			$pages_permalink = wolbusinessdesk()->get_pages_permalink();
+			$pages_permalink = wol()->get_pages_permalink();
 			
 			/**
 			 * add_client_url
@@ -441,12 +426,12 @@ if ( ! class_exists( 'Wolbusinessdesk_Template_Wrapper' ) ){
 			/**
 			 * pages_permalink
 			 * 
-			 * (default value: wolbusinessdesk()->get_pages_permalink())
+			 * (default value: wol()->get_pages_permalink())
 			 * 
 			 * @var mixed
 			 * @access public
 			 */
-			$pages_permalink = wolbusinessdesk()->get_pages_permalink();
+			$pages_permalink = wol()->get_pages_permalink();
 			
 			/**
 			 * add_task_url
@@ -498,12 +483,12 @@ if ( ! class_exists( 'Wolbusinessdesk_Template_Wrapper' ) ){
 			/**
 			 * pages_permalink
 			 * 
-			 * (default value: wolbusinessdesk()->get_pages_permalink())
+			 * (default value: wol()->get_pages_permalink())
 			 * 
 			 * @var mixed
 			 * @access public
 			 */
-			$pages_permalink = wolbusinessdesk()->get_pages_permalink();
+			$pages_permalink = wol()->get_pages_permalink();
 			
 			/**
 			 * add_client_document_url
@@ -534,97 +519,7 @@ if ( ! class_exists( 'Wolbusinessdesk_Template_Wrapper' ) ){
 			
 		}
 		
-		public function add_external_task_to_crm( $args = '' ){
-			
-			if ( 
-				empty( $args )
-				|| ! is_numeric( $args['id'] )
-				|| 0 >= $args['id']
-				|| ! array_key_exists( $args['cpt'], $this->allowed_cpt )
-				|| empty( $args['title'] )
-				|| ! is_numeric( $args['status'] )
-				|| 0 >= $args['status'] 
-				){
-				
-				return FALSE;
-				
-			} else {
-			
-				$defaults = array(
-					'id'    	=> '',
-					'title' 	=> '',
-					'cpt' 		=> '',
-					'status' 	=> '',
-					
-				);
-				
-				//Parse the passed argument in an array combining with $defaults values
-				$args = wp_parse_args( $args, $defaults );
-				$crm_options = get_option( WOLBUSINESSDESK_CRM_OPTION_NAME );			
-				$crm_open_status = $crm_options['crm_opening_status'];
-				
-				$tax_input = array();
-				
-				$tax_input['wol-crm-status']  =  array( (int)$crm_options['crm_opening_status'] );
-	
-				
-	
 
-			
-				$meta_input = array();
-				
-				if ( 
-					isset( $_POST['due_date'] )
-					&& ! empty( $_POST['due_date'] )
-					){
-						$date = new DateTime( $_POST['due_date'] );
-						$mysql_date = $date->format('Y-m-d H:i:s');
-						$meta_input['wol_due_date'] = $mysql_date;
-						
-				} 
-				
-				$meta_input['wol_orginal_source_id'] = $args['id'];
-				$meta_input['wol_orginal_type'] = $this->allowed_cpt[$args['cpt']];
-				
-				// Add the content of the form to $post as an array 
-				$post = array(
-					'post_title' 		=> wp_strip_all_tags( $args['title'] ),
-					//'post_content' 		=> $_POST['wol_description'],
-					'post_status' 		=> 'publish',           // Choose: publish, preview, future, etc.
-					'post_type' 		=> 'wol-crm',  // Use a custom post type if you want to
-					'comment_status' 	=> 'closed',
-					'ping_status' 		=> 'closed',
-					'tax_input'			=> $tax_input,
-					'meta_input'		=> $meta_input,
-				);
-				
-				$new_crm_id 	= wp_insert_post( $post );  // http://codex.wordpress.org/Function_Reference/wp_insert_post
-				
-				update_post_meta( $args['id'], 'wol_crm_id', $new_crm_id );
-								
-				// ! TODO crm NUMERATION LOGIC
-				//Add crm number
-				$wol_crm_numerator = get_option('wol-crm-numerator');
-				
-				if ( ! $wol_crm_numerator ){
-				
-					$wol_crm_numerator = 0;
-				}
-				
-				$wol_crm_numerator = $wol_crm_numerator + 1;
-				
-				update_option('wol-crm-numerator', $wol_crm_numerator );
-				
-				//$new_crm_number = date( 'ymd', time() ) . '-' .  str_pad( $wol_crm_numerator, 6, "0", STR_PAD_LEFT );
-				$new_crm_number = $wol_crm_numerator;
-				update_post_meta( $new_crm_id, 'wol_crm_number', $new_crm_number );
-				// end add tickt number
-
-			
-			}
-			
-			
-		}
 	}// END CLASS
 	
 }// END IF CLASS EXISTS

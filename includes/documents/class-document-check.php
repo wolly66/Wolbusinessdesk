@@ -125,7 +125,7 @@ if ( ! class_exists( 'Wolbusinessdesk_Document_Check' ) ){
 						
 					);
 
-					$client = wolbusinessdesk()->relationship->get_related_cpt( $args_clients );
+					$client = wol()->relationship->get_related_cpt( $args_clients );
 					
 					
 					// ! TODO DEBUG DA RIMUOVERE

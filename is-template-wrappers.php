@@ -25,7 +25,7 @@ if ( ! function_exists( 'is_wol_can_access_cockpit' ) ){
 	 */
 	function is_wol_can_access_cockpit(){
 		
-		return wolbusinessdesk()->is->can_access_cockpit();
+		return wol()->is->can_access_cockpit();
 	}
 	
 }
@@ -42,7 +42,7 @@ if ( ! function_exists( 'is_wol_administrator' ) ){
 	 */
 	function is_wol_administrator(){
 		
-		return wolbusinessdesk()->is->is_administrator();
+		return wol()->is->is_administrator();
 	}
 	
 }
@@ -58,7 +58,7 @@ if ( ! function_exists( 'is_wol_wolbusinessdesk_administrator' ) ){
 	 */
 	function is_wol_wolbusinessdesk_administrator(){
 		
-		return wolbusinessdesk()->is->is_wolbusinessdesk_administrator();
+		return wol()->is->is_wolbusinessdesk_administrator();
 	}
 	
 }
@@ -74,7 +74,7 @@ if ( ! function_exists( 'is_wol_ticket_administrator' ) ){
 	 */
 	function is_wol_ticket_administrator(){
 		
-		return wolbusinessdesk()->is->is_ticket_administrator();
+		return wol()->is->is_ticket_administrator();
 	}
 	
 }
@@ -90,7 +90,7 @@ if ( ! function_exists( 'is_wol_crm_administrator' ) ){
 	 */
 	function is_wol_crm_administrator(){
 		
-		return wolbusinessdesk()->is->is_crm_administrator();
+		return wol()->is->is_crm_administrator();
 	}
 	
 }
@@ -106,7 +106,7 @@ if ( ! function_exists( 'is_wol_client_administrator' ) ){
 	 */
 	function is_wol_client_administrator(){
 		
-		return wolbusinessdesk()->is->is_client_administrator();
+		return wol()->is->is_client_administrator();
 	}
 	
 }
@@ -124,7 +124,7 @@ if ( ! function_exists( 'is_wol_user_creator' ) ){
 	 */
 	function is_wol_user_creator(){
 		
-		return wolbusinessdesk()->is->is_user_creator();
+		return wol()->is->is_user_creator();
 	}
 	
 }
@@ -141,7 +141,7 @@ if ( ! function_exists( 'is_wol_agent' ) ){
 	 */
 	function is_wol_agent( $user = '' ){
 		
-		return wolbusinessdesk()->is->is_agent( $user );
+		return wol()->is->is_agent( $user );
 	}
 	
 }
@@ -158,7 +158,7 @@ if ( ! function_exists( 'is_wol_super_agent' ) ){
 	 */
 	function is_wol_super_agent( $user = '' ){
 		
-		return wolbusinessdesk()->is->is_super_agent( $user );
+		return wol()->is->is_super_agent( $user );
 	}
 	
 }
@@ -175,7 +175,7 @@ if ( ! function_exists( 'is_wol_ticket_open' ) ){
 	 */
 	function is_wol_ticket_open( $ticket_id = 0 ){
 		
-		return wolbusinessdesk()->is->is_ticket_open( $ticket_id );
+		return wol()->is->is_ticket_open( $ticket_id );
 	}
 	
 }
@@ -191,7 +191,7 @@ if ( ! function_exists( 'is_wol_can_open_ticket' ) ){
 	 */
 	function is_wol_can_open_ticket(){
 		
-		return wolbusinessdesk()->is->can_open_ticket();
+		return wol()->is->can_open_ticket();
 	}
 	
 }
@@ -208,7 +208,7 @@ if ( ! function_exists( 'is_wol_can_reply_to_ticket' ) ){
 	 */
 	function is_wol_can_reply_to_ticket( $filtered_single_permissions = array() ){
 		
-		return wolbusinessdesk()->is->can_reply_to_ticket( $filtered_single_permissions );
+		return wol()->is->can_reply_to_ticket( $filtered_single_permissions );
 	}
 	
 }
@@ -224,7 +224,7 @@ if ( ! function_exists( 'is_wol_can_open_crm' ) ){
 	 */
 	function is_wol_can_open_crm(){
 		
-		return wolbusinessdesk()->is->can_open_task();
+		return wol()->is->can_open_task();
 	}
 	
 }

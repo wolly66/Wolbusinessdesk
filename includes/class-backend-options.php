@@ -57,7 +57,7 @@
 			$this->wol_crm_options 				= get_option( WOLBUSINESSDESK_CRM_OPTION_NAME );
 			
 			$this->all_pages					= $this->get_all_pages();
-			$this->endpoints					= wolbusinessdesk()->endpoints->standard_endpoint();
+			$this->endpoints					= wol()->endpoints->standard_endpoint();
 			
 			
 		}
@@ -659,7 +659,7 @@
 	        //Filter sanitize_base to add new options
 	        $input = apply_filters( 'wol_sanitize_company', $input );
 	        
-			$company_fields = wolbusinessdesk()->company_info->company_fields();
+			$company_fields = wol()->company_info->company_fields();
 	        
 	        foreach ( $input as $key => $i ){
 		        
@@ -932,7 +932,7 @@
 	    
 	    public function company_info_callback() {
 		    	    	
-		    $company_fields = wolbusinessdesk()->company_info->company_fields();
+		    $company_fields = wol()->company_info->company_fields();
 		      
 		    $wolkey = ( ! empty( $this->wol_company_info_options ) ) ?
 		    	'old' :

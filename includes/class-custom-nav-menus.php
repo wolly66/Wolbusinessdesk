@@ -25,7 +25,7 @@ if ( ! class_exists( 'Wolbusinessdesk_Custom_Nav_Menus' ) ){
 			
 		
 		// Get items from account menu.
-		$endpoints = wolbusinessdesk()->endpoints->return_end_points();
+		$endpoints = wol()->endpoints->return_end_points();
 
 		// Remove dashboard item.
 		if ( isset( $endpoints['dashboard'] ) ) {
