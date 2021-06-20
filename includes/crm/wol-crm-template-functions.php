@@ -388,20 +388,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 		}
 	}
 	
-	if (  ! function_exists( 'wol_crm_archive_nonce' ) ){
-		
-		/**
-		 * wol_crm_archive_nonce function.
-		 * 
-		 * @access public
-		 * @return void
-		 */
-		function wol_crm_archive_nonce(){
-			
-			echo wol()->crm_meta->archive_support_nonce();
-		}
-	}
-	
 	
 	if (  ! function_exists( 'wol_crm_archive_type_dropdown' ) ){
 		
@@ -418,17 +404,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 	}
 
 	
-	if (  ! function_exists( 'wol_crm_archive_priority_dropdown' ) ){
+	if (  ! function_exists( 'wol_crm_archive_action_dropdown' ) ){
 		
 		/**
-		 * wol_crm_archive_priority_dropdown function.
+		 * wol_crm_archive_action_dropdown function.
 		 * 
 		 * @access public
 		 * @return void
 		 */
-		function wol_crm_archive_priority_dropdown( $all = '' ){
-			
-			echo wol()->crm_meta->get_priority_dropdown( $all );
+		function wol_crm_archive_action_dropdown( $all = '' ){
+				
+			echo wol()->crm_meta->get_action_dropdown( $all );
 		}
 	}
 	
@@ -457,6 +443,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 		function wol_crm_archive_status_operator_dropdown(){
 			
 			echo wol()->crm_meta->get_status_operator_dropdown();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_crm_archive_source_checkbox' ) ){
+		
+		/**
+		 * wol_crm_archive_source_checkbox function.
+		 * 
+		 * @access public
+		 * @return void
+		 */
+		function wol_crm_archive_source_checkbox(){
+			
+			echo wol()->crm_meta->get_source_checkbox();
 		}
 	}
 
@@ -703,6 +703,49 @@ if ( ! defined( 'ABSPATH' ) ) {
 		function wol_crm_due_date(){
 			
 			echo wol_crm_get_due_date();
+		}
+	}
+	
+	
+	if (  ! function_exists( 'wol_crm_archive_open_form' ) ){
+		
+		/**
+		 * wol_crm_archive_open_form function.
+		 * 
+		 * @access public
+		 * @return void
+		 */
+		function wol_crm_archive_open_form(){
+			
+			echo wol()->crm_meta->open_form();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_crm_archive_nonce' ) ){
+		
+		/**
+		 * wol_crm_archive_nonce function.
+		 * 
+		 * @access public
+		 * @return void
+		 */
+		function wol_crm_archive_nonce(){
+			
+			echo wol()->crm_meta->archive_nonce();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_crm_archive_close_form' ) ){
+		
+		/**
+		 * wol_crm_archive_close_form function.
+		 * 
+		 * @access public
+		 * @return void
+		 */
+		function wol_crm_archive_close_form(){
+			
+			echo wol()->crm_meta->close_archive_form();
 		}
 	}
 	

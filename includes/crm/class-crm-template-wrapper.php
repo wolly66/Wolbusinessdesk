@@ -60,7 +60,12 @@ if ( ! class_exists( 'Wolbusinessdesk_Crm_Template_Wrappers' ) ){
 			
 			global $post;
 			
-			$due_date = get_post_meta( $post->ID, 'wol_due_date', TRUE );
+			$due_date_raw = get_post_meta( $post->ID, 'wol_due_date', TRUE );
+			
+			$date_format =  get_option( 'date_format' );
+			
+			$due_date = date( $date_format, strtotime( $due_date_raw ) );
+
 			
 			return $due_date;
 		}

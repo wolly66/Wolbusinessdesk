@@ -8,36 +8,34 @@
 			//echo '<pre>' . print_r( $wp_query , 1 ) . '</pre>'; ?>
 			<div class="archive-filter-ticket container">
 				
-				<form id="wol_frontend_support_fiter_form" action="<?php get_the_permalink() ?>" method="post">
+				<?php wol_crm_archive_open_form(); ?>
 					
-					<?php wol_crm_archive_nonce(); ?>
-						
 					<div class="row input-group">
 						<div class="col-md-3 col-sm-4 col-sx-12">
-							<label for="type" class="wol-little-title"><?php _e( 'Type', 'wolbusinessdesk' ); ?></label><br />
+					
 								<?php  wol_crm_archive_type_dropdown( __( 'All', 'wolbusinessdesk' ) ); ?>
 						</div>
 						
 						<div class="col-md-3 col-sm-4 col-sx-12">
-							<label for="priority" class="wol-little-title"><?php _e( 'Priority', 'wolbusinessdesk' ); ?></label><br />
-								<?php echo wol_crm_archive_priority_dropdown( __( 'All', 'wolbusinessdesk' ) ); ?>
+				
+								<?php echo wol_crm_archive_action_dropdown( __( 'All', 'wolbusinessdesk' ) ); ?>
 						</div>
 								
 						<div class="col-md-3 col-sm-4 col-sx-12">
-							<label for="status" class="wol-little-title"><?php _e( 'Status', 'wolbusinessdesk' ); ?></label><br />
+							
 								<?php echo wol_crm_archive_status_operator_dropdown(); ?>
 								<?php echo wol_crm_archive_status_dropdown(); ?>
 						</div>
 						
 						<div class="col-md-3 col-sm-4 col-sx-12">
-							<label for="author" class="wol-little-title"><?php _e( 'Ticket Author', 'wolbusinessdesk' ); ?></label><br />
-								<input type="hidden" value="" name="author" />
+								<?php wol_crm_archive_source_checkbox(); ?>
 							</div>
 						</div>
-				
+						
+						<?php wol_crm_archive_nonce(); ?>
 						<div class="row top-buffer">
 							<div class="col-md-12 text-center">
-								
+									
 									<input class="button-primary btn" type="submit" id="wol_filter" name="wol_filter" value="<?php _e( 'Filter', 'wolbusinessdesk' ); ?>" />
 									<input class="button-primary btn" type="submit" id="wol_reset" name="wol_reset" value="<?php _e( 'Reset', 'wolbusinessdesk' ); ?>" />
 								
@@ -46,7 +44,8 @@
 								<div id="resultticketlist"></div>
 							</div>
 						</div>
-				</form> 
+						
+				<?php wol_crm_archive_close_form(); ?> 
 			</div>      
 	    <?php
 		    
@@ -159,7 +158,7 @@
 			endif;
 		?>
 		</section>
-    	<?php get_sidebar();?>
+    	<?php //get_sidebar();?>
 	</div><!--/content-->
 </div><!--/container-->
 

@@ -377,7 +377,7 @@
 		 */
 		function wol_ticket_archive_nonce(){
 			
-			echo wol()->ticket_meta->archive_support_nonce();
+			echo wol()->ticket_meta->archive_nonce();
 		}
 	}
 	
@@ -580,6 +580,34 @@
 		function wol_ticket_ticket_reply_loop(){
 			
 			echo wol()->support_reply_loop->reply_loop();;
+		}
+	}
+	
+	if (  ! function_exists( 'wol_ticket_archive_open_form' ) ){
+		
+		/**
+		 * wol_ticket_archive_open_form function.
+		 * 
+		 * @access public
+		 * @return void
+		 */
+		function wol_ticket_archive_open_form(){
+			
+			echo wol()->ticket_meta->open_form();
+		}
+	}
+	
+	if (  ! function_exists( 'wol_ticcket_archive_close_form' ) ){
+		
+		/**
+		 * wol_ticcket_archive_close_form function.
+		 * 
+		 * @access public
+		 * @return void
+		 */
+		function wol_ticcket_archive_close_form(){
+			
+			echo wol()->ticket_meta->close_archive_form();
 		}
 	}
 

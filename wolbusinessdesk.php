@@ -2,7 +2,7 @@
 /**
  * @package wolbusinessdesk
  * @author Paolo Valenti
- * @version 1.0.0 beta
+ * @version 1.0.0 beta beta
  */
 /*
 Plugin Name: wolbusinessdesk
@@ -1222,7 +1222,7 @@ if ( ! class_exists( 'Wolbusinessdesk' ) ) {
 					
 					);
 					
-					if (  isset( $_POST['wol_list_support_nonce_name'] ) &&  wp_verify_nonce( $_POST['wol_list_support_nonce_name'], 'wol_list_support_nonce_field' ) ) {
+					if (  isset( $_POST['archive_ticket_task_nonce_name'] ) &&  wp_verify_nonce( $_POST['archive_ticket_task_nonce_name'], 'archive_ticket_task_nonce_action' ) ) {
 						
 						$tax_query = array();
 						

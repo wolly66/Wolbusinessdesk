@@ -534,6 +534,7 @@ class Wolbusinessdesk_Form_Generator {
 			'separator'  => '',
 			'wrapper'    => array(),
 			'echo'       => $this->default_echo,
+			'legend'	 => '',
 		);
 
 		//Parse the passed argument in an array combining with $defaults values
@@ -574,7 +575,7 @@ class Wolbusinessdesk_Form_Generator {
 		$old_values        = array();
 
 		// Generate the block
-		foreach ( $args['checkboxes'] as $check_label => $check_value ) {
+		foreach ( $args['checkboxes'] as $check_value => $check_label ) {
 
 			$checked = '';
 			if ( is_array( $args['tocheck'] ) && ! empty ( $args['tocheck'] ) ) {
@@ -590,7 +591,7 @@ class Wolbusinessdesk_Form_Generator {
 
 			// Generate the block
 			$html_field = sprintf(
-				'<label><input id="check_%2$s_%1$s" name="%2$s[]" class="%8$s" type="checkbox" value="%4$s" tabindex="%7$s" %6$s >%3$s</label>%5$s',
+				'<input id="check_%2$s_%1$s" name="%2$s[]" class="%8$s" type="checkbox" value="%4$s" tabindex="%7$s" %6$s > <label for="check_%2$s_%1$s">%3$s</label> %5$s',
 				$hidden_id_counter ++, // 1
 				esc_attr( $args['name'] ), // 2
 				esc_attr( $check_label ), // 3
@@ -611,8 +612,11 @@ class Wolbusinessdesk_Form_Generator {
 				);
 
 			}
+			
+			
 
 			$html .= $html_field;
+			
 
 			if ( ! is_array( $args['tocheck'] ) ) {
 				$args['tocheck'] = (array) $args['tocheck'];
@@ -623,7 +627,19 @@ class Wolbusinessdesk_Form_Generator {
 			}
 
 		}
+		
+		// Check if put a legend tab before the impute text
+			if ( '' != $args['legend'] ) {
+			$html_label = sprintf(
+				'<legend>%1$s</legend>',
+				esc_attr( $args['legend'] ) // 1
+			);
 
+			$html = $html_label . $html;
+			}
+		// Add fieldset
+		
+			$html = '<fieldset>' . $html . '</fieldset>';
 		// Check to keep old value or not
 		$this->maybe_add_old_value( $args['name'], $old_values );
 
@@ -863,7 +879,7 @@ class Wolbusinessdesk_Form_Generator {
 		}
 
 		// Generate the block
-		foreach ( $args['values'] as $check_label => $check_value ) {
+		foreach ( $args['values'] as $check_value => $check_label ) {
 
 			$select = ( $check_value == $args['tocheck'] ) ? 'selected' : '';
 
@@ -896,6 +912,8 @@ class Wolbusinessdesk_Form_Generator {
 	}
 	
 	public function input_dropdown_wp_tax( $args = '' ) {
+		
+		$html = '';
 		
 		$this->tabindex_counter = $this->tabindex_counter + $this->tabindex_counter_increment;
 		

@@ -6,7 +6,14 @@
 	
 	Class wolbusinessdesk_Backend_Options{
 		
-				
+		/**
+		 * wol_base_options
+		 * 
+		 * @var mixed
+		 * @access private
+		 */
+		private $wol_base_options;	
+			
 		/**
 		 * company_info_options
 		 * 
@@ -39,11 +46,28 @@
 		 */
 		private $wol_crm_options;
 		
+		/**
+		 * endpoints
+		 * 
+		 * @var mixed
+		 * @access private
+		 */
 		private $endpoints;
 		
-		
+		/**
+		 * all_pages
+		 * 
+		 * @var mixed
+		 * @access private
+		 */
 		private $all_pages;
 		
+		/**
+		 * __construct function.
+		 * 
+		 * @access public
+		 * @return void
+		 */
 		public function __construct(){
 			
 			add_action( 'admin_menu', array( $this, 'wolbusinessdesk_menu' ) );
@@ -252,16 +276,13 @@
          
 				<?php $active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'wol_base'; ?>
 				
-        			<h2 class="nav-tab-wrapper">
+        		<h2 class="nav-tab-wrapper">
 					
 					<a href="?page=wolbusinessdesk-settings&tab=wol_base" class="nav-tab <?php echo $active_tab == 'wol_base' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Base settings', 'wolbusinessdesk' ); ?></a>
 					<a href="?page=wolbusinessdesk-settings&tab=wol_company" class="nav-tab <?php echo $active_tab == 'wol_company' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Company', 'wolbusinessdesk' ); ?></a>
 					<a href="?page=wolbusinessdesk-settings&tab=wol_pages" class="nav-tab <?php echo $active_tab == 'wol_pages' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Pages', 'wolbusinessdesk' ); ?></a>
-					
 					<a href="?page=wolbusinessdesk-settings&tab=wol_documents" class="nav-tab <?php echo $active_tab == 'wol_documents' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Documents', 'wolbusinessdesk' ); ?></a>
-						
 					<a href="?page=wolbusinessdesk-settings&tab=wol_support" class="nav-tab <?php echo $active_tab == 'wol_support' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Support', 'wolbusinessdesk' ); ?></a>
-						
 					<a href="?page=wolbusinessdesk-settings&tab=wol_crm" class="nav-tab <?php echo $active_tab == 'wol_crm' ? 'nav-tab-active' : ''; ?>"><?php _e( 'CRM', 'wolbusinessdesk' ); ?></a>
 						
 				</h2>
@@ -396,7 +417,13 @@
 	            array( $this, 'sanitize_crm' ) // Sanitize
 	        );
 				
-			// company fields
+			/**
+			 *
+			 * Base section
+			 *
+			 * @since 1.0
+			 *
+			 */
 	        add_settings_section(
 	            'wol_base_section_id', // ID
 	            __( 'Base settings', 'wolbusinessdesk' ), // Title
@@ -412,7 +439,13 @@
 	            'wol_base_section_id' // Section           
 	        );     
 	        
-	        // company fields
+	       /**
+			 *
+			 * Company section
+			 *
+			 * @since 1.0
+			 *
+			 */
 	        add_settings_section(
 	            'wol_company_section_id', // ID
 	            __( 'Company info', 'wolbusinessdesk' ), // Title
@@ -429,7 +462,13 @@
 	        );      
 
 	        
-			// pages fields
+			/**
+			 *
+			 * Pages section
+			 *
+			 * @since 1.0
+			 *
+			 */
 	        add_settings_section(
 	            'wol_pages_section_id', // ID
 	            __( 'Pages settings', 'wolbusinessdesk' ), // Title
@@ -453,7 +492,13 @@
 	            'wol_pages_section_id' // Section           
 	        ); 
 	        
-	        // pages fields
+	        /**
+			 *
+			 * Endpoint section
+			 *
+			 * @since 1.0
+			 *
+			 */
 	        add_settings_section(
 	            'wol_endpoint_front_end_admin_section_id', // ID
 	            __( 'Endpoints Front End  Admin', 'wolbusinessdesk' ), // Title
@@ -470,7 +515,13 @@
 	        ); 
     
 	        
-	        //documents field
+	        /**
+			 *
+			 * Documents section
+			 *
+			 * @since 1.0
+			 *
+			 */
 	        add_settings_section(
 			    'wol_documents_section_id', // ID
 			    __( 'Set opening and closing status', 'wolbusinessdesk' ), // Title
@@ -624,7 +675,13 @@
 			    'wol_support_section_id_3'
 			);
 			
-			//documents field
+			/**
+			 *
+			 * CRM section
+			 *
+			 * @since 1.0
+			 *
+			 */
 	        add_settings_section(
 			    'wol_crm_section_id', // ID
 			    __( 'Set opening and closing status', 'wolbusinessdesk' ), // Title
@@ -647,12 +704,77 @@
 			    'wolbusinessdesk-settings&tab=wol_crm',
 			    'wol_crm_section_id'
 			);
-
-        
+			
+			add_settings_section(
+			    'wol_crm_section_id_1', // ID
+			    __( 'Set CRM standard listing', 'wolbusinessdesk' ), // Title
+			    array( $this, 'print_section_crm_standard_listing' ), // Callback
+			    'wolbusinessdesk-settings&tab=wol_crm' // Page
+			);
+			
+			add_settings_field(
+			    'crm-listing-type',
+			    __( 'Listing type', 'wolbusinessdesk' ),
+			    array( $this, 'crm_listing_type_callback' ),
+			    'wolbusinessdesk-settings&tab=wol_crm',
+			    'wol_crm_section_id_1'
+			);
+			add_settings_field(
+			    'crm-listing-action',
+			    __( 'Listing action', 'wolbusinessdesk' ),
+			    array( $this, 'crm_listing_action_callback' ),
+			    'wolbusinessdesk-settings&tab=wol_crm',
+			    'wol_crm_section_id_1'
+			);
+			add_settings_field(
+			    'crm-listing-status',
+			    __( 'Listing status', 'wolbusinessdesk' ),
+			    array( $this, 'crm_listing_status_callback' ),
+			    'wolbusinessdesk-settings&tab=wol_crm',
+			    'wol_crm_section_id_1'
+			);
+			add_settings_field(
+			    'crm-listing-cpt',
+			    __( 'Listing task sources', 'wolbusinessdesk' ),
+			    array( $this, 'crm_listing_cpt_callback' ),
+			    'wolbusinessdesk-settings&tab=wol_crm',
+			    'wol_crm_section_id_1'
+			);
+			add_settings_field(
+			    'crm-listing-task-per-page',
+			    __( 'Listing tickets per page', 'wolbusinessdesk' ),
+			    array( $this, 'crm_listing_task_per_page_callback' ),
+			    'wolbusinessdesk-settings&tab=wol_crm',
+			    'wol_crm_section_id_1'
+			);
+			
+			 add_settings_field(
+			    'crm-listing-task-replies-per-page',
+			    __( 'Listing tickets replies per page', 'wolbusinessdesk' ),
+			    array( $this, 'crm_listing_tasks_replies_per_page_callback' ),
+			    'wolbusinessdesk-settings&tab=wol_crm',
+			    'wol_crm_section_id_1'
+			);
+			
+			add_settings_field(
+			    'crm-sorting-task-replies',
+			    __( 'Sorting tickets replies', 'wolbusinessdesk' ),
+			    array( $this, 'crm_sorting_task_replies_callback' ),
+			    'wolbusinessdesk-settings&tab=wol_crm',
+			    'wol_crm_section_id_1'
+			);
+			
             
 	    }
 	    
 	    	    
+	    /**
+	     * sanitize_company function.
+	     * 
+	     * @access public
+	     * @param mixed $input
+	     * @return void
+	     */
 	    public function sanitize_company( $input ){
 		    		    
 	        $new_input = array();
@@ -700,6 +822,13 @@
 	        return $new_input;
 	    }
 	    
+	    /**
+	     * sanitize_base function.
+	     * 
+	     * @access public
+	     * @param mixed $input
+	     * @return void
+	     */
 	    public function sanitize_base( $input ){ 
 		    
 		    $new_input = array();
@@ -864,7 +993,14 @@
 		    
 		}
 		
-		 public function sanitize_crm( $input ) {
+		/**
+		 * sanitize_crm function.
+		 * 
+		 * @access public
+		 * @param mixed $input
+		 * @return void
+		 */
+		public function sanitize_crm( $input ) {
 	        $new_input = array();
 	        
 	        //Filter sanitize_documents to add new options
@@ -881,17 +1017,82 @@
 			    $new_input['crm_opening_status'] = absint( $input['crm_opening_status'] );
 			
 			}
-	        
-	        
+			
+			if( isset( $input['crm_std_listing_type'] ) ){
+			
+			    $new_input['crm_std_listing_type'] = absint( $input['crm_std_listing_type'] );
+			
+			}
+			
+			if( isset( $input['crm_std_listing_action'] ) ){
+			
+			    $new_input['crm_std_listing_action'] = absint( $input['crm_std_listing_action'] );
+			
+			}
+			
+			if( isset( $input['crm_listing_status_operator'] ) ){
+			
+			    $new_input['crm_listing_status_operator'] = absint( $input['crm_listing_status_operator'] );
+			
+			}
+			
+			if( isset( $input['crm_listing_status'] ) ){
+			
+			    $new_input['crm_listing_status'] = absint( $input['crm_listing_status'] );
+			
+			}
+			
+			if( isset( $input['crm_listing_cpt'] ) ){
+				
+				if ( 
+					! empty( $input['crm_listing_cpt'] )
+					&& is_array( $input['crm_listing_cpt'] )
+					){
+						
+						foreach ( $input['crm_listing_cpt'] as $key => $cpt ){
+							
+							$new_input['crm_listing_cpt'][$key] = sanitize_text_field( $cpt );
+							
+						}
+					}
+			
+			    
+			
+			}
+			
+			if( isset( $input['crm_listing_task_per_page'] ) ){
+			
+			    $new_input['crm_listing_task_per_page'] = absint( $input['crm_listing_task_per_page'] );
+			
+			}
+			
+			if( isset( $input['crm_listing_task_replies_per_page'] ) ){
+			
+			    $new_input['crm_listing_task_replies_per_page'] = absint( $input['crm_listing_task_replies_per_page'] );
+			
+			}
+	        	        
 	
 	        return $new_input;
 	    }
 	    
+	   	/**
+	   	 * print_base_section_info function.
+	   	 * 
+	   	 * @access public
+	   	 * @return void
+	   	 */
 	   	public function print_base_section_info() {
 	        print __( 'General settings:', 'wolbusinessdesk' );
 	        	        
 	    }  
 	    
+	    /**
+	     * date_format_info_callback function.
+	     * 
+	     * @access public
+	     * @return void
+	     */
 	    public function date_format_info_callback () {
 		    			
 			    if( isset( $this->wol_base_options['std_date_format'] ) ) 
@@ -925,11 +1126,23 @@
 		    
 	    }
 	    
+	    /**
+	     * print_company_section_info function.
+	     * 
+	     * @access public
+	     * @return void
+	     */
 	    public function print_company_section_info() {
 	        print __( 'Insert your company infos', 'wolbusinessdesk' );
 	        	        
 	    }
 	    
+	    /**
+	     * company_info_callback function.
+	     * 
+	     * @access public
+	     * @return void
+	     */
 	    public function company_info_callback() {
 		    	    	
 		    $company_fields = wol()->company_info->company_fields();
@@ -1089,6 +1302,12 @@
 	        );
 	    }
 	    
+	    /**
+	     * doc_opening_status_callback function.
+	     * 
+	     * @access public
+	     * @return void
+	     */
 	    public function doc_opening_status_callback(){
 
 	    // no default values. using these as examples
@@ -1161,7 +1380,13 @@
 			}
     }
     
-     public function doc_reject_status_callback(){
+    /**
+     * doc_reject_status_callback function.
+     * 
+     * @access public
+     * @return void
+     */
+    public function doc_reject_status_callback(){
 
 	    // no default values. using these as examples
 		$taxonomies = array(
@@ -1194,16 +1419,10 @@
 			}
     }
 
-
-
-
-		// ! TODO
-		
-	
     /**
      * print_section_opening_closing_status function.
      *
-	 * @package inex ticket
+	 * @package Wolbusinessdesk
 	 *
 	 * @since version 1.0
 	 *
@@ -1215,7 +1434,13 @@
 
         print _e( 'Opening and Closing Status Settings:', 'wolbusinessdesk' );
     }
- 
+	
+	/**
+	 * print_section_standard_reply_time function.
+	 * 
+	 * @access public
+	 * @return void
+	 */
 	public function print_section_standard_reply_time(){
 		
 		print _e( 'Set standard time reply in hours:', 'wolbusinessdesk' );
@@ -1224,7 +1449,7 @@
     /**
      * print_section_standard_listing function.
      *
-	 * @package inex ticket
+	 * @package Wolbusinessdesk
 	 *
 	 * @since version 1.0
 	 *
@@ -1241,7 +1466,7 @@
     /**
      * print_section_layout function.
      *
-	 * @package inex ticket
+	 * @package Wolbusinessdesk
 	 *
 	 * @since version 1.0
 	 *
@@ -1257,7 +1482,7 @@
     /**
      * opening_status_callback function.
      *
-	 * @package inex ticket
+	 * @package Wolbusinessdesk
 	 *
 	 * @since version 1.0
 	 *
@@ -1301,7 +1526,7 @@
     /**
      * closing_status_callback function.
      *
-	 * @package inex ticket
+	 * @package Wolbusinessdesk
 	 *
 	 * @since version 1.0
 	 *
@@ -1352,7 +1577,7 @@
     /**
      * listing_type_callback function.
      *
-	 * @package inex ticket
+	 * @package Wolbusinessdesk
 	 *
 	 * @since version 1.0
 	 *
@@ -1396,7 +1621,7 @@
     /**
      * listing_priority_callback function.
      *
-	 * @package inex ticket
+	 * @package Wolbusinessdesk
 	 *
 	 * @since version 1.0
 	 *
@@ -1439,7 +1664,7 @@
     /**
      * listing_status_callback function.
      *
-	 * @package inex ticket
+	 * @package Wolbusinessdesk
 	 *
 	 * @since version 1.0
 	 *
@@ -1494,7 +1719,7 @@
 	/**
 	 * listing_tickets_per_page_callback function.
 	 *
-	 * @package inex ticket
+	 * @package Wolbusinessdesk
 	 *
 	 * @since version 1.0
 	 *
@@ -1505,8 +1730,8 @@
 	public function listing_tickets_per_page_callback(){
 
 	    printf(
-            '<input type="text" id="listing-tickets-per-page" name="wol-support-option[listing-tickets-per-page]" value="%s" />',
-            isset( $this->wol_support_options['listing-tickets-per-page'] ) ? esc_attr( $this->wol_support_options['listing-tickets-per-page']) : ''
+            '<input type="number" id="listing-tickets-per-page" name="wol-support-option[listing-tickets-per-page]" value="%s" />',
+            isset( $this->wol_support_options['listing-tickets-per-page'] ) ? absint( $this->wol_support_options['listing-tickets-per-page']) : ''
         );
 
     }
@@ -1514,7 +1739,7 @@
     /**
      * listing_ticket_replies_per_page_callback function.
      *
-	 * @package inex ticket
+	 * @package Wolbusinessdesk
 	 *
 	 * @since version 1.0
 	 *
@@ -1525,7 +1750,7 @@
     public function listing_ticket_replies_per_page_callback(){
 
 	    printf(
-            '<input type="text" id="listing-ticket-per-page" name="wol-support-option[listing-ticket-replies-per-page]" value="%s" />',
+            '<input type="number" id="listing-ticket-per-page" name="wol-support-option[listing-ticket-replies-per-page]" value="%s" />',
             isset( $this->wol_support_options['listing-ticket-replies-per-page'] ) ? esc_attr( $this->wol_support_options['listing-ticket-replies-per-page']) : ''
         );
 
@@ -1545,6 +1770,16 @@
 
     }
     
+    
+    
+    /**
+     * crm_opening_status_callback function.
+     * 
+     * @package Wolbusinessdesk
+     * @since 1-0
+     * @access public
+     * @return echo
+     */
     public function crm_opening_status_callback(){
 
 	    // no default values. using these as examples
@@ -1581,7 +1816,7 @@
     /**
      * closing_status_callback function.
      *
-	 * @package inex ticket
+	 * @package Wolbusinessdesk
 	 *
 	 * @since version 1.0
 	 *
@@ -1621,8 +1856,186 @@
 			print '</select>';
 			}
     }
+    
+    	
+	// ! TODO STD SORTING crm_sorting_task_replies_callback
+	
+	public function print_section_crm_standard_listing(){
+		
+		// ! TODO DEBUG DA RIMUOVERE
+		echo '<pre>' . print_r( $this->wol_crm_options , 1 ) . '</pre>';
+
+        print _e( 'Set standard Settings for CTRM tasks listing: ', 'wolbusinessdesk' );
+    }
+	
+	 public function crm_listing_type_callback(){
+
+	    // no default values. using these as examples
+		$taxonomies = array(
+						'wol-crm-type',
+						);
+
+		$args = array(
+		    'orderby'           => 'name',
+		    'order'             => 'ASC',
+		    'hide_empty'        => false,
+
+		);
+
+		$type = get_terms( $taxonomies, $args );
+
+		if ( ! empty( $type ) ){
+			print '<select name="wol-crm-option[crm_std_listing_type]">';
+
+			print '<option value="0" ' . selected( $this->wol_crm_options['crm_std_listing_type'], 0 ) . '>' . __( 'All types', 'wolbusinessdesk' ) . '</option>';
 
 
+
+			foreach ( $type as $st ){
+
+
+
+				print '<option value="' . $st->term_id . '" ' . selected( $this->wol_crm_options['crm_std_listing_type'], $st->term_id ) . '>' . $st->name . '</option>';
+			}
+			print '</select>';
+			}
+    }
+    
+    public function crm_listing_action_callback(){
+
+	    // no default values. using these as examples
+		$taxonomies = array(
+						'wol-crm-action',
+						);
+
+		$args = array(
+		    'orderby'           => 'name',
+		    'order'             => 'ASC',
+		    'hide_empty'        => false,
+
+		);
+
+		$actions = get_terms( $taxonomies, $args );
+
+		if ( ! empty( $actions ) ){
+			print '<select name="wol-crm-option[crm_std_listing_action]">';
+
+			print '<option value="0" ' . selected( $this->wol_crm_options['crm_std_listing_action'], 0 ) . '>' . __( 'All actions', 'wolbusinessdesk' ) . '</option>';
+
+
+
+			foreach ( $actions as $st ){
+
+
+
+				print '<option value="' . $st->term_id . '" ' . selected( $this->wol_crm_options['crm_std_listing_action'], $st->term_id ) . '>' . $st->name . '</option>';
+			}
+			print '</select>';
+			}
+    }
+
+	public function crm_listing_status_callback(){
+
+		$taxonomies = array(
+						'wol-crm-status',
+						);
+
+		$args = array(
+		    'orderby'           => 'name',
+		    'order'             => 'ASC',
+		    'hide_empty'        => false,
+
+		);
+
+		$status = get_terms( $taxonomies, $args );
+
+		if ( ! empty( $status ) ){
+
+            if( isset( $this->wol_crm_options['crm_listing_status_operator'] ) ) 
+            		$listing_status_operator = $this->wol_crm_options['crm_listing_status_operator'];
+            else 
+            		$listing_status_operator = 0;
+					
+			// [listing-status-operator]
+			printf( 
+                '<ul>
+                    <li>
+                        <input type="radio"  name="wol-crm-option[crm_listing_status_operator]" value="1"  class="lcs_check lcs_tt2"  autocomplete="off" %1$s /> %2$s
+                        
+                    </li>
+                    <li>
+                        <input type="radio"  name="wol-crm-option[crm_listing_status_operator]" value="0"  class="lcs_check lcs_tt2"  autocomplete="off" %3$s /> %4$s
+                    </li>
+                </ul>',
+                checked( $listing_status_operator, 1, false ),
+                __( 'Is Not', 'wolbusinessdesk' ),
+                checked( $listing_status_operator, 0, false ),
+                __( 'Is', 'wolbusinessdesk' )
+                
+            );
+			
+                            
+			print '<select name="wol-crm-option[crm_listing_status]">';
+
+			print '<option value="0" ' . selected( $this->wol_crm_options['crm_listing_status'], 0 ) . '>' . __( 'All Status', 'wolbusinessdesk' ) . '</option>';
+
+
+
+			foreach ( $status as $st ){
+
+				print '<option value="' . $st->term_id . '" ' . selected( $this->wol_crm_options['crm_listing_status'], $st->term_id ) . '>' . $st->name . '</option>';
+			}
+			print '</select>';
+		}
+    }
+
+	public function crm_listing_cpt_callback(){
+		
+		$all_cpts = wol_get_crm_allowed_cpt();
+				
+		if ( 
+			! empty( $all_cpts )
+			&& is_array( $all_cpts ) 
+			){
+			
+			foreach ( $all_cpts as $key => $cpt ){
+				
+				$checked_cpt = ( isset( $this->wol_crm_options['crm_listing_cpt'][$key] ) ) ?
+					$this->wol_crm_options['crm_listing_cpt'][$key]:
+					'';
+					
+				printf( 
+                	'<input type="checkbox" name="wol-crm-option[crm_listing_cpt][%1$s]" value="%1$s"  class="lcs_check lcs_tt2"  autocomplete="off" %2$s /> %3$s ',
+					$key,
+					checked( $checked_cpt, $key, false ),
+					$cpt                
+				);
+				
+			}
+		}
+		
+		
+	}
+	
+	public function crm_listing_task_per_page_callback(){
+
+	    printf(
+            '<input type="number" id="listing-task-per-page" name="wol-crm-option[crm_listing_task_per_page]" value="%s" />',
+            isset( $this->wol_crm_options['crm_listing_task_per_page'] ) ? absint( $this->wol_crm_options['crm_listing_task_per_page']) : ''
+        );
+
+    }
+    
+    public function crm_listing_tasks_replies_per_page_callback(){
+
+	    printf(
+            '<input type="number" id="listing-task-replies-per-page" name="wol-crm-option[crm_listing_task_replies_per_page]" value="%s" />',
+            isset( $this->wol_crm_options['crm_listing_task_replies_per_page'] ) ? absint( $this->wol_crm_options['crm_listing_task_replies_per_page']) : ''
+        );
+
+    }
+	
+	
     private function get_all_pages(){
 	    
 	    $args = array(
@@ -1644,7 +2057,7 @@
 	/**
 	 * get_all_status_terms function.
 	 *
-	 * @package inex ticket
+	 * @package Wolbusinessdesk
 	 *
 	 * @since version 1.0
 	 *

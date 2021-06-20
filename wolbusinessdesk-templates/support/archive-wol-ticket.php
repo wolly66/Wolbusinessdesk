@@ -8,25 +8,20 @@
 			//echo '<pre>' . print_r( $wp_query , 1 ) . '</pre>'; ?>
 			<div class="archive-filter-ticket container">
 				
-				<form id="wol_frontend_support_fiter_form" action="<?php get_the_permalink() ?>" method="post">
-					
-					<?php wol_ticket_archive_nonce(); ?>
+				<?php wol_ticket_archive_open_form(); ?>
 						
 					<div class="row input-group">
 						<div class="col-md-3 col-sm-4 col-sx-12">
-							<label for="type" class="wol-little-title"><?php _e( 'Type', 'wolbusinessdesk' ); ?></label><br />
 								<?php  wol_ticket_archive_type_dropdown( __( 'All', 'wolbusinessdesk' ) ); ?>
 						</div>
 						
 						<div class="col-md-3 col-sm-4 col-sx-12">
-							<label for="priority" class="wol-little-title"><?php _e( 'Priority', 'wolbusinessdesk' ); ?></label><br />
-								<?php echo wol_ticket_archive_priority_dropdown( __( 'All', 'wolbusinessdesk' ) ); ?>
+								<?php wol_ticket_archive_priority_dropdown( __( 'All', 'wolbusinessdesk' ) ); ?>
 						</div>
 								
 						<div class="col-md-3 col-sm-4 col-sx-12">
-							<label for="status" class="wol-little-title"><?php _e( 'Status', 'wolbusinessdesk' ); ?></label><br />
-								<?php echo wol_ticket_archive_status_operator_dropdown(); ?>
-								<?php echo wol_ticket_archive_status_dropdown(); ?>
+								<?php wol_ticket_archive_status_operator_dropdown(); ?>
+								<?php wol_ticket_archive_status_dropdown(); ?>
 						</div>
 						
 						<div class="col-md-3 col-sm-4 col-sx-12">
@@ -34,7 +29,7 @@
 								<input type="hidden" value="" name="author" />
 							</div>
 						</div>
-				
+						<?php wol_ticket_archive_nonce(); ?>
 						<div class="row top-buffer">
 							<div class="col-md-12 text-center">
 								
@@ -154,11 +149,14 @@
             	<?php endwhile;
 	            	
 	            	wol_ticket_archive_navigation();
-				
+			
+			else:
+				_e( 'No results', 'wolbusinessdesk' );	
 			endif;
+			
 		?>
 		</section>
-    	<?php get_sidebar();?>
+    	<?php //get_sidebar();?>
 	</div><!--/content-->
 </div><!--/container-->
 

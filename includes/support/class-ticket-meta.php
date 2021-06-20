@@ -135,7 +135,289 @@ if ( ! class_exists( 'Wolbusinessdesk_Support_Meta' ) ){
 			$this->ticket_replies_data	= $this->get_ticket_replies_data();
 						
 		}
+		/**
+		 * open_form function.
+		 * 
+		 * @access public
+		 * @return void
+		 */
+		public function open_form(){
+			
+			$html = '';
+						
+			$new_form = array(
+				'keep_old_values' => TRUE,
+				'default_echo'   => FALSE,
+				'form_textdomain' => 'wolbusinessdesk',
+			);
 		
+			/**
+			 * form
+			 * 
+			 * (default value: new Wolbusinessdesk_Form_Generator( $new_form ))
+			 * 
+			 * @var mixed
+			 * @access public
+			 */
+			$this->form = new Wolbusinessdesk_Form_Generator( $new_form );	
+			
+			/**
+			 * open_form
+			 * 
+			 * @var mixed
+			 * @access public
+			 */
+			$open_form = array(
+				'id'      => 'wol-ticket-archive',
+				'name'    => 'wol-ticket-archive',
+				'method'  => 'POST',
+				'action'  => '',
+				'class'   => 'wol-ticket',
+				'enctype' => 'multipart/form-data',
+							
+			);
+		
+		
+			/**
+			 * html
+			 * 
+			 * @var mixed
+			 * @access public
+			 */
+			$html .= $this->form->open_form( $open_form );
+			
+			
+			return $html;
+		
+			
+		}
+		
+		public function get_type_dropdown( $all = '' ){
+			
+			if (  isset( $_POST['archive_ticket_task_nonce_name'] ) &&  wp_verify_nonce( $_POST['archive_ticket_task_nonce_name'], 'archive_ticket_task_nonce_action' ) ) {
+				
+				$this->type_selected = ( isset( $_POST['type'] ) && is_numeric( $_POST['type'] ) ) ?
+					(int)$_POST['type'] :
+					$this->options['listing-type'];
+				
+				
+				} else {
+					
+					$this->type_selected = $this->options['listing-type'];
+					
+				}
+						
+			/**
+			 * type_args
+			 * 
+			 * @var mixed
+			 * @access public
+			 */
+			$type_args = array(
+				'show_option_all'	=> $all,
+				'taxonomy'			=> 'wol-ticket-type',
+				'echo'				=> FALSE,
+				'hide_empty'		=> 1,
+				'name'				=> 'type',
+				'class'				=> 'ticket-dd form-control',
+				'required'			=> TRUE,
+				'label'				=> __( 'Type', 'wolbusinessdesk' ),
+				'mandatory'			=> '',
+				'selected'			=> $this->type_selected,
+			);
+			
+			/**
+			 * html
+			 * 
+			 * @var mixed
+			 * @access public
+			 */
+			$html = $this->form->input_dropdown_wp_tax( $type_args );
+			
+			return $html;
+			
+			
+		}
+		
+		public function get_priority_dropdown( $all = '' ){
+			
+			if (  isset( $_POST['archive_ticket_task_nonce_name'] ) &&  wp_verify_nonce( $_POST['archive_ticket_task_nonce_name'], 'archive_ticket_task_nonce_action' ) ) {
+				
+				$this->priority_selected = ( isset( $_POST['priority'] ) && is_numeric( $_POST['priority'] ) ) ?
+					(int)$_POST['priority'] :
+					$this->options['listing-priority'];
+				
+				
+				} else {
+					
+					$this->priority_selected = $this->options['listing-priority'];
+					
+				}
+			
+			/**
+			 * type_args
+			 * 
+			 * @var mixed
+			 * @access public
+			 */
+			$action_args = array(
+				'show_option_all' 	=> $all,
+				'taxonomy'			=> 'wol-ticket-priority',
+				'echo'				=> FALSE,
+				'hide_empty'		=> 1,
+				'name'				=> 'priority',
+				'class'				=> 'ticket-dd form-control',
+				'required'			=> TRUE,
+				'label'				=> __( 'Priority', 'wolbusinessdesk' ),
+				'mandatory'			=> '',
+				'selected'			=> $this->priority_selected,
+			);
+			
+			/**
+			 * html
+			 * 
+			 * @var mixed
+			 * @access public
+			 */
+			$html = $this->form->input_dropdown_wp_tax( $action_args );
+			
+			return $html;
+
+			
+			
+		}		
+		
+		public function get_status_dropdown( $all = '' ){
+			
+			if (  isset( $_POST['archive_ticket_task_nonce_name'] ) &&  wp_verify_nonce( $_POST['archive_ticket_task_nonce_name'], 'archive_ticket_task_nonce_action' ) ) {
+				
+				$this->status_selected = ( isset( $_POST['status'] ) && is_numeric( $_POST['status'] ) ) ?
+					(int)$_POST['status'] :
+					$this->options['listing-status'];
+				
+				
+				} else {
+					
+					$this->status_selected = $this->options['listing-status'];
+					
+				}
+						
+			
+			
+			/**
+			 * type_args
+			 * 
+			 * @var mixed
+			 * @access public
+			 */
+			$status_args = array(
+				'show_option_all'	=> $all,
+				'taxonomy'			=> 'wol-ticket-status',
+				'echo'				=> FALSE,
+				'hide_empty'		=> 0,
+				'name'				=> 'status',
+				'class'				=> 'ticket-dd form-control',
+				'required'			=> TRUE,
+				'label'				=> '',
+				'mandatory'			=> '',
+				'selected'			=> $this->status_selected,
+			);
+			
+			/**
+			 * html
+			 * 
+			 * @var mixed
+			 * @access public
+			 */
+			$html = $this->form->input_dropdown_wp_tax( $status_args );
+			
+			return $html;
+			
+			
+		}
+		
+		public function get_status_operator_dropdown( ){
+						
+			if (  isset( $_POST['archive_ticket_task_nonce_name'] ) &&  wp_verify_nonce( $_POST['archive_ticket_task_nonce_name'], 'archive_ticket_task_nonce_action' ) ) {
+				
+				$status_operator_selected = ( isset( $_POST['status_operator'] ) && is_numeric( $_POST['status_operator'] ) ) ?
+					(int)$_POST['status_operator'] :
+					$this->options['listing-status-operator'];
+				
+				
+				} else {
+					
+					$status_operator_selected = $this->options['listing-status-operator'];
+					
+				}
+
+			$values = array(
+				0	=> __( 'Is', 'wolbusinessdesk' ),
+				1	=> __( 'Is NOT', 'wolbusinessdesk' ),
+			);
+			$status_operator_selected_args = array(
+				'id'             => 'status_operator',
+				'name'           => 'status_operator',
+				'class'          => 'form-control',
+				'label'          => __( 'Status', 'wolbusinessdesk' ),
+				'mandatory'      => '',
+				'tocheck'        => $status_operator_selected,
+				'values'         => $values,
+				'no_check_label' => '',
+			);
+
+			$html = $this->form->input_dropdown( $status_operator_selected_args );
+						
+			return $html;
+			
+			
+		}
+				
+		/**
+		 * nonce function.
+		 * 
+		 * @access public
+		 * @return void
+		 */
+		public function archive_nonce(){
+			
+			$nonce = array(
+				'action' => 'archive_ticket_task_nonce_action',
+				'name'   => 'archive_ticket_task_nonce_name',
+			);
+		
+			/**
+			 * html
+			 * 
+			 * @var mixed
+			 * @access public
+			 */
+		 	$html = $this->form->nonce_field( $nonce );
+		 	
+		 	return $html;
+
+		}
+
+		/**
+		 * close_form function.
+		 * 
+		 * @access public
+		 * @return void
+		 */
+		public function close_archive_form(){
+			
+			/**
+			 * html
+			 * 
+			 * @var mixed
+			 * @access public
+			 */
+			$html = $this->form->close_form();
+			
+			return $html;
+		
+		}
+
 		public function get_priority(){
 			
 			$this->id_ticket = get_the_id();
@@ -626,106 +908,8 @@ if ( ! class_exists( 'Wolbusinessdesk_Support_Meta' ) ){
 	
 		}
 		
-		public function archive_support_nonce(){
-			
-			$nonce = wp_nonce_field( 'wol_list_support_nonce_field', 'wol_list_support_nonce_name', true, false );
-			
-			return $nonce;
-		}
+				
 		
-		public function get_status_dropdown(){
-			
-			if (  isset( $_POST['wol_list_support_nonce_name'] ) &&  wp_verify_nonce( $_POST['wol_list_support_nonce_name'], 'wol_list_support_nonce_field' ) ) {
-				
-				$this->status_selected = ( isset( $_POST['status'] ) && is_numeric( $_POST['status'] ) ) ?
-					(int)$_POST['status'] :
-					$this->options['listing-status'];
-				
-				
-				} else {
-					
-					$this->status_selected = $this->options['listing-status'];
-					
-				}
-						
-			
-			
-			$status_dropdown = wp_dropdown_categories( $this->status_args() );
-			
-			return $status_dropdown;
-			
-			
-		}
-		
-		public function get_status_operator_dropdown(){
-			
-			if (  isset( $_POST['wol_list_support_nonce_name'] ) &&  wp_verify_nonce( $_POST['wol_list_support_nonce_name'], 'wol_list_support_nonce_field' ) ) {
-				
-				$status_operator_selected = ( isset( $_POST['status_operator'] ) && is_numeric( $_POST['status_operator'] ) ) ?
-					(int)$_POST['status_operator'] :
-					$this->options['listing-status-operator'];
-				
-				
-				} else {
-					
-					$status_operator_selected = $this->options['listing-status-operator'];
-					
-				}
-			
-			
-			$status_operator_dropdown = '<select name="status_operator" id="status_operator" class="form-control">
-				<option value="0" ' . selected( (int)$status_operator_selected, 0, false ) . '>' . __( 'Is', 'wolly-plugin' ) . '</option>
-				<option value="1" ' . selected( (int)$status_operator_selected, 1, false ) . '>' . __( 'Is NOT', 'wolly-plugin' ) . '</option>
-			</select>';
-			
-			return $status_operator_dropdown;
-			
-			
-		}
-		
-		public function get_priority_dropdown( $all = '' ){
-			
-			if (  isset( $_POST['wol_list_support_nonce_name'] ) &&  wp_verify_nonce( $_POST['wol_list_support_nonce_name'], 'wol_list_support_nonce_field' ) ) {
-				
-				$this->priority_selected = ( isset( $_POST['priority'] ) && is_numeric( $_POST['priority'] ) ) ?
-					(int)$_POST['priority'] :
-					$this->options['listing-priority'];
-				
-				
-				} else {
-					
-					$this->priority_selected = $this->options['listing-priority'];
-					
-				}
-			
-			$priority_dropdown = wp_dropdown_categories( $this->priority_args( $all ) );
-			
-			return $priority_dropdown;
-			
-			
-		}
-		
-		public function get_type_dropdown( $all = '' ){
-			
-			if (  isset( $_POST['wol_list_support_nonce_name'] ) &&  wp_verify_nonce( $_POST['wol_list_support_nonce_name'], 'wol_list_support_nonce_field' ) ) {
-				
-				$this->type_selected = ( isset( $_POST['type'] ) && is_numeric( $_POST['type'] ) ) ?
-					(int)$_POST['type'] :
-					$this->options['listing-type'];
-				
-				
-				} else {
-					
-					$this->type_selected = $this->options['listing-type'];
-					
-				}
-						
-			$type_dropdown = wp_dropdown_categories( $this->type_args( $all ) );
-			
-			return $type_dropdown;
-			
-			
-		}
 		/**
 		 * status_args function.
 		 *
@@ -955,7 +1139,7 @@ if ( ! class_exists( 'Wolbusinessdesk_Support_Meta' ) ){
 			
 			
 			$last_reply_date = ( 0 == $ticket_reply_number ) ? 
-				__( 'No reply, yet', 'wolly-plugin-support' ) :
+				__( 'No reply, yet', 'wolbusinessdesk' ) :
 				date( $date_format, strtotime( $last_ticket_reply_date ) );
 				
 			return $last_reply_date;
@@ -1013,7 +1197,7 @@ if ( ! class_exists( 'Wolbusinessdesk_Support_Meta' ) ){
 				
 					} else {
 				
-						$ticket_reply_data['last_ticket_reply_author'] = __( 'No reply, yet', 'wolly-plugin-support' );
+						$ticket_reply_data['last_ticket_reply_author'] = __( 'No reply, yet', 'wolbusinessdesk' );
 				}
 				
 				//
@@ -1034,7 +1218,7 @@ if ( ! class_exists( 'Wolbusinessdesk_Support_Meta' ) ){
 				
 				$ticket_reply_data['comment_number'] = 0;
 				$ticket_reply_data['last_ticket_reply'] = FALSE;
-				$ticket_reply_data['last_ticket_reply_author'] = __( 'No reply, yet', 'wolly-plugin-support' );
+				$ticket_reply_data['last_ticket_reply_author'] = __( 'No reply, yet', 'wolbusinessdesk' );
 				$ticket_reply_data['last_ticket_reply_date'] = date( 'Y-m-d  h:i:s', time() ) ;
 			}
 			
@@ -1065,7 +1249,7 @@ if ( ! class_exists( 'Wolbusinessdesk_Support_Meta' ) ){
 						'%s day',
 						'%s days',
 						$interval->d,
-						'wolly-plugin-support'
+						'wolbusinessdesk'
 						),
 						$interval->d
 					) : 
@@ -1075,7 +1259,7 @@ if ( ! class_exists( 'Wolbusinessdesk_Support_Meta' ) ){
 						'%s hour',
 						'%s hours',
 						$interval->h,
-						'wolly-plugin-support'
+						'wolbusinessdesk'
 						),
 						$interval->h
 					) 
@@ -1087,7 +1271,7 @@ if ( ! class_exists( 'Wolbusinessdesk_Support_Meta' ) ){
 						'%s minute',
 						'%s minutes',
 						$interval->i,
-						'wolly-plugin-support'
+						'wolbusinessdesk'
 						),
 						$interval->i
 					);
