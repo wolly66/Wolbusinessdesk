@@ -1,16 +1,18 @@
 <?php
 	
-	if ( ! defined( 'ABSPATH' ) ) {
-	    exit; // Exit if accessed directly
-		}
-	
+namespace Wolbusinessdesk\Includes;
+ 
+	// If this file is accessed directory, then abort.
+	if ( ! defined( 'WPINC' ) ) {
+	    die;
+	}
 	
 
 
 /**
  * wol_Products class.
  */
-class Wolbusinessdesk_Metaboxes {
+class Metaboxes {
 
 	
 

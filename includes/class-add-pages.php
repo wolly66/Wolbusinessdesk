@@ -1,10 +1,14 @@
 <?php
 	
-	if ( ! defined( 'ABSPATH' ) ) {
-	    exit; // Exit if accessed directly
-		}
+	namespace Wolbusinessdesk\Includes;
+ 
+	// If this file is accessed directory, then abort.
+	if ( ! defined( 'WPINC' ) ) {
+	    die;
+	}
+
 	
-	class Wolbusinessdesk_Add_Pages extends Wol_Add_Pages {
+	class Add_Pages extends Abstracts\Wol_Add_Pages {
 		
 		
 		public function __construct(){

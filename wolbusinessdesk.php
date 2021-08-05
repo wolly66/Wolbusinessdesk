@@ -2,14 +2,14 @@
 /**
  * @package wolbusinessdesk
  * @author Paolo Valenti
- * @version 1.0.0 beta beta
+ * @version 1.0.1 beta
  */
 /*
 Plugin Name: wolbusinessdesk
 Plugin URI: https://wolbusinessdesk.com
 Description: This plugin is for documents, support and CRM
-Author: Paolo Valenti aka Wolly, SteveAgl aka Stefano Aglietti for WordPress Italy
-Version: 1.0.0
+Author: Paolo Valenti aka Wolly
+Version: 1.0.1
 Author URI: https://paolovalenti.info
 License: GPLS2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -33,8 +33,21 @@ Text Domain: wolbusinessdesk
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
+namespace Wolbusinessdesk;
+use Wolbusinessdesk\Includes;
+use Wolbusinessdesk\Includes\Abstracts;
+use Wolbusinessdesk\Includes\Documents;
+use Wolbusinessdesk\Includes\Support;
+
+ 
+// If this file is accessed directory, then abort.
+if ( ! defined( 'WPINC' ) ) {
+    die;
+}
 
 define ( 'WOLBUSINESSDESK_PLUGIN_ACTIVATED', true );
+
+
 
 if ( ! class_exists( 'Wolbusinessdesk' ) ) {
 	
@@ -58,7 +71,7 @@ if ( ! class_exists( 'Wolbusinessdesk' ) ) {
 		 * @since  1.0
 		 * @var    string
 		 */
-		private $version = '1.0.0';
+		private $version = '1.0.1';
 		
 		
 		/**
@@ -326,11 +339,11 @@ if ( ! class_exists( 'Wolbusinessdesk' ) ) {
 		 * @since     1.0
 		 * @static
 		 * @staticvar array $instance
-		 * @uses      wolly-contracts::setup_globals() Setup the globals needed
-		 * @uses      wolly-contracts::includes() Include the required files
-		 * @uses      wolly-contracts::setup_actions() Setup the hooks and actions
-		 * @uses      wolly-contracts::updater() Setup the plugin updater
-		 * @return wolly-contracts
+		 * @uses      Wolbusinessdesk::setup_globals() Setup the globals needed
+		 * @uses      Wolbusinessdesk::includes() Include the required files
+		 * @uses      Wolbusinessdesk::setup_actions() Setup the hooks and actions
+		 * @uses      Wolbusinessdesk::updater() Setup the plugin updater
+		 * @return Wolbusinessdesk
 		 */
 		public static function instance() {
 			
@@ -361,11 +374,16 @@ if ( ! class_exists( 'Wolbusinessdesk' ) ) {
 					self::$instance, 
 					'support_archive_query_vars'
 				) );
-
+				
+				//add_action( 'plugins_loaded', array(
+				//	self::$instance,
+				//	'includes'
+				//), 10 );
+				
 				add_action( 'plugins_loaded', array(
 					self::$instance,
 					'setup_objects'
-				), - 1 );
+				), 15 );
 
 				add_action( 'plugins_loaded', array(
 					self::$instance,
@@ -400,15 +418,7 @@ if ( ! class_exists( 'Wolbusinessdesk' ) ) {
 				  'first_install'
 				  )
 				 );
-				 
-				 
-
-
-				// ! TODO FILTERS FOR USERS AND CLIENTS
-				//add_action( 'pre_get_posts', array(
-				//	self::$instance,
-				//	'starred_recipes_query_vars' ) );
-					
+				 					
 			}
 
 			return self::$instance;
@@ -547,134 +557,20 @@ if ( ! class_exists( 'Wolbusinessdesk' ) ) {
 		/**
 		 * Include required files
 		 *
-		 * @access private
+		 * @access public
 		 * @since  1.0
 		 * @return void
 		 */
-		private function includes() {
+		public function includes() {
 
-
-			// Abstract class
-			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/abstracts/class-db.php';
-						
-			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/abstracts/class-cpt-and-tax.php';
+			// Include the autoloader so we can dynamically include the rest of the classes.
+			require_once( trailingslashit( dirname( __FILE__ ) ) . 'includes/autoloader.php' );
 			
-			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/abstracts/class-template-loader.php';
-			
-			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/class-is.php';
-			
-			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'is-template-wrappers.php';
-			
-			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/class-form-generator.php';
-			
-			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/class-relationship-db.php';
-				
-			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/class-autocomplete-documents-ajax.php';
-
-			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/class-admin-notices.php';
-			
-			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/class-base-cpt-and-tax.php';
-			
-			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/class-sendmail.php';
-			
-			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/class-metaboxes.php';
-			
-			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/class-register-end-point.php';
-			
-			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/class-front-end-cpt-mngt.php';
-			
-			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/class-template-wrapper.php';
-			
-			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/class-company-info.php';
-			
-
-			// Admin only used class
-			if ( is_admin() ) {
-
-				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/class-backend-options.php';
-				
-				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/abstracts/class-add-pages.php';
-				
-				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/class-add-pages.php';
-				
-				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/class-custom-nav-menus.php';
-				
-				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/documents/class-duplicate-documents.php';
-				
-				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/class-user-mngt.php';
-				
-				
-				//require_once( WOLBUSINESSDESK_PLUGIN_PATH . 'includes/class-relationship-db.php' );
-				//
-				//require_once( WOLBUSINESSDESK_PLUGIN_PATH . 'includes/class-autocomplete-documents-ajax.php' );
-
-				
-			} else {
-				
-				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/class-template-loader.php';
-				
-				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/general-template-functions.php';
-				
-				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/class-cockpit.php';
-									
-			}
-			
-			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/documents/class-document-check.php';
-				
-			// Admin only used class
-			if ( is_admin() ) {
-				
-				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/documents/class-document-metaboxes.php';
-				
-			} else {
-					
-				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/documents/class-client-document.php';
-				
-			}
-				
-				
-				
-				
-			// Include support class
-			
-				
-			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/support/class-ticket-check.php';
-			
-			// Admin only used class
-			if ( is_admin() ) {
-				
-				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/support/class-ticket-term-meta.php';
-				
-			} else {
-				// Classes	
-				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/support/class-ticket-meta.php';
-				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/support/class-ticket-insert-front-end.php';
-				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/support/class-ticket-reply-loop.php';
-				// Functions
-				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/support/wol-ticket-template-functions.php';
-			}
-			
-			// Classes
-			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/support/class-ticket-helper-functions.php';
-			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/support/class-ticket-template-wrapper.php';
-			// Functions
-			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/support/wol-ticket-helper-functions.php';
-			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/support/wol-ticket-template-functions.php';		
-			
-			
-			// Include crm class
-			if ( is_admin() ) {
-				
-				
-			} else {
-				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/crm/class-crm-meta.php';
-				require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/crm/class-crm-insert-front-end.php';
-			}
-			// Classes
-			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/crm/class-crm-helper-functions.php';
-			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/crm/class-crm-template-wrapper.php';
-			
-			// Functions
+			// Include Functions		
+			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/is-template-wrappers.php';							
+			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/support/wol-support-template-functions.php';
+			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/support/wol-support-helper-functions.php';
+			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/support/wol-support-template-functions.php';		
 			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/crm/wol-crm-helper-functions.php';
 			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/crm/wol-crm-template-functions.php';
 							
@@ -690,86 +586,85 @@ if ( ! class_exists( 'Wolbusinessdesk' ) ) {
 		public function setup_objects() {
 
 			
-			self::$instance->relationship 	= new Wolbusinessdesk_Relationship_Db();
-			self::$instance->cpt_tax 	  	= new Wolbusinessdesk_Cpt_And_Tax();
-			self::$instance->sendmail 	  	= new Wolbusinessdesk_Sendmail();
-			self::$instance->metaboxes 		= new Wolbusinessdesk_Metaboxes();
-			self::$instance->endpoints 		= new Wolbusinessdesk_Register_End_Point();
-			self::$instance->company_info 	= new Wolbusinessdesk_Company_info();
-			self::$instance->is 			= new Wolbusinessdesk_Is();
+			self::$instance->relationship 	= new Includes\Relationship_Db();
+			self::$instance->cpt_tax 	  	= new Includes\Base_Cpt_And_Tax();
+			self::$instance->sendmail 	  	= new Includes\Sendmail();
+			self::$instance->metaboxes 		= new Includes\Metaboxes();
+			self::$instance->endpoints 		= new Includes\Register_End_Point();
+			self::$instance->company_info 	= new Includes\Company_info();
+			self::$instance->is 			= new Includes\Is();
 			
 			// Instantiate in admin only
 			if ( is_admin() ) {
 								
-				self::$instance->user_mngt 		= new Wolbusinessdesk_User_Mng();
-				self::$instance->options 		= new Wolbusinessdesk_Backend_Options();
-				self::$instance->custom_menus 	= new Wolbusinessdesk_Custom_Nav_Menus();
-								
-				if ( is_wol_administrator() ){
+				self::$instance->user_mngt 		= new Includes\User_Mngt();
+				self::$instance->options 		= new Includes\Backend_Options();
+				self::$instance->custom_menus 	= new Includes\Custom_Nav_Menus();
+				
+				if ( Includes\is_wol_administrator() ){
 					
-					self::$instance->add_pages 	= new Wolbusinessdesk_Add_Pages();
-									
+					self::$instance->add_pages 	= new Includes\Add_Pages();
+						
 				}
 								
 				
 			} else {
 				
-				self::$instance->template_loader 	= new Wolbusinessdesk_Template_Loader();
-				self::$instance->template_wrapper 	= new Wolbusinessdesk_Template_Wrapper();
-				self::$instance->cockpit 			= new Wolbusinessdesk_Cockpit();
+				self::$instance->template_loader 	= new Includes\Template_Loader();
+				self::$instance->template_wrapper 	= new Includes\Template_Wrapper();
+				self::$instance->cockpit 			= new Includes\Cockpit();
 								
 
 			}
+			
 			// Instance of documents class
-				
-			self::$instance->document_check = new Wolbusinessdesk_Document_Check();
+			self::$instance->document_check = new Includes\Documents\Check();
 			
 			// Admin only used class
 			if ( is_admin() ) {
 				
-				self::$instance->document_metaboxes = new Wolbusinessdesk_Document_Metaboxes();
+				self::$instance->document_metaboxes = new Includes\Documents\Metaboxes();
 				
 				} else {
 					
-					self::$instance->client_document = new Wolbusinessdesk_Client_Document();
+					self::$instance->client_document = new Includes\Documents\Client_Document();
 			}
 
 
 			// Instance of support class				
-			self::$instance->support_check = new Wolbusinessdesk_Support_Check();
+			self::$instance->support_check = new Includes\Support\Check();
 			
 			// Admin only used class
 			if ( is_admin() ) {
 				
-				self::$instance->support_term_meta = new Wolbusinessdesk_Term_Meta();
+				self::$instance->support_term_meta = new Includes\Support\Term_Meta();
 				
 			} else {
 					
-				self::$instance->ticket_meta 			= new Wolbusinessdesk_Support_Meta();
-				self::$instance->new_support 			= new Wolbusinessdesk_Support_New_Ticket();
-				self::$instance->support_reply_loop 	= new Wolbusinessdesk_Support_Reply_Loop();
+				self::$instance->ticket_meta 			= new Includes\Support\Meta();
+				self::$instance->new_support 			= new Includes\Support\New_Ticket();
+				self::$instance->support_reply_loop 	= new Includes\Support\Reply_Loop();
 			}
-			self::$instance->ticket_helper_functions 	= new Wolbusinessdesk_Ticket_Helper_functions();
+			self::$instance->ticket_helper_functions 	= new Includes\Support\Helper_Functions();
 			//instance of CRM
 			
-			//self::$instance->support_check = new Wolbusinessdesk_Support_Check();
 			
 			// Admin only used class
 			if ( is_admin() ) {
 				
-				//self::$instance->support_term_meta = new Wolbusinessdesk_Term_Meta();
+				
 				
 			} else {
 					
-				self::$instance->crm_meta 			= new Wolbusinessdesk_Crm_Meta();
-				self::$instance->new_task 			= new Wolbusinessdesk_Crm_New_Task();
-				//self::$instance->support_reply_loop 	= new Wolbusinessdesk_Support_Reply_Loop();
+				self::$instance->crm_meta 			= new Includes\Crm\Meta();
+				self::$instance->new_task 			= new Includes\Crm\New_Task();
+				
 			}
 			
-			self::$instance->crm_template_wrapper 	= new Wolbusinessdesk_Crm_Template_Wrappers();
-			self::$instance->crm_helper_functions 	= new Wolbusinessdesk_Crm_Helper_functions();
+			self::$instance->crm_template_wrapper 	= new Includes\Crm\Template_Wrappers();
+			self::$instance->crm_helper_functions 	= new Includes\Crm\Helper_functions();
 			
-			self::$instance->updater();
+			//self::$instance->updater();
 			
 			
 			// Enqueue general scripts and styles in admin

@@ -1,4 +1,5 @@
 <?php
+	namespace Wolbusinessdesk\Includes\Crm;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }

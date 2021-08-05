@@ -1,9 +1,11 @@
 <?php
 	
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
-}
-
+namespace Wolbusinessdesk\Includes;
+ 
+	// If this file is accessed directory, then abort.
+	if ( ! defined( 'WPINC' ) ) {
+	    die;
+	}
 if ( ! class_exists( 'Wolbusinessdesk_Front_End_Cpt' ) ){
 	
 	/**

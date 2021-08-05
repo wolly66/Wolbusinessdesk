@@ -9,9 +9,12 @@
  * By SteveAgl aka Stefano Aglietti
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-} // Exit if accessed directly
+namespace Wolbusinessdesk\Includes;
+ 
+	// If this file is accessed directory, then abort.
+	if ( ! defined( 'WPINC' ) ) {
+	    die;
+	}
 
 class Wolbusinessdesk_Form_Generator {
 

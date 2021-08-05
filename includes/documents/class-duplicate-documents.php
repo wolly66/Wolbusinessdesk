@@ -1,16 +1,18 @@
 <?php
+
+namespace Wolbusinessdesk\Includes\Documents;
 	
 if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 	}
 
-if ( ! class_exists( 'Wolbusinessdesk_Duplicate_documents') ){
+if ( ! class_exists( 'Duplicate_Documents') ){
 	
 	
 	/**
 	 * Wollyplugin_Duplicate_documents class.
 	 */
-	class Wolbusinessdesk_Duplicate_documents {
+	class Duplicate_Documents {
 		
 		var $post_types = array();
 		var $cpt_to_add_duplicate;

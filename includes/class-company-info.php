@@ -1,12 +1,15 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly
+namespace Wolbusinessdesk\Includes;
+ 
+	// If this file is accessed directory, then abort.
+	if ( ! defined( 'WPINC' ) ) {
+	    die;
 	}
 
-if ( ! class_exists( 'Wolbusinessdesk_Company_info' ) ){
+if ( ! class_exists( 'Company_info' ) ){
 	
-	class Wolbusinessdesk_Company_info{
+	class Company_info{
 		
 		public function show_company_fields(){
 			

@@ -1,10 +1,15 @@
 <?php
 	
-	if ( ! defined( 'ABSPATH' ) ) {
-	    exit; // Exit if accessed directly
-		}
+	namespace Wolbusinessdesk\Includes;
+	use function Wolbusinessdesk\wol;
+	// If this file is accessed directory, then abort.
+	if ( ! defined( 'WPINC' ) ) {
+	    die;
+	}
 	
-	Class wolbusinessdesk_Backend_Options{
+	
+		
+	Class Backend_Options{
 		
 		/**
 		 * wol_base_options

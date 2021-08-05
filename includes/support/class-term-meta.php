@@ -1,5 +1,5 @@
 <?php
-	
+	namespace Wolbusinessdesk\Includes\Support;
 	if ( ! defined( 'ABSPATH' ) ) {
 	    exit; // Exit if accessed directly
 		}
@@ -7,7 +7,7 @@
 	/**
 	 * Wolly_Support_Term_Meta class.
 	 */
-	class Wolbusinessdesk_Term_Meta{
+	class Term_Meta{
 		
 		
 		public function __construct(){

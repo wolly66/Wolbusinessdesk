@@ -1,10 +1,11 @@
 <?php
+	namespace Wolbusinessdesk\Includes\Support;
 if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 }
 
 
-if ( ! class_exists( 'Wolbusinessdesk_Support_Reply_Loop' ) ){
+if ( ! class_exists( 'Reply_Loop' ) ){
 	/**
 	 * wol_Ticket_Reply_Loop class.
 	 *
@@ -13,7 +14,7 @@ if ( ! class_exists( 'Wolbusinessdesk_Support_Reply_Loop' ) ){
 	 * @since version 1.0
 	 *
 	 */
-	class Wolbusinessdesk_Support_Reply_Loop {
+	class Reply_Loop {
 		
 		/**
 		 * ticket_id
@@ -182,7 +183,7 @@ if ( ! class_exists( 'Wolbusinessdesk_Support_Reply_Loop' ) ){
 				if ( is_wol_ticket_open( $this->ticket_id ) 
 					 && is_wol_can_reply_to_ticket( $filtered_single_permissions ) ){
 	
-					$dropdowns = wolbusinessdesk()->support_meta->show_ticket_data();
+					$dropdowns = wol()->ticket_meta->show_ticket_data();
 	
 					$reply_title = __( 'Reply to: ', 'wolbusinessdesk' ) . get_the_title( $this->ticket_id );
 	

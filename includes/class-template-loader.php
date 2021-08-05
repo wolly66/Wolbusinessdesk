@@ -1,12 +1,19 @@
 <?php
-
 /**
  * Template loader for PW Sample Plugin.
  *
  * Only need to specify class properties here.
  *
  */
-class Wolbusinessdesk_Template_Loader extends Wol_Template_Loader {
+ 
+ namespace Wolbusinessdesk\Includes;
+ 
+	// If this file is accessed directory, then abort.
+	if ( ! defined( 'WPINC' ) ) {
+	    die;
+	}
+	
+class Template_Loader extends Abstracts\Wol_Template_Loader {
 
 	/**
 	 * Prefix for filter names.

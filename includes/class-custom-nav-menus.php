@@ -1,12 +1,16 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly
-}	
+namespace Wolbusinessdesk\Includes;
+use function Wolbusinessdesk\wol;
+ 
+	// If this file is accessed directory, then abort.
+	if ( ! defined( 'WPINC' ) ) {
+	    die;
+	}
 	
-if ( ! class_exists( 'Wolbusinessdesk_Custom_Nav_Menus' ) ){	
+if ( ! class_exists( 'Custom_Nav_Menus' ) ){	
 	
-	class Wolbusinessdesk_Custom_Nav_Menus{
+	class Custom_Nav_Menus{
 		
 		
 		public function __construct(){

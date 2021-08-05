@@ -1,5 +1,6 @@
 <?php
-	
+		namespace Wolbusinessdesk\Includes\Documents;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
@@ -10,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Wpit_Products class.
  */
-class Wolbusinessdesk_Document_Metaboxes {
+class Metaboxes {
 
 	
 
@@ -61,7 +62,7 @@ class Wolbusinessdesk_Document_Metaboxes {
 			'title' => __( 'Standard Document', 'wolbusinessdesk' ),
 		);
 
-		echo wolbusinessdesk()->relationship->generate_single_relationship_code( $args );
+		echo wol()->relationship->generate_single_relationship_code( $args );
 		
 		
 		$args_clients = array(
@@ -70,7 +71,7 @@ class Wolbusinessdesk_Document_Metaboxes {
 			'title' => __( 'Client', 'wolbusinessdesk' ),
 		);
 
-		echo wolbusinessdesk()->relationship->generate_single_relationship_code( $args_clients );
+		echo wol()->relationship->generate_single_relationship_code( $args_clients );
 
 
     // We'll use this nonce field later on when saving.
@@ -84,8 +85,8 @@ class Wolbusinessdesk_Document_Metaboxes {
 	public function meta_box_client_document_placeholders(){
 		
 		
-		$my_placeholders = wolbusinessdesk()->company_info->company_fields();
-		$client_placeholders = wolbusinessdesk()->company_info->client_fields();
+		$my_placeholders = wol()->company_info->company_fields();
+		$client_placeholders = wol()->company_info->client_fields();
 		
 		echo '<h2>' . __( 'Your Company placeholders', 'wolbusinessdesk' ) . '</h2>';
 		echo '<ul>';
@@ -135,7 +136,7 @@ class Wolbusinessdesk_Document_Metaboxes {
 			'to_id'   => $_POST['rel_wol-document']['to_id'],
 		);
 
-		wolbusinessdesk()->relationship->set_relationship( $args );
+		wol()->relationship->set_relationship( $args );
 	}
 	
 	if ( ! empty( $_POST['rel_wol-client']['to_id'] ) && is_numeric( $_POST['rel_wol-client']['to_id'] ) ){
@@ -147,7 +148,7 @@ class Wolbusinessdesk_Document_Metaboxes {
 			'to_id'   => $_POST['rel_wol-client']['to_id'],
 		);
 
-		wolbusinessdesk()->relationship->set_relationship( $args );
+		wol()->relationship->set_relationship( $args );
 	}
 		
 	}//close function

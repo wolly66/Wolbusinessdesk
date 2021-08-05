@@ -1,15 +1,19 @@
 <?php
 	
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
-}
+namespace Wolbusinessdesk\Includes;
+use function Wolbusinessdesk\wol;
+ 
+	// If this file is accessed directory, then abort.
+	if ( ! defined( 'WPINC' ) ) {
+	    die;
+	}
 
-if ( ! class_exists( 'Wolbusinessdesk_Template_Wrapper' ) ){
+if ( ! class_exists( 'Template_Wrapper' ) ){
 	
 	/**
 	 * Wolbusinessdesk_Template_Wrapper class.
 	 */
-	class Wolbusinessdesk_Template_Wrapper{
+	class Template_Wrapper{
 			
 		
 		/**

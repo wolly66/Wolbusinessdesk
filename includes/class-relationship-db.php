@@ -1,11 +1,19 @@
-<?php 
-if ( ! class_exists(' Wpit_Db' ) ){
+<?php
+
+namespace Wolbusinessdesk\Includes;
+ 
+	// If this file is accessed directory, then abort.
+	if ( ! defined( 'WPINC' ) ) {
+	    die;
+	}
 	
-	require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/abstracts/class-db.php';
-}
+//if ( ! class_exists('Wol_Db' ) ){
+//	
+//	require_once WOLBUSINESSDESK_PLUGIN_PATH . 'abstracts\class-wol-db.php';
+//}
 	
 	
-	if ( ! class_exists( 'Wolbusinessdesk_Relationship_Db' ) ){
+	if ( ! class_exists( 'Relationship_Db' ) ){
 		
 		/**
 		 * Database class to manage measure units table and method
@@ -13,7 +21,7 @@ if ( ! class_exists(' Wpit_Db' ) ){
 		 * @package    Wpit The Cooking Hacks
 		 * @since      1.0.0
 		 */
-		class Wolbusinessdesk_Relationship_Db extends Wol_Db {
+		class Relationship_Db extends abstracts\Wol_Db {
 		
 		   /**
 		    * The table name for this special DB table

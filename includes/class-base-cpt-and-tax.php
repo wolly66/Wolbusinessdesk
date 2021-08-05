@@ -15,7 +15,17 @@
  *
  * @since 1.0
  */
-class Wolbusinessdesk_Cpt_And_Tax extends Wol_Cpt_And_Tax{
+ 
+ namespace Wolbusinessdesk\Includes;
+ 
+ use Wolbusinessdesk\Includes\Documents;
+ 
+	// If this file is accessed directory, then abort.
+	if ( ! defined( 'WPINC' ) ) {
+	    die;
+	}
+	
+class Base_Cpt_And_Tax extends Abstracts\Wol_Cpt_And_Tax{
 	
 	/**
 	 * Name for the option data where to store a list of created CPTs
@@ -94,7 +104,7 @@ class Wolbusinessdesk_Cpt_And_Tax extends Wol_Cpt_And_Tax{
 		
 			foreach ( $cpt_array as $cpt ){
 			
-				$add_duplicate = new Wolbusinessdesk_Duplicate_documents( array( $cpt ) );
+				$add_duplicate = new Documents\Duplicate_Documents( array( $cpt ) );
 		
 			}
 		

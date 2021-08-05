@@ -1,13 +1,16 @@
 <?php
 	
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
-}
+namespace Wolbusinessdesk\Includes;
+ 
+	// If this file is accessed directory, then abort.
+	if ( ! defined( 'WPINC' ) ) {
+	    die;
+	}
 
-if ( ! class_exists( 'Wolbusinessdesk_User_Mng' ) ){
+if ( ! class_exists( 'User_Mngt' ) ){
 	
 	
-	class Wolbusinessdesk_User_Mng{
+	class User_Mngt{
 		
 		
 		public function __construct(){

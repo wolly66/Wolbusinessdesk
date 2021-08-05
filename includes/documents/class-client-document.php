@@ -1,14 +1,15 @@
 <?php
+	namespace Wolbusinessdesk\Includes\Documents;
 if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 }
 
-if ( ! class_exists( 'Wolbusinessdesk_Client_Document' ) ){
+if ( ! class_exists( 'Client_Document' ) ){
 	
 	/**
 	 * Wolly_Plugin_Support_New_Ticket class.
 	 */
-	class Wolbusinessdesk_Client_Document extends Wolbusinessdesk_Front_End_Cpt{
+	class Client_Document extends Abstracts\Wol_Cpt_And_Tax{
 		
 		/**
 		 * options

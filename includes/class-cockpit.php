@@ -1,15 +1,20 @@
 <?php
 	
-if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly
+namespace Wolbusinessdesk\Includes;
+use function Wolbusinessdesk\wol;
+
+ 
+	// If this file is accessed directory, then abort.
+	if ( ! defined( 'WPINC' ) ) {
+	    die;
 	}
 
-if ( ! class_exists( 'Wolbusinessdesk_Cockpit' ) ){
+if ( ! class_exists( 'Cockpit' ) ){
 	
 	/**
 	 * wolbusinessdesk_Front_End_Admin class.
 	 */
-	class Wolbusinessdesk_Cockpit{
+	class Cockpit{
 		
 		/**
 		 * options

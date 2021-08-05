@@ -1,11 +1,12 @@
 <?php
+	namespace Wolbusinessdesk\Includes\Support;
 if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 }
 
-if ( ! class_exists( 'Wolbusinessdesk_Support_Check' ) ){
+if ( ! class_exists( 'Check' ) ){
 
-	class Wolbusinessdesk_Support_Check {
+	class Check {
 		
 		/**
 		 * id_user
