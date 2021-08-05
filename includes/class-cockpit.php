@@ -190,7 +190,8 @@ if ( ! class_exists( 'Cockpit' ) ){
 				 * @access public
 			 	*/
 			 	$wolly_support_options		= get_option( 'wolbusinessdesk_support_option' );
-				
+				// ! TODO DEBUG DA RIMUOVERE
+				echo '<pre>$wolly_support_options ' . print_r( $wolly_support_options , 1 ) . '</pre>';
 				/**
 				 * support_tax_query
 				 * 
@@ -329,7 +330,7 @@ if ( ! class_exists( 'Cockpit' ) ){
 			 * @var mixed
 			 * @access public
 			 */
-			$query = new WP_Query( $args );
+			$query = new \WP_Query( $args );
 			
 			return $query;
 			

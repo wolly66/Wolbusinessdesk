@@ -1,5 +1,7 @@
 <?php
-	namespace Wolbusinessdesk\Includes\Crm;
+	//namespace Wolbusinessdesk\Includes\Crm;
+	use function Wolbusinessdesk\wol;
+	
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }

@@ -95,7 +95,7 @@ jQuery(document).ready(function ($) {
 		})
 	});
 
-	$("span.add_new_relationship").live('click', function () {
+	$("span.add_new_relationship").on('click', function () {
 		var table_parent = $(this).closest('table');
 		var tr_parent = $(this).closest('tr');
 		var clone_tr  = tr_parent.clone();
@@ -114,7 +114,7 @@ jQuery(document).ready(function ($) {
 
 	});
 
-	$("span.delete_new_relationship").live('click', function () {
+	$("span.delete_new_relationship").on('click', function () {
 		var table_parent = $(this).closest('table');
 		var tr_parent    = $(this).closest('tr');
 

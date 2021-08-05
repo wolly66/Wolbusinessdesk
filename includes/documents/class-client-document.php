@@ -9,7 +9,7 @@ if ( ! class_exists( 'Client_Document' ) ){
 	/**
 	 * Wolly_Plugin_Support_New_Ticket class.
 	 */
-	class Client_Document extends Abstracts\Wol_Cpt_And_Tax{
+	class Client_Document extends \Wolbusinessdesk\Includes\Abstracts\Wol_Cpt_And_Tax{
 		
 		/**
 		 * options

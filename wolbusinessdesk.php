@@ -38,7 +38,7 @@ use Wolbusinessdesk\Includes;
 use Wolbusinessdesk\Includes\Abstracts;
 use Wolbusinessdesk\Includes\Documents;
 use Wolbusinessdesk\Includes\Support;
-
+use Wolbusinessdesk\Includes\Crm;
  
 // If this file is accessed directory, then abort.
 if ( ! defined( 'WPINC' ) ) {
@@ -567,10 +567,11 @@ if ( ! class_exists( 'Wolbusinessdesk' ) ) {
 			require_once( trailingslashit( dirname( __FILE__ ) ) . 'includes/autoloader.php' );
 			
 			// Include Functions		
-			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/is-template-wrappers.php';							
+			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/is-template-wrappers.php';
+			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/wol-general-template-functions.php';							
 			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/support/wol-support-template-functions.php';
 			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/support/wol-support-helper-functions.php';
-			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/support/wol-support-template-functions.php';		
+					
 			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/crm/wol-crm-helper-functions.php';
 			require_once WOLBUSINESSDESK_PLUGIN_PATH . 'includes/crm/wol-crm-template-functions.php';
 							
@@ -601,7 +602,7 @@ if ( ! class_exists( 'Wolbusinessdesk' ) ) {
 				self::$instance->options 		= new Includes\Backend_Options();
 				self::$instance->custom_menus 	= new Includes\Custom_Nav_Menus();
 				
-				if ( Includes\is_wol_administrator() ){
+				if ( \is_wol_administrator() ){
 					
 					self::$instance->add_pages 	= new Includes\Add_Pages();
 						
@@ -758,7 +759,7 @@ if ( ! class_exists( 'Wolbusinessdesk' ) ) {
 			
 			}
 			
-			wp_enqueue_script( 'wol_autocomplete', plugins_url( 'assets/js/autocomplete.documents.js', __FILE__ ), array( 'jquery' ), '', true  );
+			//wp_enqueue_script( 'wol_autocomplete', plugins_url( 'assets/js/autocomplete.documents.js', __FILE__ ), array( 'jquery' ), '', true  );
 			
 		
 		}
@@ -772,6 +773,8 @@ if ( ! class_exists( 'Wolbusinessdesk' ) ) {
 		public function enqueue_frontend_script_and_style() {
 			
 			wp_enqueue_script( 'jquery-ui-autocomplete' );
+			
+			if ( is_page('pippo')){
 			wp_register_script( 'wol_autocomplete', plugins_url( 'assets/js/autocomplete.documents.js', __FILE__ ), array( 'jquery', 'jquery-ui-autocomplete' ), '', false );
 			// Localize the script with new data
 			$translation_array = array(
@@ -782,7 +785,7 @@ if ( ! class_exists( 'Wolbusinessdesk' ) ) {
 			wp_localize_script( 'wol_autocomplete', 'wolbusinessdesk', $translation_array );
 			
 			wp_enqueue_script( 'wol_autocomplete' );
-			
+			}
 			wp_register_style( 'wolly_support_css_frontend', plugins_url('/assets/css/ticket.css' , __FILE__ ));
 			wp_enqueue_style( 'wolly_support_css_frontend' );
 			

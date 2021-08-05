@@ -1,5 +1,6 @@
 <?php
 	namespace Wolbusinessdesk\Includes\Support;
+	use Wolbusinessdesk\Includes;
 if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 }
@@ -1223,7 +1224,7 @@ if ( ! class_exists( 'Meta' ) ){
 				$ticket_reply_data['last_ticket_reply_date'] = date( 'Y-m-d  h:i:s', time() ) ;
 			}
 			
-			if ( ! is_wol_ticket_open( $ticked_id ) ){
+			if ( ! \is_wol_ticket_open( $ticked_id ) ){
 				
 					$end_date = $ticket_reply_data['last_ticket_reply_date'];
 					
@@ -1236,10 +1237,10 @@ if ( ! class_exists( 'Meta' ) ){
 				}
 
 				
-				$ticket_date 		= new DateTime( get_post_time( 'Y-m-d G:i:s', true, $ticked_id, false ), new DateTimeZone('Europe/Rome') );
+				$ticket_date 		= new \DateTime( get_post_time( 'Y-m-d G:i:s', true, $ticked_id, false ), new \DateTimeZone('Europe/Rome') );
 				
 				
-				$last_reply_date 	= new DateTime( $end_date, new DateTimeZone('Europe/Rome') );
+				$last_reply_date 	= new \DateTime( $end_date, new \DateTimeZone('Europe/Rome') );
 				
 				$interval = $ticket_date->diff( $last_reply_date );
 																

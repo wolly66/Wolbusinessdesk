@@ -2,6 +2,8 @@
 	
 	namespace Wolbusinessdesk\Includes;
 	use function Wolbusinessdesk\wol;
+	use Wolbusinessdesk\Includes\Crm;
+	
 	// If this file is accessed directory, then abort.
 	if ( ! defined( 'WPINC' ) ) {
 	    die;

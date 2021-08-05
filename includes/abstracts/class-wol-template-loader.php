@@ -21,6 +21,9 @@
  * @package Wollyplugin
  * @author  Gary Jones
  */
+ 
+ namespace Wolbusinessdesk\Includes\Abstracts;
+ 
 class Wol_Template_Loader {
 
 	/**

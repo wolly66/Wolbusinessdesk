@@ -9,7 +9,7 @@
  * @since 1.0
  *
  */
- namespace Wolbusinessdesk\Includes;
+ //namespace Wolbusinessdesk\Includes;
  use function Wolbusinessdesk\wol;
 	
 if ( ! defined( 'ABSPATH' ) ) {

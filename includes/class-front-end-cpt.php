@@ -6,12 +6,12 @@ namespace Wolbusinessdesk\Includes;
 	if ( ! defined( 'WPINC' ) ) {
 	    die;
 	}
-if ( ! class_exists( 'Wolbusinessdesk_Front_End_Cpt' ) ){
+if ( ! class_exists( 'Front_End_Cpt' ) ){
 	
 	/**
 	 * Wolbusinessdesk_Front_End_Cpt class.
 	 */
-	class Wolbusinessdesk_Front_End_Cpt {
+	class Front_End_Cpt {
 		
 		/**
 		 * cpt

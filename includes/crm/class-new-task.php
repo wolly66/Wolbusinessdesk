@@ -1,5 +1,6 @@
 <?php
 	namespace Wolbusinessdesk\Includes\Crm;
+	use Wolbusinessdesk\Includes;
 if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 }
@@ -215,7 +216,7 @@ if ( ! class_exists( 'New_Task' ) ){
 			 * @var mixed
 			 * @access public
 			 */
-			$this->form = new Wolbusinessdesk_Form_Generator( $new_form );	
+			$this->form = new \Wolbusinessdesk\Includes\Form_Generator( $new_form );	
 			
 			/**
 			 * open_form

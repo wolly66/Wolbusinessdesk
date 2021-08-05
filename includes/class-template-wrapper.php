@@ -24,7 +24,7 @@ if ( ! class_exists( 'Template_Wrapper' ) ){
 		 */
 		public function add_client_document(){
 			
-			$front_end = new Wolbusinessdesk_Front_End_Cpt( 'wol-client-document' );
+			$front_end = new Front_End_Cpt( 'wol-client-document' );
 			
 			$add = $front_end->add_cpt();
 			
@@ -291,7 +291,7 @@ if ( ! class_exists( 'Template_Wrapper' ) ){
 			 * @var mixed
 			 * @access public
 			 */
-			$front_end_cpt = new Wolbusinessdesk_Front_End_Cpt( $cpt );
+			$front_end_cpt = new Front_End_Cpt( $cpt );
 			
 			/**
 			 * add_cpt

@@ -16,7 +16,7 @@ namespace Wolbusinessdesk\Includes;
 	    die;
 	}
 
-class Wolbusinessdesk_Form_Generator {
+class Form_Generator {
 
 	/**
 	 * Counter for the tabindex

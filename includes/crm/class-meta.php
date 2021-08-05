@@ -1315,10 +1315,10 @@ if ( ! class_exists( 'Meta' ) ){
 				}
 
 				
-				$ticket_date 		= new DateTime( get_post_time( 'Y-m-d G:i:s', true, $ticked_id, false ), new DateTimeZone('Europe/Rome') );
+				$ticket_date 		= new \DateTime( get_post_time( 'Y-m-d G:i:s', true, $ticked_id, false ), new \DateTimeZone('Europe/Rome') );
 				
 				
-				$last_reply_date 	= new DateTime( $end_date, new DateTimeZone('Europe/Rome') );
+				$last_reply_date 	= new \DateTime( $end_date, new \DateTimeZone('Europe/Rome') );
 				
 				$interval = $ticket_date->diff( $last_reply_date );
 																
